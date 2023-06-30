@@ -7,21 +7,26 @@ const port = 3000;
 
 app.get('/', (req, res) => {
     fetch('https://hashtagbasketball.com/fantasy-basketball-projections')
-        .then(response => response.text()) // Fetch the HTML content as text
+        .then(response => response.text())
         .then(html => {
-            const $ = cheerio.load(html); // Load the HTML content using Cheerio
+            const $ = cheerio.load(html);
 
-            const players = []; // Array to store the players
+            const players = [];
 
-            for (let i = 0; i <= 199; i++) {
-                const playerId = `#ContentPlaceHolder1_GridView1_HyperLink1_${i}`;
-                const playerNameElement = $(playerId);
+            $('#ContentPlaceHolder1_GridView1 tr:has(td)').each((index, element) => {
+                const playerNameElement = $(element).find('a');
                 const playerName = playerNameElement.text().trim();
 
-                players.push(playerName);
-            }
+                const lfgpElement = $(element).find('td:eq(6)');
+                const lfgpValue = lfgpElement.text().trim();
 
-            // Render the HTML page with the textbox
+                players.push({
+                    name: playerName,
+                    lfgp: lfgpValue,
+                    id: index
+                });
+            });
+
             res.send(`
                 <html>
                     <head>
@@ -37,7 +42,7 @@ app.get('/', (req, res) => {
                             #playerDropdown > div {
                                 padding: 5px;
                                 cursor: pointer;
-                                list-style-type: none; /* Add this line to remove bullet points */
+                                list-style-type: none;
                             }
 
                             #playerDropdown > div::marker {
@@ -62,44 +67,57 @@ app.get('/', (req, res) => {
 
                             input.addEventListener('input', function() {
                                 const inputValue = input.value.toLowerCase();
-                                const filteredOptions = options.filter(option => option.toLowerCase().includes(inputValue));
+                                const filteredOptions = options
+                                    .filter(option => option.name.toLowerCase().includes(inputValue))
+                                    .sort((a, b) => a.name.localeCompare(b.name));
 
-                                dropdown.innerHTML = ''; // Clear previous options
+                                dropdown.innerHTML = '';
                                 selectedIndex = -1;
 
                                 filteredOptions.forEach((option, index) => {
                                     const optionElement = document.createElement('div');
-                                    optionElement.textContent = option;
+                                    optionElement.textContent = option.name;
                                     optionElement.addEventListener('click', function() {
-                                        input.value = option;
+                                        input.value = option.name;
                                         dropdown.innerHTML = '';
+                                        const playerLFGPElement = document.getElementById('lfgp');
+                                        if (playerLFGPElement) {
+                                            playerLFGPElement.textContent = option.lfgp;
+                                        }
                                     });
                                     dropdown.appendChild(optionElement);
                                 });
                             });
 
                             input.addEventListener('keydown', function(e) {
-                                if (e.keyCode === 13) {
-                                    e.preventDefault(); // Prevent form submission
-                                    if (selectedIndex >= 0 && selectedIndex < dropdown.children.length) {
-                                        const selectedOption = dropdown.children[selectedIndex];
+                                if (e.key === 'Enter') {
+                                    e.preventDefault();
+                                    const selectedOption = dropdown.querySelector('.selected');
+                                    if (selectedOption) {
                                         input.value = selectedOption.textContent;
                                         dropdown.innerHTML = '';
+                                        const selectedIndex = Array.from(dropdown.children).indexOf(selectedOption);
+                                        const selectedPlayer = options[selectedIndex];
+                                        const playerLFGPElement = document.getElementById('lfgp');
+                                        if (playerLFGPElement) {
+                                            playerLFGPElement.textContent = selectedPlayer.lfgp;
+                                        }
                                     }
-                                } else if (e.keyCode === 38) {
-                                    e.preventDefault(); // Prevent scrolling
+                                } else if (e.key === 'ArrowUp') {
+                                    e.preventDefault();
                                     selectedIndex = Math.max(selectedIndex - 1, 0);
                                     updateSelectedOption();
-                                } else if (e.keyCode === 40) {
-                                    e.preventDefault(); // Prevent scrolling
+                                } else if (e.key === 'ArrowDown') {
+                                    e.preventDefault();
                                     selectedIndex = Math.min(selectedIndex + 1, dropdown.children.length - 1);
                                     updateSelectedOption();
                                 }
                             });
 
                             function updateSelectedOption() {
-                                for (let i = 0; i < dropdown.children.length; i++) {
-                                    const option = dropdown.children[i];
+                                const options = Array.from(dropdown.children);
+                                for (let i = 0; i < options.length; i++) {
+                                    const option = options[i];
                                     if (i === selectedIndex) {
                                         option.classList.add('selected');
                                     } else {
