@@ -21,22 +21,65 @@ app.get('/', (req, res) => {
                 players.push(playerName);
             }
 
-            // Render the HTML page with the text field and Awesomplete autocomplete
+            // Render the HTML page with the textbox
             res.send(`
                 <html>
-                    <body>
-                        <input type="text" id="playerInput" autocomplete="off">
+                    <head>
+                        <style>
+                            ul {
+                                list-style-type: none;
+                            }
 
-                        <script src="https://cdn.jsdelivr.net/npm/awesomplete@1.1.2/awesomplete.min.js"></script>
+                            #playerDropdown {
+                                padding: 0;
+                            }
+
+                            #playerDropdown > div {
+                                padding: 5px;
+                                cursor: pointer;
+                                list-style-type: none; /* Add this line to remove bullet points */
+                            }
+
+                            #playerDropdown > div::marker {
+                                display: none;
+                            }
+
+                            #playerDropdown > div:hover {
+                                background-color: lightgray;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <input type="text" id="playerInput">
+                        <div id="playerDropdown"></div>
+
                         <script>
                             const input = document.getElementById('playerInput');
+                            const dropdown = document.getElementById('playerDropdown');
                             const options = ${JSON.stringify(players)};
 
-                            new Awesomplete(input, {
-                                list: options,
-                                minChars: 1,
-                                maxItems: 5,
-                                autoFirst: true
+                            input.addEventListener('input', function() {
+                                const inputValue = input.value.toLowerCase();
+                                const filteredOptions = new Set();
+
+                                options.forEach(option => {
+                                    const optionValue = option.toLowerCase();
+                                    if (optionValue.includes(inputValue)) {
+                                        filteredOptions.add(option);
+                                    }
+                                });
+
+                                dropdown.innerHTML = ''; // Clear previous options
+
+                                filteredOptions.forEach(option => {
+                                    const optionElement = document.createElement('div');
+                                    optionElement.textContent = option;
+                                    optionElement.addEventListener('click', function() {
+                                        input.value = option;
+                                        dropdown.innerHTML = '';
+                                    });
+                                    dropdown.appendChild(optionElement);
+                                });
                             });
                         </script>
                     </body>
