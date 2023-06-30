@@ -44,7 +44,8 @@ app.get('/', (req, res) => {
                                 display: none;
                             }
 
-                            #playerDropdown > div:hover {
+                            #playerDropdown > div:hover,
+                            #playerDropdown > div.selected {
                                 background-color: lightgray;
                             }
                         </style>
@@ -57,21 +58,16 @@ app.get('/', (req, res) => {
                             const input = document.getElementById('playerInput');
                             const dropdown = document.getElementById('playerDropdown');
                             const options = ${JSON.stringify(players)};
+                            let selectedIndex = -1;
 
                             input.addEventListener('input', function() {
                                 const inputValue = input.value.toLowerCase();
-                                const filteredOptions = new Set();
-
-                                options.forEach(option => {
-                                    const optionValue = option.toLowerCase();
-                                    if (optionValue.includes(inputValue)) {
-                                        filteredOptions.add(option);
-                                    }
-                                });
+                                const filteredOptions = options.filter(option => option.toLowerCase().includes(inputValue));
 
                                 dropdown.innerHTML = ''; // Clear previous options
+                                selectedIndex = -1;
 
-                                filteredOptions.forEach(option => {
+                                filteredOptions.forEach((option, index) => {
                                     const optionElement = document.createElement('div');
                                     optionElement.textContent = option;
                                     optionElement.addEventListener('click', function() {
@@ -81,6 +77,36 @@ app.get('/', (req, res) => {
                                     dropdown.appendChild(optionElement);
                                 });
                             });
+
+                            input.addEventListener('keydown', function(e) {
+                                if (e.keyCode === 13) {
+                                    e.preventDefault(); // Prevent form submission
+                                    if (selectedIndex >= 0 && selectedIndex < dropdown.children.length) {
+                                        const selectedOption = dropdown.children[selectedIndex];
+                                        input.value = selectedOption.textContent;
+                                        dropdown.innerHTML = '';
+                                    }
+                                } else if (e.keyCode === 38) {
+                                    e.preventDefault(); // Prevent scrolling
+                                    selectedIndex = Math.max(selectedIndex - 1, 0);
+                                    updateSelectedOption();
+                                } else if (e.keyCode === 40) {
+                                    e.preventDefault(); // Prevent scrolling
+                                    selectedIndex = Math.min(selectedIndex + 1, dropdown.children.length - 1);
+                                    updateSelectedOption();
+                                }
+                            });
+
+                            function updateSelectedOption() {
+                                for (let i = 0; i < dropdown.children.length; i++) {
+                                    const option = dropdown.children[i];
+                                    if (i === selectedIndex) {
+                                        option.classList.add('selected');
+                                    } else {
+                                        option.classList.remove('selected');
+                                    }
+                                }
+                            }
                         </script>
                     </body>
                 </html>
