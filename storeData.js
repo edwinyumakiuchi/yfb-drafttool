@@ -2,7 +2,9 @@ const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 
 // Define the MongoDB API endpoint and API key
-const API_ENDPOINT = 'https://us-west-2.aws.data.mongodb-api.com/app/data-natmv/endpoint/data/v1/action/insertOne';
+const API_ENDPOINT = 'https://us-west-2.aws.data.mongodb-api.com/app/data-natmv/endpoint/data/v1/action/';
+const API_FINDONE_ENDPOINT = 'findOne';
+const API_INSERTONE_ENDPOINT = 'insertOne';
 const API_KEY = 'abc';
 
 // Function to scrape the webpage and store data using the MongoDB API
@@ -112,7 +114,7 @@ async function scrapeAndStoreData() {
 
     // Store the scraped data using the MongoDB API
     for (const player of fetchedPlayers) {
-      const apiResponse = await fetch(API_ENDPOINT, {
+      const findOneResponse = await fetch(API_ENDPOINT + API_FINDONE_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -122,36 +124,62 @@ async function scrapeAndStoreData() {
           dataSource: 'Cluster0',
           database: 'sample-nba',
           collection: 'projections',
-          document: {
+          filter: {
             name: player.name,
-            rank: player.rank,
-            adp: player.adp,
-            position: player.position,
-            team: player.team,
-            gp: player.gp,
-            minutesPerGame: player.minutesPerGame,
-            fieldGoal: player.fieldGoal,
-            fieldGoalMade: player.fieldGoalMade,
-            fieldGoalAttempt: player.fieldGoalAttempt,
-            freeThrow: player.freeThrow,
-            freeThrowMade: player.freeThrowMade,
-            freeThrowAttempt: player.freeThrowAttempt,
-            threePointMade: player.threePointMade,
-            points: player.points,
-            totalRebounds: player.totalRebounds,
-            assists: player.assists,
-            steals: player.steals,
-            blocks: player.blocks,
-            turnovers: player.turnovers,
-            total: player.total
           },
         }),
       });
 
-      if (apiResponse.ok) {
-        console.log(`Player ${player.name} stored successfully!`);
+      const findOneData = await findOneResponse.json();
+
+      if (findOneResponse.ok) {
+        if (findOneData.document === null) {
+          const insertOneResponse = await fetch(API_ENDPOINT + API_INSERTONE_ENDPOINT, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'api-key': API_KEY,
+            },
+            body: JSON.stringify({
+              dataSource: 'Cluster0',
+              database: 'sample-nba',
+              collection: 'projections',
+              document: {
+                name: player.name,
+                rank: player.rank,
+                adp: player.adp,
+                position: player.position,
+                team: player.team,
+                gp: player.gp,
+                minutesPerGame: player.minutesPerGame,
+                fieldGoal: player.fieldGoal,
+                fieldGoalMade: player.fieldGoalMade,
+                fieldGoalAttempt: player.fieldGoalAttempt,
+                freeThrow: player.freeThrow,
+                freeThrowMade: player.freeThrowMade,
+                freeThrowAttempt: player.freeThrowAttempt,
+                threePointMade: player.threePointMade,
+                points: player.points,
+                totalRebounds: player.totalRebounds,
+                assists: player.assists,
+                steals: player.steals,
+                blocks: player.blocks,
+                turnovers: player.turnovers,
+                total: player.total
+              },
+            }),
+          });
+
+          if (insertOneResponse.ok) {
+            console.log(`Player ${player.name} stored successfully!`);
+          } else {
+            console.error(`Error storing player ${player.name}`);
+          }
+        } else {
+          console.log(`Player ${player.name} already exists in the collection.`);
+        }
       } else {
-        console.error(`Error storing player ${player.name}`);
+        console.error(`Error finding player ${player.name}`);
       }
     }
 
