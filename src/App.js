@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import cheerio from 'cheerio';
 import fetch from 'isomorphic-fetch';
 
 function App() {
@@ -9,31 +8,57 @@ function App() {
   const [selectedValueIndex, setSelectedValueIndex] = useState(-1);
   const inputRef = useRef(null);
 
-  useEffect(() => {
-    fetch('https://hashtagbasketball.com/fantasy-basketball-projections')
-      .then((response) => response.text())
-      .then((html) => {
-        const $ = cheerio.load(html);
-
-        const fetchedPlayers = [];
-
-        $('#ContentPlaceHolder1_GridView1 tr:has(td)').each((index, element) => {
-          const playerNameElement = $(element).find('a');
-          const playerName = playerNameElement.text().trim();
-
-          const lfgpElement = $(element).find('td:eq(6)');
-          const lfgpValue = lfgpElement.text().trim();
-
-          fetchedPlayers.push({
-            name: playerName,
-            lfgp: lfgpValue,
-            id: index,
-          });
-        });
-
+useEffect(() => {
+  fetch('https://us-west-2.aws.data.mongodb-api.com/app/data-natmv/endpoint/data/v1/action/find', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer def',
+    },
+    body: JSON.stringify({
+      dataSource: 'Cluster0',
+      database: 'sample-nba',
+      collection: 'projections',
+      filter: {},
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('data:', data);
+      if (data.documents && Array.isArray(data.documents)) {
+        const fetchedPlayers = data.documents.map((player) => ({
+          _id: player._id,
+          name: player.name,
+          rank: player.rank,
+          adp: player.adp,
+          position: player.position,
+          team: player.team,
+          gp: player.gp,
+          minutesPerGame: player.minutesPerGame,
+          fieldGoal: player.fieldGoal,
+          fieldGoalMade: player.fieldGoalMade,
+          fieldGoalAttempt: player.fieldGoalAttempt,
+          freeThrow: player.freeThrow,
+          freeThrowMade: player.freeThrowMade,
+          freeThrowAttempt: player.freeThrowAttempt,
+          threePointMade: player.threePointMade,
+          points: player.points,
+          totalRebounds: player.totalRebounds,
+          assists: player.assists,
+          steals: player.steals,
+          blocks: player.blocks,
+          turnovers: player.turnovers,
+          total: player.total,
+        }));
         setPlayers(fetchedPlayers);
-      });
-  }, []);
+      } else {
+        console.error('Invalid data format:', data);
+      }
+    })
+    .catch((error) => {
+      console.error('API call error:', error);
+    });
+}, []);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
