@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import fetch from 'isomorphic-fetch';
+import AppUI from './AppUI';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
@@ -42,7 +43,7 @@ function App() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${accessToken}`,
+          Authorization: `Bearer ${accessToken}`,
         },
         body: JSON.stringify({
           dataSource: 'Cluster0',
@@ -133,41 +134,23 @@ function App() {
 
   return (
     <div className="App">
-      <style>
-        {`
-        .selected {
-          background-color: yellow;
-        }
-      `}
-      </style>
-      <header className="App-header">
-        <input
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
-          placeholder="Enter text"
-          ref={inputRef}
-        />
-        <p>You entered: {inputValue}</p>
-        {matchedValues.length > 0 && (
-          <div>
-            <p>Matched values:</p>
-            <span>
-              {matchedValues.map((value, index) => (
-                <React.Fragment key={index}>
-                  <span
-                    className={index === selectedValueIndex ? 'selected' : ''}
-                  >
-                    {value}
-                  </span>
-                  {index !== matchedValues.length - 1 && <br />}
-                </React.Fragment>
-              ))}
-            </span>
-          </div>
-        )}
-      </header>
+      <input
+        type="text"
+        value={inputValue}
+        onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
+        placeholder="Enter text"
+        ref={inputRef}
+      />
+      <AppUI
+        inputValue={inputValue}
+        matchedValues={matchedValues}
+        selectedValueIndex={selectedValueIndex}
+        setInputValue={setInputValue}
+        setMatchedValues={setMatchedValues}
+        setSelectedValueIndex={setSelectedValueIndex}
+        players={players}
+      />
     </div>
   );
 }
