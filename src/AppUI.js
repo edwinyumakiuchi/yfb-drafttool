@@ -7,7 +7,8 @@ function AppUI({
   setInputValue,
   setMatchedValues,
   setSelectedValueIndex,
-  players
+  players,
+  handleKeyDown, // Add handleKeyDown prop
 }) {
   return (
     <>

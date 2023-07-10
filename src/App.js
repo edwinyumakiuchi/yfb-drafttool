@@ -150,6 +150,7 @@ function App() {
         setMatchedValues={setMatchedValues}
         setSelectedValueIndex={setSelectedValueIndex}
         players={players}
+        handleKeyDown={handleKeyDown} // Pass handleKeyDown prop
       />
     </div>
   );
