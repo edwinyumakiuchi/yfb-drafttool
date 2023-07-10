@@ -96,9 +96,9 @@ function App() {
     setInputValue(value);
 
     // Filter the matched values based on the input value
-    const filteredValues = players
-      .map((player) => player.name)
-      .filter((item) => item.toLowerCase().startsWith(value.toLowerCase()));
+    const filteredValues = players.filter((player) =>
+      player.name.toLowerCase().startsWith(value.toLowerCase())
+    );
     setMatchedValues(filteredValues);
     setSelectedValueIndex(-1); // Reset the selected value index
   };
@@ -120,8 +120,12 @@ function App() {
       e.preventDefault();
       if (selectedValueIndex !== -1) {
         const selectedValue = matchedValues[selectedValueIndex];
-        setInputValue(selectedValue);
-        setMatchedValues([]);
+        setInputValue(selectedValue.name); // Update only the input value with the player's name
+        setMatchedValues([]); // Clear the matched values
+
+        // Handle the logic to show the entire row that includes the player's name and team
+        const playerRow = players.find((player) => player.name === selectedValue.name);
+        console.log(playerRow); // Use the playerRow data as per your requirements
       }
     }
   };
@@ -150,7 +154,7 @@ function App() {
         setMatchedValues={setMatchedValues}
         setSelectedValueIndex={setSelectedValueIndex}
         players={players}
-        handleKeyDown={handleKeyDown} // Pass handleKeyDown prop
+        handleKeyDown={handleKeyDown}
       />
     </div>
   );
