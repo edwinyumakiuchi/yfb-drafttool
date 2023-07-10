@@ -5,7 +5,7 @@ const cheerio = require('cheerio');
 const API_ENDPOINT = 'https://us-west-2.aws.data.mongodb-api.com/app/data-natmv/endpoint/data/v1/action/';
 const API_DELETEMANY_ENDPOINT = 'deleteMany';
 const API_INSERTONE_ENDPOINT = 'insertOne';
-const API_KEY = 'abc';
+const API_KEY = 'abc'; // TODO: retrieve securely
 
 // Function to scrape the webpage and store data using the MongoDB API
 async function scrapeAndStoreData() {

@@ -19,7 +19,7 @@ function App() {
       },
       body: JSON.stringify({
         username: 'edwinyumakiuchi@gmail.com',
-        password: 'abc',
+        password: 'abc', // TODO: retrieve securely
       }),
     })
       .then((response) => response.json())
@@ -97,7 +97,7 @@ function App() {
 
     // Filter the matched values based on the input value
     const filteredValues = players.filter((player) =>
-      player.name.toLowerCase().startsWith(value.toLowerCase())
+      player.name.toLowerCase().includes(value.toLowerCase())
     );
     setMatchedValues(filteredValues);
     setSelectedValueIndex(-1); // Reset the selected value index
