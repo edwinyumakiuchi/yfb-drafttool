@@ -15,3 +15,18 @@ code {
 .selected {
   background-color: yellow;
 }
+
+.bordered-table {
+  border-collapse: collapse;
+  border: 1px solid black;
+}
+
+.bordered-table th,
+.bordered-table td {
+  border: 1px solid black;
+  padding: 8px;
+}
+
+.centered {
+  text-align: center;
+}

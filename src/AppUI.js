@@ -8,21 +8,27 @@ function AppUI({
   setMatchedValues,
   setSelectedValueIndex,
   players,
-  handleKeyDown, // Add handleKeyDown prop
+  handleKeyDown,
 }) {
   return (
     <>
       {matchedValues.length > 0 && (
         <div>
           <p>Matched values:</p>
-          <span>
-            {matchedValues.map((value, index) => (
-              <React.Fragment key={index}>
-                <span className={index === selectedValueIndex ? 'selected' : ''}>{value}</span>
-                {index !== matchedValues.length - 1 && <br />}
-              </React.Fragment>
-            ))}
-          </span>
+          <table className="bordered-table">
+            <thead>
+              <tr>
+                <th className="centered">Player</th>
+              </tr>
+            </thead>
+            <tbody>
+              {matchedValues.map((value, index) => (
+                <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
+                  <td className="centered">{value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
       <p>Entered value: {inputValue}</p>
