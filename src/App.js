@@ -11,7 +11,6 @@ function App() {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    // Make the login API call to get the access token
     fetch('https://realm.mongodb.com/api/client/v2.0/app/data-natmv/auth/providers/local-userpass/login', {
       method: 'POST',
       headers: {
@@ -24,9 +23,8 @@ function App() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('login data:', data);
         if (data.access_token) {
-          setAccessToken(data.access_token); // Store the access token
+          setAccessToken(data.access_token);
         } else {
           console.error('Access token not found in response:', data);
         }
@@ -38,7 +36,6 @@ function App() {
 
   useEffect(() => {
     if (accessToken) {
-      // TODO: display all players in default view
       fetch('https://us-west-2.aws.data.mongodb-api.com/app/data-natmv/endpoint/data/v1/action/find', {
         method: 'POST',
         headers: {
@@ -54,7 +51,6 @@ function App() {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log('data:', data);
           if (data.documents && Array.isArray(data.documents)) {
             const fetchedPlayers = data.documents.map((player) => ({
               _id: player._id,
@@ -117,16 +113,12 @@ function App() {
         return matchedValues[newIndex] ? newIndex : prevIndex;
       });
     } else if (e.key === 'Enter') {
-      // TODO: enable players to be clickable via mouse
       e.preventDefault();
       if (selectedValueIndex !== -1) {
         const selectedValue = matchedValues[selectedValueIndex];
-        setInputValue(selectedValue.name); // Update only the input value with the player's name
-        setMatchedValues([]); // Clear the matched values
-
-        // Handle the logic to show the entire row that includes the player's name and team
+        setInputValue(selectedValue.name);
+        setMatchedValues([]);
         const playerRow = players.find((player) => player.name === selectedValue.name);
-        console.log(playerRow); // Use the playerRow data as per your requirements
       }
     }
   };
@@ -136,6 +128,12 @@ function App() {
       inputRef.current.focus();
     }
   }, []);
+
+  useEffect(() => {
+    if (players.length > 0) {
+      setMatchedValues(players);
+    }
+  }, [players]);
 
   return (
     <div className="App">
