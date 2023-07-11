@@ -129,6 +129,7 @@ function App() {
     }
   }, []);
 
+  // TODO: implement sort function
   useEffect(() => {
     if (players.length > 0) {
       setMatchedValues(players);

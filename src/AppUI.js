@@ -12,11 +12,42 @@ function AppUI({
 }) {
   const playerRows = matchedValues.map((player, index) => {
     const selectedPlayer = players[selectedValueIndex];
+
     const isElitePoints = player.points >= 30;
     const isGreatPoints = player.points >= 25 && player.points < 30;
     const isGoodPoints = player.points >= 20 && player.points < 25;
     const isPoorPoints = player.points >= 10 && player.points < 15;
     const isBadPoints = player.points < 10;
+
+    const isEliteThreePointMade = player.threePointMade >= 4;
+    const isGreatThreePointMade = player.threePointMade >= 3 && player.threePointMade < 4;
+    const isGoodThreePointMade = player.threePointMade >= 2 && player.threePointMade < 3;
+    const isPoorThreePointMade = player.threePointMade >= 1 && player.threePointMade < 1.5;
+    const isBadThreePointMade = player.threePointMade < 1;
+
+    const isEliteTotalRebounds = player.totalRebounds >= 10;
+    const isGreatTotalRebounds = player.totalRebounds >= 9 && player.totalRebounds < 10;
+    const isGoodTotalRebounds = player.totalRebounds >= 7 && player.totalRebounds < 9;
+    const isPoorTotalRebounds = player.totalRebounds >= 3 && player.totalRebounds < 5;
+    const isBadTotalRebounds = player.totalRebounds < 3;
+
+    const isEliteAssists = player.assists >= 8;
+    const isGreatAssists = player.assists >= 6 && player.assists < 8;
+    const isGoodAssists = player.assists >= 4 && player.assists < 6;
+    const isPoorAssists = player.assists >= 1 && player.assists < 2;
+    const isBadAssists = player.assists < 1;
+
+    const isEliteSteals = player.steals >= 2;
+    const isGreatSteals = player.steals >= 1.5 && player.steals < 2;
+    const isGoodSteals = player.steals >= 1 && player.steals < 1.5;
+    const isPoorSteals = player.steals >= 0.5 && player.steals < 0.7;
+    const isBadSteals = player.steals < 0.5;
+
+    const isEliteBlocks = player.blocks >= 1.5;
+    const isGreatBlocks = player.blocks >= 1.2 && player.blocks < 1.5;
+    const isGoodBlocks = player.blocks >= 0.8 && player.blocks < 1.2;
+    const isPoorBlocks = player.blocks >= 0.3 && player.blocks < 0.5;
+    const isBadBlocks = player.blocks < 0.3;
 
     return (
       <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
@@ -33,7 +64,16 @@ function AppUI({
         <td className="bold centered">{player.freeThrow}</td>
         <td className="bold centered">{player.freeThrowMade}</td>
         <td className="bold centered">{player.freeThrowAttempt}</td>
-        <td className="bold centered">{player.threePointMade}</td>
+        <td
+            className={
+              isEliteThreePointMade ? 'bold centered dark-green' :
+              isGreatThreePointMade ? 'bold centered green' :
+              isGoodThreePointMade ? 'bold centered light-green' :
+              isPoorThreePointMade ? 'bold centered light-red' :
+              isBadThreePointMade ? 'bold centered red' : 'bold centered'
+            }>
+                {player.threePointMade}
+        </td>
         <td
             className={
               isElitePoints ? 'bold centered dark-green' :
@@ -44,10 +84,46 @@ function AppUI({
             }>
                 {player.points}
         </td>
-        <td className="bold centered">{player.totalRebounds}</td>
-        <td className="bold centered">{player.assists}</td>
-        <td className="bold centered">{player.steals}</td>
-        <td className="bold centered">{player.blocks}</td>
+        <td
+            className={
+              isEliteTotalRebounds ? 'bold centered dark-green' :
+              isGreatTotalRebounds ? 'bold centered green' :
+              isGoodTotalRebounds ? 'bold centered light-green' :
+              isPoorTotalRebounds ? 'bold centered light-red' :
+              isBadTotalRebounds ? 'bold centered red' : 'bold centered'
+            }>
+                {player.totalRebounds}
+        </td>
+        <td
+            className={
+              isEliteAssists ? 'bold centered dark-green' :
+              isGreatAssists ? 'bold centered green' :
+              isGoodAssists ? 'bold centered light-green' :
+              isPoorAssists ? 'bold centered light-red' :
+              isBadAssists ? 'bold centered red' : 'bold centered'
+            }>
+                {player.assists}
+        </td>
+        <td
+            className={
+              isEliteSteals ? 'bold centered dark-green' :
+              isGreatSteals ? 'bold centered green' :
+              isGoodSteals ? 'bold centered light-green' :
+              isPoorSteals ? 'bold centered light-red' :
+              isBadSteals ? 'bold centered red' : 'bold centered'
+            }>
+                {player.steals}
+        </td>
+        <td
+            className={
+              isEliteBlocks ? 'bold centered dark-green' :
+              isGreatBlocks ? 'bold centered green' :
+              isGoodBlocks ? 'bold centered light-green' :
+              isPoorBlocks ? 'bold centered light-red' :
+              isBadBlocks ? 'bold centered red' : 'bold centered'
+            }>
+                {player.blocks}
+        </td>
         <td className="bold centered">{player.turnovers}</td>
         <td className="bold centered">{player.total}</td>
       </tr>
@@ -135,7 +211,16 @@ function AppUI({
                 <td className="bold centered">{selectedPlayer.freeThrow}</td>
                 <td className="bold centered">{selectedPlayer.freeThrowMade}</td>
                 <td className="bold centered">{selectedPlayer.freeThrowAttempt}</td>
-                <td className="bold centered">{selectedPlayer.threePointMade}</td>
+                <td
+                  className={
+                    selectedPlayer.threePointMade >= 4 ? 'bold centered dark-green' :
+                    selectedPlayer.threePointMade >= 3 && selectedPlayer.threePointMade < 4 ? 'bold centered green' :
+                    selectedPlayer.threePointMade >= 2 && selectedPlayer.threePointMade < 3 ? 'bold centered light-green' :
+                    selectedPlayer.threePointMade >= 1 && selectedPlayer.threePointMade < 1.5 ? 'bold centered light-red' :
+                    selectedPlayer.threePointMade < 1 ? 'bold centered red' : 'bold centered'
+                  }>
+                    {selectedPlayer.threePointMade}
+                </td>
                 <td
                   className={
                     selectedPlayer.points >= 30 ? 'bold centered dark-green' :
@@ -146,10 +231,46 @@ function AppUI({
                   }>
                     {selectedPlayer.points}
                 </td>
-                <td className="bold centered">{selectedPlayer.totalRebounds}</td>
-                <td className="bold centered">{selectedPlayer.assists}</td>
-                <td className="bold centered">{selectedPlayer.steals}</td>
-                <td className="bold centered">{selectedPlayer.blocks}</td>
+                <td
+                  className={
+                    selectedPlayer.totalRebounds >= 10 ? 'bold centered dark-green' :
+                    selectedPlayer.totalRebounds >= 9 && selectedPlayer.totalRebounds < 10 ? 'bold centered green' :
+                    selectedPlayer.totalRebounds >= 7 && selectedPlayer.totalRebounds < 9 ? 'bold centered light-green' :
+                    selectedPlayer.totalRebounds >= 3 && selectedPlayer.totalRebounds < 5 ? 'bold centered light-red' :
+                    selectedPlayer.totalRebounds < 3 ? 'bold centered red' : 'bold centered'
+                  }>
+                    {selectedPlayer.totalRebounds}
+                </td>
+                <td
+                  className={
+                    selectedPlayer.assists >= 8 ? 'bold centered dark-green' :
+                    selectedPlayer.assists >= 6 && selectedPlayer.assists < 8 ? 'bold centered green' :
+                    selectedPlayer.assists >= 4 && selectedPlayer.assists < 6 ? 'bold centered light-green' :
+                    selectedPlayer.assists >= 1 && selectedPlayer.assists < 2 ? 'bold centered light-red' :
+                    selectedPlayer.assists < 1 ? 'bold centered red' : 'bold centered'
+                  }>
+                    {selectedPlayer.assists}
+                </td>
+                <td
+                  className={
+                    selectedPlayer.steals >= 2 ? 'bold centered dark-green' :
+                    selectedPlayer.steals >= 1.5 && selectedPlayer.steals < 2 ? 'bold centered green' :
+                    selectedPlayer.steals >= 1 && selectedPlayer.steals < 1.5 ? 'bold centered light-green' :
+                    selectedPlayer.steals >= 0.5 && selectedPlayer.steals < 0.7 ? 'bold centered light-red' :
+                    selectedPlayer.steals < 0.5 ? 'bold centered red' : 'bold centered'
+                  }>
+                    {selectedPlayer.steals}
+                </td>
+                <td
+                  className={
+                    selectedPlayer.blocks >= 1.5 ? 'bold centered dark-green' :
+                    selectedPlayer.blocks >= 1.2 && selectedPlayer.blocks < 1.5 ? 'bold centered green' :
+                    selectedPlayer.blocks >= 0.8 && selectedPlayer.blocks < 1.2 ? 'bold centered light-green' :
+                    selectedPlayer.blocks >= 0.3 && selectedPlayer.blocks < 0.5 ? 'bold centered light-red' :
+                    selectedPlayer.blocks < 0.3 ? 'bold centered red' : 'bold centered'
+                  }>
+                    {selectedPlayer.blocks}
+                </td>
                 <td className="bold centered">{selectedPlayer.turnovers}</td>
                 <td className="bold centered">{selectedPlayer.total}</td>
               </tr>
