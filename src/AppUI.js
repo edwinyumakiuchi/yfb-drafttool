@@ -10,31 +10,38 @@ function AppUI({
   players,
   handleKeyDown,
 }) {
-  const playerRows = matchedValues.map((player, index) => (
-    <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
-      <td className="centered">{player.rank}</td>
-      <td className="centered">{player.adp}</td>
-      <td className="centered">{player.name}</td>
-      <td className="centered">{player.position}</td>
-      <td className="centered">{player.team}</td>
-      <td className="centered">{player.gp}</td>
-      <td className="centered">{player.minutesPerGame}</td>
-      <td className="centered">{player.fieldGoal}</td>
-      <td className="centered">{player.fieldGoalMade}</td>
-      <td className="centered">{player.fieldGoalAttempt}</td>
-      <td className="centered">{player.freeThrow}</td>
-      <td className="centered">{player.freeThrowMade}</td>
-      <td className="centered">{player.freeThrowAttempt}</td>
-      <td className="centered">{player.threePointMade}</td>
-      <td className="centered">{player.points}</td>
-      <td className="centered">{player.totalRebounds}</td>
-      <td className="centered">{player.assists}</td>
-      <td className="centered">{player.steals}</td>
-      <td className="centered">{player.blocks}</td>
-      <td className="centered">{player.turnovers}</td>
-      <td className="centered">{player.total}</td>
-    </tr>
-  ));
+  const playerRows = matchedValues.map((player, index) => {
+    const selectedPlayer = players[selectedValueIndex];
+    const isHighPoints = player.points >= 30;
+
+    return (
+      <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
+        <td className="centered">{player.rank}</td>
+        <td className="centered">{player.adp}</td>
+        <td className="centered">{player.name}</td>
+        <td className="centered">{player.position}</td>
+        <td className="centered">{player.team}</td>
+        <td className="centered">{player.gp}</td>
+        <td className="centered">{player.minutesPerGame}</td>
+        <td className="centered">{player.fieldGoal}</td>
+        <td className="centered">{player.fieldGoalMade}</td>
+        <td className="centered">{player.fieldGoalAttempt}</td>
+        <td className="centered">{player.freeThrow}</td>
+        <td className="centered">{player.freeThrowMade}</td>
+        <td className="centered">{player.freeThrowAttempt}</td>
+        <td className="centered">{player.threePointMade}</td>
+        <td className={isHighPoints ? 'centered green' : 'centered'}>
+          {player.points}
+        </td>
+        <td className="centered">{player.totalRebounds}</td>
+        <td className="centered">{player.assists}</td>
+        <td className="centered">{player.steals}</td>
+        <td className="centered">{player.blocks}</td>
+        <td className="centered">{player.turnovers}</td>
+        <td className="centered">{player.total}</td>
+      </tr>
+    );
+  });
 
   const selectedPlayer = players.find((player) => player.name === inputValue);
 
@@ -118,7 +125,9 @@ function AppUI({
                 <td className="centered">{selectedPlayer.freeThrowMade}</td>
                 <td className="centered">{selectedPlayer.freeThrowAttempt}</td>
                 <td className="centered">{selectedPlayer.threePointMade}</td>
-                <td className="centered">{selectedPlayer.points}</td>
+                <td className={selectedPlayer.points >= 30 ? 'centered green' : 'centered'}>
+                  {selectedPlayer.points}
+                </td>
                 <td className="centered">{selectedPlayer.totalRebounds}</td>
                 <td className="centered">{selectedPlayer.assists}</td>
                 <td className="centered">{selectedPlayer.steals}</td>

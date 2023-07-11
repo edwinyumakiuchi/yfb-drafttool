@@ -30,3 +30,8 @@ code {
 .centered {
   text-align: center;
 }
+
+.green {
+  background-color: green;
+  color: white;
+}
