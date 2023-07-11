@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     if (accessToken) {
-      // Make the data fetch API call using the access token
+      // TODO: display all players in default view
       fetch('https://us-west-2.aws.data.mongodb-api.com/app/data-natmv/endpoint/data/v1/action/find', {
         method: 'POST',
         headers: {
@@ -117,6 +117,7 @@ function App() {
         return matchedValues[newIndex] ? newIndex : prevIndex;
       });
     } else if (e.key === 'Enter') {
+      // TODO: enable players to be clickable via mouse
       e.preventDefault();
       if (selectedValueIndex !== -1) {
         const selectedValue = matchedValues[selectedValueIndex];
