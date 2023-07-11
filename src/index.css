@@ -33,5 +33,13 @@ code {
 
 .green {
   background-color: green;
-  color: white;
+  color: black;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.header-row {
+  background-color: lightgray;
 }
