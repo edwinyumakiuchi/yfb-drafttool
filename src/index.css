@@ -31,8 +31,28 @@ code {
   text-align: center;
 }
 
+.dark-green {
+  background-color: #009933;
+  color: black;
+}
+
 .green {
-  background-color: green;
+  background-color: #00cc66;
+  color: black;
+}
+
+.light-green {
+  background-color: #b3ffcc;
+  color: black;
+}
+
+.light-red {
+  background-color: #FFB6C1;
+  color: black;
+}
+
+.red {
+  background-color: #FF0000;
   color: black;
 }
 

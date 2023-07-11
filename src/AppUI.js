@@ -12,7 +12,11 @@ function AppUI({
 }) {
   const playerRows = matchedValues.map((player, index) => {
     const selectedPlayer = players[selectedValueIndex];
-    const isHighPoints = player.points >= 30;
+    const isElitePoints = player.points >= 30;
+    const isGreatPoints = player.points >= 25 && player.points < 30;
+    const isGoodPoints = player.points >= 20 && player.points < 25;
+    const isPoorPoints = player.points >= 10 && player.points < 15;
+    const isBadPoints = player.points < 10;
 
     return (
       <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
@@ -30,8 +34,15 @@ function AppUI({
         <td className="bold centered">{player.freeThrowMade}</td>
         <td className="bold centered">{player.freeThrowAttempt}</td>
         <td className="bold centered">{player.threePointMade}</td>
-        <td className={isHighPoints ? 'bold centered green' : 'bold centered'}>
-          {player.points}
+        <td
+            className={
+              isElitePoints ? 'bold centered dark-green' :
+              isGreatPoints ? 'bold centered green' :
+              isGoodPoints ? 'bold centered light-green' :
+              isPoorPoints ? 'bold centered light-red' :
+              isBadPoints ? 'bold centered red' : 'bold centered'
+            }>
+                {player.points}
         </td>
         <td className="bold centered">{player.totalRebounds}</td>
         <td className="bold centered">{player.assists}</td>
@@ -125,8 +136,15 @@ function AppUI({
                 <td className="bold centered">{selectedPlayer.freeThrowMade}</td>
                 <td className="bold centered">{selectedPlayer.freeThrowAttempt}</td>
                 <td className="bold centered">{selectedPlayer.threePointMade}</td>
-                <td className={selectedPlayer.points >= 30 ? 'bold centered green' : 'bold centered'}>
-                  {selectedPlayer.points}
+                <td
+                  className={
+                    selectedPlayer.points >= 30 ? 'bold centered dark-green' :
+                    selectedPlayer.points >= 25 && selectedPlayer.points < 30 ? 'bold centered green' :
+                    selectedPlayer.points >= 20 && selectedPlayer.points < 25 ? 'bold centered light-green' :
+                    selectedPlayer.points >= 10 && selectedPlayer.points < 15 ? 'bold centered light-red' :
+                    selectedPlayer.points < 10 ? 'bold centered red' : 'bold centered'
+                  }>
+                    {selectedPlayer.points}
                 </td>
                 <td className="bold centered">{selectedPlayer.totalRebounds}</td>
                 <td className="bold centered">{selectedPlayer.assists}</td>
