@@ -63,3 +63,7 @@ code {
 .header-row {
   background-color: lightgray;
 }
+
+th {
+  cursor: pointer;
+}

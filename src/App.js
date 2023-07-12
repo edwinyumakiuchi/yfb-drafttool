@@ -8,6 +8,8 @@ function App() {
   const [players, setPlayers] = useState([]);
   const [selectedValueIndex, setSelectedValueIndex] = useState(-1);
   const [accessToken, setAccessToken] = useState('');
+  const [sortField, setSortField] = useState(null);
+  const [sortOrder, setSortOrder] = useState('asc');
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -123,13 +125,39 @@ function App() {
     }
   };
 
+  const handleSort = (field) => {
+    if (sortField === field) {
+      // Toggle the sort order if the same field is clicked
+      setSortOrder((prevSortOrder) => (prevSortOrder === 'asc' ? 'desc' : 'asc'));
+    } else {
+      // Set the new field as the sort field and default to ascending order
+      setSortField(field);
+      setSortOrder('asc');
+    }
+  };
+
+  useEffect(() => {
+    // Sort the matched values based on the selected field and sort order
+    const sortedValues = [...matchedValues].sort((a, b) => {
+      const valueA = a[sortField] || '';
+      const valueB = b[sortField] || '';
+
+      if (typeof valueA === 'string' && typeof valueB === 'string') {
+        return sortOrder === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
+      } else {
+        return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
+      }
+    });
+
+    setMatchedValues(sortedValues);
+  }, [sortField, sortOrder, matchedValues]);
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
     }
   }, []);
 
-  // TODO: implement sort function
   useEffect(() => {
     if (players.length > 0) {
       setMatchedValues(players);
@@ -155,6 +183,9 @@ function App() {
         setSelectedValueIndex={setSelectedValueIndex}
         players={players}
         handleKeyDown={handleKeyDown}
+        handleSort={handleSort}
+        sortField={sortField}
+        sortOrder={sortOrder}
       />
     </div>
   );

@@ -9,6 +9,9 @@ function AppUI({
   setSelectedValueIndex,
   players,
   handleKeyDown,
+  handleSort,
+  sortField,
+  sortOrder
 }) {
   const playerRows = matchedValues.map((player, index) => {
     const selectedPlayer = players[selectedValueIndex];
@@ -162,7 +165,9 @@ function AppUI({
                 <th className="bold centered">TEAM</th>
                 <th className="bold centered">GP</th>
                 <th className="bold centered">MPG</th>
-                <th className="bold centered">FG%</th>
+                <th className="bold centered" onClick={() => handleSort('fieldGoal')}>
+                  FG% {sortField === 'fieldGoal'}
+                </th>
                 <th className="bold centered">FGM</th>
                 <th className="bold centered">FGA</th>
                 <th className="bold centered">FT%</th>
