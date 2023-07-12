@@ -49,6 +49,12 @@ function AppUI({
     const isPoorBlocks = player.blocks >= 0.3 && player.blocks < 0.5;
     const isBadBlocks = player.blocks < 0.3;
 
+    const isEliteTurnovers = player.turnovers <= 0.7;
+    const isGreatTurnovers = player.turnovers <= 1 && player.turnovers > 0.7;
+    const isGoodTurnovers = player.turnovers <= 1.5 && player.turnovers > 1;
+    const isPoorTurnovers = player.turnovers < 3 && player.turnovers >= 2;
+    const isBadTurnovers = player.turnovers >= 3;
+
     return (
       <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
         <td className="bold centered">{player.rank}</td>
@@ -124,7 +130,16 @@ function AppUI({
             }>
                 {player.blocks}
         </td>
-        <td className="bold centered">{player.turnovers}</td>
+        <td
+            className={
+              isEliteTurnovers ? 'bold centered dark-green' :
+              isGreatTurnovers ? 'bold centered green' :
+              isGoodTurnovers ? 'bold centered light-green' :
+              isPoorTurnovers ? 'bold centered light-red' :
+              isBadTurnovers ? 'bold centered red' : 'bold centered'
+            }>
+                {player.turnovers}
+        </td>
         <td className="bold centered">{player.total}</td>
       </tr>
     );
@@ -271,7 +286,16 @@ function AppUI({
                   }>
                     {selectedPlayer.blocks}
                 </td>
-                <td className="bold centered">{selectedPlayer.turnovers}</td>
+                <td
+                  className={
+                    selectedPlayer.turnovers <= 0.7 ? 'bold centered dark-green' :
+                    selectedPlayer.turnovers <= 1 && selectedPlayer.turnovers > 0.7 ? 'bold centered green' :
+                    selectedPlayer.turnovers <= 1.5 && selectedPlayer.turnovers > 1 ? 'bold centered light-green' :
+                    selectedPlayer.turnovers < 3 && selectedPlayer.turnovers >= 2 ? 'bold centered light-red' :
+                    selectedPlayer.turnovers >= 3 ? 'bold centered red' : 'bold centered'
+                  }>
+                    {selectedPlayer.turnovers}
+                </td>
                 <td className="bold centered">{selectedPlayer.total}</td>
               </tr>
             </tbody>
