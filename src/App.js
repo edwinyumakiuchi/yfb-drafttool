@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import fetch from 'isomorphic-fetch';
 import AppUI from './AppUI';
+import secretConfig from './secretConfig';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
@@ -19,8 +20,8 @@ function App() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        username: 'edwinyumakiuchi@gmail.com',
-        password: 'abc', // TODO: retrieve securely
+        username: secretConfig.mongoUsername,
+        password: secretConfig.mongoPassword,
       }),
     })
       .then((response) => response.json())
