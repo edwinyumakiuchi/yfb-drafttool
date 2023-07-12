@@ -60,7 +60,8 @@ function AppUI({
 
     return (
       <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
-        <td className="bold centered">{player.rank}</td>
+        <td className="bold centered">{index + 1}</td>
+        <td className="bold centered">{player.originalRank}</td>
         <td className="bold centered">{player.adp}</td>
         <td className="bold centered">{player.name}</td>
         <td className="bold centered">{player.position}</td>
@@ -159,6 +160,7 @@ function AppUI({
             <thead className="header-row">
               <tr>
                 <th className="bold centered">RANK</th>
+                <th className="bold centered">ORANK</th>
                 <th className="bold centered">ADP</th>
                 <th className="bold centered">PLAYER</th>
                 <th className="bold centered">POS</th>
@@ -193,7 +195,7 @@ function AppUI({
           <table className="bordered-table">
             <thead className="header-row">
               <tr>
-                <th className="bold centered">RANK</th>
+                <th className="bold centered">ORANK</th>
                 <th className="bold centered">ADP</th>
                 <th className="bold centered">PLAYER</th>
                 <th className="bold centered">POS</th>
@@ -218,7 +220,7 @@ function AppUI({
             </thead>
             <tbody>
               <tr>
-                <td className="bold centered">{selectedPlayer.rank}</td>
+                <td className="bold centered">{selectedPlayer.originalRank}</td>
                 <td className="bold centered">{selectedPlayer.adp}</td>
                 <td className="bold centered">{selectedPlayer.name}</td>
                 <td className="bold centered">{selectedPlayer.position}</td>

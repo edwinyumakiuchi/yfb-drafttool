@@ -57,7 +57,7 @@ function App() {
             const fetchedPlayers = data.documents.map((player) => ({
               _id: player._id,
               name: player.name,
-              rank: player.rank,
+              originalRank: player.rank,
               adp: player.adp,
               position: player.position,
               team: player.team,
