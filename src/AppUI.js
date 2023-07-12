@@ -14,8 +14,6 @@ function AppUI({
   sortOrder
 }) {
   const playerRows = matchedValues.map((player, index) => {
-    const selectedPlayer = players[selectedValueIndex];
-
     const isElitePoints = player.points >= 30;
     const isGreatPoints = player.points >= 25 && player.points < 30;
     const isGoodPoints = player.points >= 20 && player.points < 25;
@@ -58,6 +56,12 @@ function AppUI({
     const isPoorTurnovers = player.turnovers < 3 && player.turnovers >= 2;
     const isBadTurnovers = player.turnovers >= 3;
 
+    const isEliteFieldgoal = player.fieldGoal >= 0.55;
+    const isGreatFieldgoal = player.fieldGoal >= 0.5 && player.fieldGoal < 0.55;
+    const isGoodFieldgoal = player.fieldGoal >= 0.475 && player.fieldGoal < 0.5;
+    const isPoorFieldgoal = player.fieldGoal >= 0.425 && player.fieldGoal < 0.45;
+    const isBadFieldgoal = player.fieldGoal < 0.425;
+
     return (
       <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
         <td className="bold centered">{index + 1}</td>
@@ -68,7 +72,16 @@ function AppUI({
         <td className="bold centered">{player.team}</td>
         <td className="bold centered">{player.gp}</td>
         <td className="bold centered">{player.minutesPerGame}</td>
-        <td className="bold centered">{player.fieldGoal}</td>
+        <td
+            className={
+              isEliteFieldgoal ? 'bold centered dark-green' :
+              isGreatFieldgoal ? 'bold centered green' :
+              isGoodFieldgoal ? 'bold centered light-green' :
+              isPoorFieldgoal ? 'bold centered light-red' :
+              isBadFieldgoal ? 'bold centered red' : 'bold centered'
+            }>
+                {player.fieldGoal}
+        </td>
         <td className="bold centered">{player.fieldGoalMade}</td>
         <td className="bold centered">{player.fieldGoalAttempt}</td>
         <td className="bold centered">{player.freeThrow}</td>
@@ -171,7 +184,9 @@ function AppUI({
                   FG% {sortField === 'fieldGoal'}
                 </th>
                 <th className="bold centered">FGM</th>
-                <th className="bold centered">FGA</th>
+                <th className="bold centered" onClick={() => handleSort('fieldGoalAttempt')}>
+                  FGA {sortField === 'fieldGoalAttempt'}
+                </th>
                 <th className="bold centered">FT%</th>
                 <th className="bold centered">FTM</th>
                 <th className="bold centered">FTA</th>
@@ -227,7 +242,16 @@ function AppUI({
                 <td className="bold centered">{selectedPlayer.team}</td>
                 <td className="bold centered">{selectedPlayer.gp}</td>
                 <td className="bold centered">{selectedPlayer.minutesPerGame}</td>
-                <td className="bold centered">{selectedPlayer.fieldGoal}</td>
+                <td
+                  className={
+                    selectedPlayer.fieldGoal >= 0.55 ? 'bold centered dark-green' :
+                    selectedPlayer.fieldGoal >= 0.5 && selectedPlayer.fieldGoal < 0.55 ? 'bold centered green' :
+                    selectedPlayer.fieldGoal >= 0.475 && selectedPlayer.fieldGoal < 0.5 ? 'bold centered light-green' :
+                    selectedPlayer.fieldGoal >= 0.425 && selectedPlayer.fieldGoal < 0.45 ? 'bold centered light-red' :
+                    selectedPlayer.fieldGoal < 0.425 ? 'bold centered red' : 'bold centered'
+                  }>
+                    {selectedPlayer.fieldGoal}
+                </td>
                 <td className="bold centered">{selectedPlayer.fieldGoalMade}</td>
                 <td className="bold centered">{selectedPlayer.fieldGoalAttempt}</td>
                 <td className="bold centered">{selectedPlayer.freeThrow}</td>

@@ -121,7 +121,6 @@ function App() {
         const selectedValue = matchedValues[selectedValueIndex];
         setInputValue(selectedValue.name);
         setMatchedValues([]);
-        const playerRow = players.find((player) => player.name === selectedValue.name);
       }
     }
   };
@@ -138,16 +137,11 @@ function App() {
   };
 
   useEffect(() => {
-    // Sort the matched values based on the selected field and sort order
     const sortedValues = [...matchedValues].sort((a, b) => {
-      const valueA = a[sortField] || '';
-      const valueB = b[sortField] || '';
+      const valueA = parseFloat(a[sortField]) || 0;
+      const valueB = parseFloat(b[sortField]) || 0;
 
-      if (typeof valueA === 'string' && typeof valueB === 'string') {
-        return sortOrder === 'asc' ? valueA.localeCompare(valueB) : valueB.localeCompare(valueA);
-      } else {
-        return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
-      }
+      return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
     });
 
     setMatchedValues(sortedValues);
