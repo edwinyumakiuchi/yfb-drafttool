@@ -62,6 +62,12 @@ function AppUI({
     const isPoorFieldgoal = player.fieldGoal >= 0.425 && player.fieldGoal < 0.45;
     const isBadFieldgoal = player.fieldGoal < 0.425;
 
+    const isMaxFieldgoalAttempts = player.fieldGoalAttempt >= 18;
+    const isExtremeFieldgoalAttempts = player.fieldGoalAttempt >= 14 && player.fieldGoalAttempt < 18;
+    const isHighFieldgoalAttempts = player.fieldGoalAttempt >= 12 && player.fieldGoalAttempt < 14;
+    const isLowFieldgoalAttempts = player.fieldGoalAttempt >= 10 && player.fieldGoalAttempt < 12;
+    const isMinFieldgoalAttemptsl = player.fieldGoalAttempt >= 7 && player.fieldGoalAttempt < 10;
+
     return (
       <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
         <td className="bold centered">{index + 1}</td>
@@ -83,7 +89,16 @@ function AppUI({
                 {player.fieldGoal}
         </td>
         <td className="bold centered">{player.fieldGoalMade}</td>
-        <td className="bold centered">{player.fieldGoalAttempt}</td>
+        <td
+            className={
+              isMaxFieldgoalAttempts ? 'bold centered darkest-blue' :
+              isExtremeFieldgoalAttempts ? 'bold centered dark-blue' :
+              isHighFieldgoalAttempts ? 'bold centered blue' :
+              isLowFieldgoalAttempts ? 'bold centered light-blue' :
+              isMinFieldgoalAttemptsl ? 'bold centered lightest-blue' : 'bold centered'
+            }>
+                {player.fieldGoalAttempt}
+        </td>
         <td className="bold centered">{player.freeThrow}</td>
         <td className="bold centered">{player.freeThrowMade}</td>
         <td className="bold centered">{player.freeThrowAttempt}</td>

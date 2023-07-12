@@ -67,3 +67,28 @@ code {
 th {
   cursor: pointer;
 }
+
+.darkest-blue {
+  background-color: #0066ff;
+  color: black;
+}
+
+.dark-blue {
+  background-color: #3399ff;
+  color: black;
+}
+
+.blue {
+  background-color: #66b2ff;
+  color: black;
+}
+
+.light-blue {
+  background-color: #99ccff;
+  color: black;
+}
+
+.lightest-blue {
+  background-color: #cce6ff;
+  color: black;
+}
