@@ -56,7 +56,7 @@ function AppUI({
     const isPoorTurnovers = player.turnovers < 3 && player.turnovers >= 2;
     const isBadTurnovers = player.turnovers >= 3;
 
-    const isEliteFieldgoal = player.fieldGoal >= 0.55;
+    /* const isEliteFieldgoal = player.fieldGoal >= 0.55;
     const isGreatFieldgoal = player.fieldGoal >= 0.5 && player.fieldGoal < 0.55;
     const isGoodFieldgoal = player.fieldGoal >= 0.475 && player.fieldGoal < 0.5;
     const isPoorFieldgoal = player.fieldGoal >= 0.425 && player.fieldGoal < 0.45;
@@ -66,7 +66,7 @@ function AppUI({
     const isExtremeFieldgoalAttempts = player.fieldGoalAttempt >= 14 && player.fieldGoalAttempt < 18;
     const isHighFieldgoalAttempts = player.fieldGoalAttempt >= 12 && player.fieldGoalAttempt < 14;
     const isLowFieldgoalAttempts = player.fieldGoalAttempt >= 10 && player.fieldGoalAttempt < 12;
-    const isMinFieldgoalAttemptsl = player.fieldGoalAttempt >= 7 && player.fieldGoalAttempt < 10;
+    const isMinFieldgoalAttemptsl = player.fieldGoalAttempt >= 7 && player.fieldGoalAttempt < 10; */
 
     return (
       <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
@@ -78,7 +78,7 @@ function AppUI({
         <td className="bold centered">{player.team}</td>
         <td className="bold centered">{player.gp}</td>
         <td className="bold centered">{player.minutesPerGame}</td>
-        <td
+        {/* <td
             className={
               isEliteFieldgoal ? 'bold centered dark-green' :
               isGreatFieldgoal ? 'bold centered green' :
@@ -87,9 +87,11 @@ function AppUI({
               isBadFieldgoal ? 'bold centered red' : 'bold centered'
             }>
                 {player.fieldGoal}
-        </td>
+        </td> */}
+        <td className="bold centered">{player.fieldGoal}</td>
         <td className="bold centered">{player.fieldGoalMade}</td>
-        <td
+        <td className="bold centered">{player.fieldGoalAttempt}</td>
+        {/* <td
             className={
               isMaxFieldgoalAttempts ? 'bold centered darkest-blue' :
               isExtremeFieldgoalAttempts ? 'bold centered dark-blue' :
@@ -98,10 +100,30 @@ function AppUI({
               isMinFieldgoalAttemptsl ? 'bold centered lightest-blue' : 'bold centered'
             }>
                 {player.fieldGoalAttempt}
-        </td>
+        </td> */}
         <td className="bold centered">{player.freeThrow}</td>
         <td className="bold centered">{player.freeThrowMade}</td>
         <td className="bold centered">{player.freeThrowAttempt}</td>
+        <td
+            className={
+              player.fieldGoalClass === 'elite' ? 'bold centered dark-green' :
+              player.fieldGoalClass === 'vgood' ? 'bold centered green' :
+              player.fieldGoalClass === 'good' ? 'bold centered light-green' :
+              player.fieldGoalClass === 'bavg' ? 'bold centered light-red' :
+              player.fieldGoalClass === 'ngood' ? 'bold centered red' : 'bold centered'
+            }>
+                {player.fieldGoal} ({player.fieldGoalMade}/{player.fieldGoalAttempt})
+        </td>
+        <td
+            className={
+              player.freeThrowClass === 'elite' ? 'bold centered dark-green' :
+              player.freeThrowClass === 'vgood' ? 'bold centered green' :
+              player.freeThrowClass === 'good' ? 'bold centered light-green' :
+              player.freeThrowClass === 'bavg' ? 'bold centered light-red' :
+              player.freeThrowClass === 'ngood' ? 'bold centered red' : 'bold centered'
+            }>
+                {player.freeThrow} ({player.freeThrowMade}/{player.freeThrowAttempt})
+        </td>
         <td
             className={
               isEliteThreePointMade ? 'bold centered dark-green' :
@@ -205,6 +227,8 @@ function AppUI({
                 <th className="bold centered">FT%</th>
                 <th className="bold centered">FTM</th>
                 <th className="bold centered">FTA</th>
+                <th className="bold centered">FG</th>
+                <th className="bold centered">FT</th>
                 <th className="bold centered">3PM</th>
                 <th className="bold centered">PTS</th>
                 <th className="bold centered">TREB</th>
@@ -238,6 +262,8 @@ function AppUI({
                 <th className="bold centered">FT%</th>
                 <th className="bold centered">FTM</th>
                 <th className="bold centered">FTA</th>
+                <th className="bold centered">FG</th>
+                <th className="bold centered">FT</th>
                 <th className="bold centered">3PM</th>
                 <th className="bold centered">PTS</th>
                 <th className="bold centered">TREB</th>
@@ -257,7 +283,7 @@ function AppUI({
                 <td className="bold centered">{selectedPlayer.team}</td>
                 <td className="bold centered">{selectedPlayer.gp}</td>
                 <td className="bold centered">{selectedPlayer.minutesPerGame}</td>
-                <td
+                {/* <td
                   className={
                     selectedPlayer.fieldGoal >= 0.55 ? 'bold centered dark-green' :
                     selectedPlayer.fieldGoal >= 0.5 && selectedPlayer.fieldGoal < 0.55 ? 'bold centered green' :
@@ -266,12 +292,33 @@ function AppUI({
                     selectedPlayer.fieldGoal < 0.425 ? 'bold centered red' : 'bold centered'
                   }>
                     {selectedPlayer.fieldGoal}
-                </td>
+                </td> */}
+                <td className="bold centered">{selectedPlayer.fieldGoal}</td>
                 <td className="bold centered">{selectedPlayer.fieldGoalMade}</td>
                 <td className="bold centered">{selectedPlayer.fieldGoalAttempt}</td>
                 <td className="bold centered">{selectedPlayer.freeThrow}</td>
                 <td className="bold centered">{selectedPlayer.freeThrowMade}</td>
                 <td className="bold centered">{selectedPlayer.freeThrowAttempt}</td>
+                <td
+                  className={
+                    selectedPlayer.fieldGoalClass === 'elite' ? 'bold centered dark-green' :
+                    selectedPlayer.fieldGoalClass === 'vgood' ? 'bold centered green' :
+                    selectedPlayer.fieldGoalClass == 'good' ? 'bold centered light-green' :
+                    selectedPlayer.fieldGoalClass === 'bavg' ? 'bold centered light-red' :
+                    selectedPlayer.fieldGoalClass === 'ngood' ? 'bold centered red' : 'bold centered'
+                  }>
+                    {selectedPlayer.fieldGoal} ({selectedPlayer.fieldGoalMade}/{selectedPlayer.fieldGoalAttempt})
+                </td>
+                <td
+                  className={
+                    selectedPlayer.freeThrowClass === 'elite' ? 'bold centered dark-green' :
+                    selectedPlayer.freeThrowClass === 'vgood' ? 'bold centered green' :
+                    selectedPlayer.freeThrowClass == 'good' ? 'bold centered light-green' :
+                    selectedPlayer.freeThrowClass === 'bavg' ? 'bold centered light-red' :
+                    selectedPlayer.freeThrowClass === 'ngood' ? 'bold centered red' : 'bold centered'
+                  }>
+                    {selectedPlayer.freeThrow} ({selectedPlayer.freeThrowMade}/{selectedPlayer.freeThrowAttempt})
+                </td>
                 <td
                   className={
                     selectedPlayer.threePointMade >= 4 ? 'bold centered dark-green' :

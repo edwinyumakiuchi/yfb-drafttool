@@ -1,3 +1,4 @@
+const secretConfig = require('./src/secretConfig.js');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 
@@ -5,7 +6,7 @@ const cheerio = require('cheerio');
 const API_ENDPOINT = 'https://us-west-2.aws.data.mongodb-api.com/app/data-natmv/endpoint/data/v1/action/';
 const API_DELETEMANY_ENDPOINT = 'deleteMany';
 const API_INSERTONE_ENDPOINT = 'insertOne';
-const API_KEY = 'abc'; // TODO: retrieve securely
+const API_KEY = secretConfig.mongoKey;
 
 // Function to scrape the webpage and store data using the MongoDB API
 async function scrapeAndStoreData() {
@@ -25,12 +26,15 @@ async function scrapeAndStoreData() {
       }
 
       let playerRank = 0, playerADP = 0, playerPos = 0, playerTeam = 0, playerGP = 0, playerMPG = 0, playerFG = 0,
-        playerFGM = 0, playerFGA = 0, playerFT = 0, playerFTM = 0, playerFTA = 0, playerTPM = 0, playerPTS = 0,
-        playerTREB = 0, playerAST = 0, playerSTL = 0, playerBLK = 0, playerTO = 0, playerTotal = 0
+        playerFGM = 0, playerFGA = 0, playerFGClass = '', playerFT = 0, playerFTM = 0, playerFTA = 0,
+        playerFTClass = '', playerTPM = 0, playerPTS = 0, playerTREB = 0, playerAST = 0, playerSTL = 0, playerBLK = 0,
+        playerTO = 0, playerTotal = 0
 
       $(element).find('td').each((index, tdElement) => {
         const tdValue = $(tdElement).text().trim();
+        const tdClass = $(tdElement).attr('class');
 
+        // TODO: retrieve colorcode class for all categories?
         switch (index) {
           case 0:
             playerRank = tdValue
@@ -55,12 +59,14 @@ async function scrapeAndStoreData() {
             const matchFGResult = playerFG.match(/\((.*?)\)/);
             [playerFGM, playerFGA] = matchFGResult[1].split('/').map(value => value.trim());
             playerFG = playerFG.trim().split('\n')[0];
+            playerFGClass = tdClass
             break;
           case 8:
             playerFT = tdValue
             const matchFTResult = playerFT.match(/\((.*?)\)/);
             [playerFTM, playerFTA] = matchFTResult[1].split('/').map(value => value.trim());
             playerFT = playerFT.trim().split('\n')[0];
+            playerFTClass = tdClass
             break;
           case 9:
             playerTPM = tdValue
@@ -99,9 +105,11 @@ async function scrapeAndStoreData() {
         fieldGoal: playerFG,
         fieldGoalMade: playerFGM,
         fieldGoalAttempt: playerFGA,
+        fieldGoalClass: playerFGClass,
         freeThrow: playerFT,
         freeThrowMade: playerFTM,
         freeThrowAttempt: playerFTA,
+        freeThrowClass: playerFTClass,
         threePointMade: playerTPM,
         points: playerPTS,
         totalRebounds: playerTREB,
@@ -156,9 +164,11 @@ async function scrapeAndStoreData() {
             fieldGoal: player.fieldGoal,
             fieldGoalMade: player.fieldGoalMade,
             fieldGoalAttempt: player.fieldGoalAttempt,
+            fieldGoalClass: player.fieldGoalClass,
             freeThrow: player.freeThrow,
             freeThrowMade: player.freeThrowMade,
             freeThrowAttempt: player.freeThrowAttempt,
+            freeThrowClass: player.freeThrowClass,
             threePointMade: player.threePointMade,
             points: player.points,
             totalRebounds: player.totalRebounds,
