@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import fetch from 'isomorphic-fetch';
 import AppUI from './AppUI';
 import { login, getPlayers } from './api';
 
