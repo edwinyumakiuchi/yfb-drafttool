@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
+import PlayerRow from './PlayerRow';
 import { login, getPlayers } from './api';
 
 function App() {
@@ -126,6 +127,17 @@ function App() {
         sortField={sortField}
         sortOrder={sortOrder}
       />
+      <br />
+      <br />
+      <br />
+      {inputValue && (
+        <PlayerRow
+          matchedValues={players}
+          selectedValueIndex={-1}
+          handleSort={handleSort}
+          sortField={sortField}
+        />
+      )}
     </div>
   );
 }
