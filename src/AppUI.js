@@ -14,60 +14,17 @@ function AppUI({
   sortField,
   sortOrder
 }) {
-  const playerRows = matchedValues.map((player, index) => {
-    return (
-      <PlayerRow
-        key={index}
-        index={index}
-        selectedValueIndex={selectedValueIndex}
-        player={player}
-      />
-    );
-  });
-
   const selectedPlayer = players.find((player) => player.name === inputValue);
 
   return (
     <>
       {matchedValues.length > 0 && (
-        <div>
-          <p></p>
-          <table className="bordered-table">
-            <thead className="header-row">
-              <tr>
-                <th className="bold centered">RANK</th>
-                <th className="bold centered">ORANK</th>
-                <th className="bold centered">ADP</th>
-                <th className="bold centered">PLAYER</th>
-                <th className="bold centered">POS</th>
-                <th className="bold centered">TEAM</th>
-                <th className="bold centered">GP</th>
-                <th className="bold centered">MPG</th>
-                <th className="bold centered" onClick={() => handleSort('fieldGoal')}>
-                  FG% {sortField === 'fieldGoal'}
-                </th>
-                <th className="bold centered">FGM</th>
-                <th className="bold centered" onClick={() => handleSort('fieldGoalAttempt')}>
-                  FGA {sortField === 'fieldGoalAttempt'}
-                </th>
-                <th className="bold centered">FT%</th>
-                <th className="bold centered">FTM</th>
-                <th className="bold centered">FTA</th>
-                <th className="bold centered">FG</th>
-                <th className="bold centered">FT</th>
-                <th className="bold centered">3PM</th>
-                <th className="bold centered">PTS</th>
-                <th className="bold centered">TREB</th>
-                <th className="bold centered">AST</th>
-                <th className="bold centered">STL</th>
-                <th className="bold centered">BLK</th>
-                <th className="bold centered">TO</th>
-                <th className="bold centered">TOTAL</th>
-              </tr>
-            </thead>
-            <tbody>{playerRows}</tbody>
-          </table>
-        </div>
+        <PlayerRow
+          matchedValues={matchedValues}
+          selectedValueIndex={selectedValueIndex}
+          handleSort={handleSort}
+          sortField={sortField}
+        />
       )}
       {selectedPlayer && (
         <div>
@@ -119,7 +76,7 @@ function AppUI({
                   className={
                     selectedPlayer.fieldGoalClass === 'elite' ? 'bold centered dark-green' :
                     selectedPlayer.fieldGoalClass === 'vgood' ? 'bold centered green' :
-                    selectedPlayer.fieldGoalClass == 'good' ? 'bold centered light-green' :
+                    selectedPlayer.fieldGoalClass === 'good' ? 'bold centered light-green' :
                     selectedPlayer.fieldGoalClass === 'bavg' ? 'bold centered light-red' :
                     selectedPlayer.fieldGoalClass === 'ngood' ? 'bold centered red' : 'bold centered'
                   }>
@@ -129,7 +86,7 @@ function AppUI({
                   className={
                     selectedPlayer.freeThrowClass === 'elite' ? 'bold centered dark-green' :
                     selectedPlayer.freeThrowClass === 'vgood' ? 'bold centered green' :
-                    selectedPlayer.freeThrowClass == 'good' ? 'bold centered light-green' :
+                    selectedPlayer.freeThrowClass === 'good' ? 'bold centered light-green' :
                     selectedPlayer.freeThrowClass === 'bavg' ? 'bold centered light-red' :
                     selectedPlayer.freeThrowClass === 'ngood' ? 'bold centered red' : 'bold centered'
                   }>
