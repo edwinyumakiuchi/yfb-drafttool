@@ -3,43 +3,50 @@ import React from 'react';
 function PlayerRow({
   index,
   selectedValueIndex,
-  player,
-  isEliteThreePointMade,
-  isGreatThreePointMade,
-  isGoodThreePointMade,
-  isPoorThreePointMade,
-  isBadThreePointMade,
-  isElitePoints,
-  isGreatPoints,
-  isGoodPoints,
-  isPoorPoints,
-  isBadPoints,
-  isEliteTotalRebounds,
-  isGreatTotalRebounds,
-  isGoodTotalRebounds,
-  isPoorTotalRebounds,
-  isBadTotalRebounds,
-  isEliteAssists,
-  isGreatAssists,
-  isGoodAssists,
-  isPoorAssists,
-  isBadAssists,
-  isEliteSteals,
-  isGreatSteals,
-  isGoodSteals,
-  isPoorSteals,
-  isBadSteals,
-  isEliteBlocks,
-  isGreatBlocks,
-  isGoodBlocks,
-  isPoorBlocks,
-  isBadBlocks,
-  isEliteTurnovers,
-  isGreatTurnovers,
-  isGoodTurnovers,
-  isPoorTurnovers,
-  isBadTurnovers
+  player
 }) {
+  const isElitePoints = player.points >= 30;
+  const isGreatPoints = player.points >= 25 && player.points < 30;
+  const isGoodPoints = player.points >= 20 && player.points < 25;
+  const isPoorPoints = player.points >= 10 && player.points < 15;
+  const isBadPoints = player.points < 10;
+
+  const isEliteThreePointMade = player.threePointMade >= 4;
+  const isGreatThreePointMade = player.threePointMade >= 3 && player.threePointMade < 4;
+  const isGoodThreePointMade = player.threePointMade >= 2 && player.threePointMade < 3;
+  const isPoorThreePointMade = player.threePointMade >= 1 && player.threePointMade < 1.5;
+  const isBadThreePointMade = player.threePointMade < 1;
+
+  const isEliteTotalRebounds = player.totalRebounds >= 10;
+  const isGreatTotalRebounds = player.totalRebounds >= 9 && player.totalRebounds < 10;
+  const isGoodTotalRebounds = player.totalRebounds >= 7 && player.totalRebounds < 9;
+  const isPoorTotalRebounds = player.totalRebounds >= 3 && player.totalRebounds < 5;
+  const isBadTotalRebounds = player.totalRebounds < 3;
+
+  const isEliteAssists = player.assists >= 8;
+  const isGreatAssists = player.assists >= 6 && player.assists < 8;
+  const isGoodAssists = player.assists >= 4 && player.assists < 6;
+  const isPoorAssists = player.assists >= 1 && player.assists < 2;
+  const isBadAssists = player.assists < 1;
+
+  const isEliteSteals = player.steals >= 2;
+  const isGreatSteals = player.steals >= 1.5 && player.steals < 2;
+  const isGoodSteals = player.steals >= 1 && player.steals < 1.5;
+  const isPoorSteals = player.steals >= 0.5 && player.steals < 0.7;
+  const isBadSteals = player.steals < 0.5;
+
+  const isEliteBlocks = player.blocks >= 1.5;
+  const isGreatBlocks = player.blocks >= 1.2 && player.blocks < 1.5;
+  const isGoodBlocks = player.blocks >= 0.8 && player.blocks < 1.2;
+  const isPoorBlocks = player.blocks >= 0.3 && player.blocks < 0.5;
+  const isBadBlocks = player.blocks < 0.3;
+
+  const isEliteTurnovers = player.turnovers <= 0.7;
+  const isGreatTurnovers = player.turnovers <= 1 && player.turnovers > 0.7;
+  const isGoodTurnovers = player.turnovers <= 1.5 && player.turnovers > 1;
+  const isPoorTurnovers = player.turnovers < 3 && player.turnovers >= 2;
+  const isBadTurnovers = player.turnovers >= 3;
+
   return (
     <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
       <td className="bold centered">{index + 1}</td>

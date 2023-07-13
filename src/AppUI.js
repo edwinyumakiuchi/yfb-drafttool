@@ -15,89 +15,12 @@ function AppUI({
   sortOrder
 }) {
   const playerRows = matchedValues.map((player, index) => {
-    const isElitePoints = player.points >= 30;
-    const isGreatPoints = player.points >= 25 && player.points < 30;
-    const isGoodPoints = player.points >= 20 && player.points < 25;
-    const isPoorPoints = player.points >= 10 && player.points < 15;
-    const isBadPoints = player.points < 10;
-
-    const isEliteThreePointMade = player.threePointMade >= 4;
-    const isGreatThreePointMade = player.threePointMade >= 3 && player.threePointMade < 4;
-    const isGoodThreePointMade = player.threePointMade >= 2 && player.threePointMade < 3;
-    const isPoorThreePointMade = player.threePointMade >= 1 && player.threePointMade < 1.5;
-    const isBadThreePointMade = player.threePointMade < 1;
-
-    const isEliteTotalRebounds = player.totalRebounds >= 10;
-    const isGreatTotalRebounds = player.totalRebounds >= 9 && player.totalRebounds < 10;
-    const isGoodTotalRebounds = player.totalRebounds >= 7 && player.totalRebounds < 9;
-    const isPoorTotalRebounds = player.totalRebounds >= 3 && player.totalRebounds < 5;
-    const isBadTotalRebounds = player.totalRebounds < 3;
-
-    const isEliteAssists = player.assists >= 8;
-    const isGreatAssists = player.assists >= 6 && player.assists < 8;
-    const isGoodAssists = player.assists >= 4 && player.assists < 6;
-    const isPoorAssists = player.assists >= 1 && player.assists < 2;
-    const isBadAssists = player.assists < 1;
-
-    const isEliteSteals = player.steals >= 2;
-    const isGreatSteals = player.steals >= 1.5 && player.steals < 2;
-    const isGoodSteals = player.steals >= 1 && player.steals < 1.5;
-    const isPoorSteals = player.steals >= 0.5 && player.steals < 0.7;
-    const isBadSteals = player.steals < 0.5;
-
-    const isEliteBlocks = player.blocks >= 1.5;
-    const isGreatBlocks = player.blocks >= 1.2 && player.blocks < 1.5;
-    const isGoodBlocks = player.blocks >= 0.8 && player.blocks < 1.2;
-    const isPoorBlocks = player.blocks >= 0.3 && player.blocks < 0.5;
-    const isBadBlocks = player.blocks < 0.3;
-
-    const isEliteTurnovers = player.turnovers <= 0.7;
-    const isGreatTurnovers = player.turnovers <= 1 && player.turnovers > 0.7;
-    const isGoodTurnovers = player.turnovers <= 1.5 && player.turnovers > 1;
-    const isPoorTurnovers = player.turnovers < 3 && player.turnovers >= 2;
-    const isBadTurnovers = player.turnovers >= 3;
-
     return (
       <PlayerRow
         key={index}
         index={index}
         selectedValueIndex={selectedValueIndex}
         player={player}
-        isEliteThreePointMade={isEliteThreePointMade}
-        isGreatThreePointMade={isGreatThreePointMade}
-        isGoodThreePointMade={isGoodThreePointMade}
-        isPoorThreePointMade={isPoorThreePointMade}
-        isBadThreePointMade={isBadThreePointMade}
-        isElitePoints={isElitePoints}
-        isGreatPoints={isGreatPoints}
-        isGoodPoints={isGoodPoints}
-        isPoorPoints={isPoorPoints}
-        isBadPoints={isBadPoints}
-        isEliteTotalRebounds={isEliteTotalRebounds}
-        isGreatTotalRebounds={isGreatTotalRebounds}
-        isGoodTotalRebounds={isGoodTotalRebounds}
-        isPoorTotalRebounds={isPoorTotalRebounds}
-        isBadTotalRebounds={isBadTotalRebounds}
-        isEliteAssists={isEliteAssists}
-        isGreatAssists={isGreatAssists}
-        isGoodAssists={isGoodAssists}
-        isPoorAssists={isPoorAssists}
-        isBadAssists={isBadAssists}
-        isEliteSteals={isEliteSteals}
-        isGreatSteals={isGreatSteals}
-        isGoodSteals={isGoodSteals}
-        isPoorSteals={isPoorSteals}
-        isBadSteals={isBadSteals}
-        isEliteBlocks={isEliteBlocks}
-        isGreatBlocks={isGreatBlocks}
-        isGoodBlocks={isGoodBlocks}
-        isPoorBlocks={isPoorBlocks}
-        isBadBlocks={isBadBlocks}
-        isEliteTurnovers={isEliteTurnovers}
-        isGreatTurnovers={isGreatTurnovers}
-        isGoodTurnovers={isGoodTurnovers}
-        isPoorTurnovers={isPoorTurnovers}
-        isBadTurnovers={isBadTurnovers}
       />
     );
   });
