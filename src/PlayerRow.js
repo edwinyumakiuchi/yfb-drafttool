@@ -127,32 +127,60 @@ function PlayerRow({
             <thead className="header-row">
               <tr>
                 <th className="bold centered">RANK</th>
-                <th className="bold centered">ORANK</th>
-                <th className="bold centered">ADP</th>
+                <th className="bold centered" onClick={() => handleSort('originalRank')}>
+                  ORANK {sortField === 'originalRank'}
+                </th>
+                <th className="bold centered" onClick={() => handleSort('adp')}>
+                  ADP {sortField === 'adp'}
+                </th>
                 <th className="bold centered">PLAYER</th>
                 <th className="bold centered">POS</th>
                 <th className="bold centered">TEAM</th>
                 <th className="bold centered">GP</th>
-                <th className="bold centered">MPG</th>
+                <th className="bold centered" onClick={() => handleSort('minutesPerGame')}>
+                  MPG {sortField === 'minutesPerGame'}
+                </th>
                 <th className="bold centered" onClick={() => handleSort('fieldGoal')}>
                   FG% {sortField === 'fieldGoal'}
                 </th>
-                <th className="bold centered">FGM</th>
+                <th className="bold centered" onClick={() => handleSort('fieldGoalMade')}>
+                  FGM {sortField === 'fieldGoalMade'}
+                </th>
                 <th className="bold centered" onClick={() => handleSort('fieldGoalAttempt')}>
                   FGA {sortField === 'fieldGoalAttempt'}
                 </th>
-                <th className="bold centered">FT%</th>
-                <th className="bold centered">FTM</th>
-                <th className="bold centered">FTA</th>
+                <th className="bold centered" onClick={() => handleSort('freeThrow')}>
+                  FT% {sortField === 'freeThrow'}
+                </th>
+                <th className="bold centered" onClick={() => handleSort('freeThrowMade')}>
+                  FTM {sortField === 'freeThrowMade'}
+                </th>
+                <th className="bold centered" onClick={() => handleSort('freeThrowAttempt')}>
+                  FTA {sortField === 'freeThrowAttempt'}
+                </th>
                 <th className="bold centered">FG</th>
                 <th className="bold centered">FT</th>
-                <th className="bold centered">3PM</th>
-                <th className="bold centered">PTS</th>
-                <th className="bold centered">TREB</th>
-                <th className="bold centered">AST</th>
-                <th className="bold centered">STL</th>
-                <th className="bold centered">BLK</th>
-                <th className="bold centered">TO</th>
+                <th className="bold centered" onClick={() => handleSort('threePointMade')}>
+                  3PM {sortField === 'threePointMade'}
+                </th>
+                <th className="bold centered" onClick={() => handleSort('points')}>
+                  PTS {sortField === 'points'}
+                </th>
+                <th className="bold centered" onClick={() => handleSort('totalRebounds')}>
+                  TREB {sortField === 'totalRebounds'}
+                </th>
+                <th className="bold centered" onClick={() => handleSort('assists')}>
+                  AST {sortField === 'assists'}
+                </th>
+                <th className="bold centered" onClick={() => handleSort('steals')}>
+                  STL {sortField === 'steals'}
+                </th>
+                <th className="bold centered" onClick={() => handleSort('blocks')}>
+                  BLK {sortField === 'blocks'}
+                </th>
+                <th className="bold centered" onClick={() => handleSort('turnovers')}>
+                  TO {sortField === 'turnovers'}
+                </th>
                 <th className="bold centered">TOTAL</th>
               </tr>
             </thead>

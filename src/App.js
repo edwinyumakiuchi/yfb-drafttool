@@ -70,6 +70,7 @@ function App() {
     }
   };
 
+  // TODO: first click to sort with greater values on top
   const handleSort = (field) => {
     if (sortField === field) {
       // Toggle the sort order if the same field is clicked
@@ -104,6 +105,7 @@ function App() {
     }
   }, [players]);
 
+  // TODO: sorting functionality for unselected players
   return (
     <div className="App">
       <input

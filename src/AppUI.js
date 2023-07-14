@@ -16,7 +16,6 @@ function AppUI({
   sortOrder
 }) {
   const selectedPlayer = players.find((player) => player.name === inputValue);
-
   return (
     <>
       {matchedValues.length > 0 && (
