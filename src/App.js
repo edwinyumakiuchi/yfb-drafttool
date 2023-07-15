@@ -1,39 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
 import PlayerRow from './PlayerRow';
-import { login, getPlayers } from './api';
+import { useLogin, useGetPlayers } from './api';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
   const [matchedValues, setMatchedValues] = useState([]);
-  const [players, setPlayers] = useState([]);
   const [selectedValueIndex, setSelectedValueIndex] = useState(-1);
-  const [accessToken, setAccessToken] = useState('');
   const [sortField, setSortField] = useState(null);
   const [sortOrder, setSortOrder] = useState('asc');
   const inputRef = useRef(null);
 
-  useEffect(() => {
-    login((error, token) => {
-      if (error) {
-        console.error('Login API call error:', error);
-      } else {
-        setAccessToken(token);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    if (accessToken) {
-      getPlayers(accessToken, (error, fetchedPlayers) => {
-        if (error) {
-          console.error('API call error:', error);
-        } else {
-          setPlayers(fetchedPlayers);
-        }
-      });
-    }
-  }, [accessToken]);
+  const accessToken = useLogin();
+  const players = useGetPlayers(accessToken);
 
   const handleInputChange = (e) => {
     const value = e.target.value;
