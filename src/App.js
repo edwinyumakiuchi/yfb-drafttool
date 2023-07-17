@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
 import PlayerRow from './PlayerRow';
 import { useLogin, useGetPlayers } from './api';
+import { handleInputChange, handleKeyDown, handleSort } from './AppHandlers';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
@@ -13,53 +14,6 @@ function App() {
 
   const accessToken = useLogin();
   const players = useGetPlayers(accessToken);
-
-  const handleInputChange = (e) => {
-    const value = e.target.value;
-    setInputValue(value);
-
-    // Filter the matched values based on the input value
-    const filteredValues = players.filter((player) =>
-      player.name.toLowerCase().includes(value.toLowerCase())
-    );
-    setMatchedValues(filteredValues);
-    setSelectedValueIndex(-1); // Reset the selected value index
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setSelectedValueIndex((prevIndex) => {
-        const newIndex = prevIndex > 0 ? prevIndex - 1 : matchedValues.length - 1;
-        return matchedValues[newIndex] ? newIndex : prevIndex;
-      });
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setSelectedValueIndex((prevIndex) => {
-        const newIndex = prevIndex < matchedValues.length - 1 ? prevIndex + 1 : 0;
-        return matchedValues[newIndex] ? newIndex : prevIndex;
-      });
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      if (selectedValueIndex !== -1) {
-        const selectedValue = matchedValues[selectedValueIndex];
-        setInputValue(selectedValue.name);
-        setMatchedValues([]);
-      }
-    }
-  };
-
-  // TODO: first click to sort with greater values on top
-  const handleSort = (field) => {
-    if (sortField === field) {
-      // Toggle the sort order if the same field is clicked
-      setSortOrder((prevSortOrder) => (prevSortOrder === 'asc' ? 'desc' : 'asc'));
-    } else {
-      // Set the new field as the sort field and default to ascending order
-      setSortField(field);
-      setSortOrder('asc');
-    }
-  };
 
   useEffect(() => {
     const sortedValues = [...matchedValues].sort((a, b) => {
@@ -90,8 +44,12 @@ function App() {
       <input
         type="text"
         value={inputValue}
-        onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
+        onChange={(e) =>
+          handleInputChange(e, setInputValue, players, setMatchedValues, setSelectedValueIndex)
+        }
+        onKeyDown={(e) =>
+          handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedValueIndex, setInputValue, setMatchedValues)
+        }
         placeholder="Enter text"
         ref={inputRef}
       />
@@ -103,8 +61,10 @@ function App() {
         setMatchedValues={setMatchedValues}
         setSelectedValueIndex={setSelectedValueIndex}
         players={players}
-        handleKeyDown={handleKeyDown}
-        handleSort={handleSort}
+        handleKeyDown={(e) =>
+          handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedValueIndex, setInputValue, setMatchedValues)
+        }
+        handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
         sortField={sortField}
         sortOrder={sortOrder}
       />
@@ -115,7 +75,7 @@ function App() {
         <PlayerRow
           matchedValues={players}
           selectedValueIndex={-1}
-          handleSort={handleSort}
+          handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
           sortField={sortField}
         />
       )}
