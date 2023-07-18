@@ -1,16 +1,22 @@
-export function handleInputChange(e, setInputValue, players, setMatchedValues, setSelectedValueIndex) {
+export function handleInputChange(e, setInputValue, players, setMatchedValues, setSelectedValueIndex, selectedPlayers) {
   const value = e.target.value;
+  console.log('Input value:', value); // Debug message
+
   setInputValue(value);
 
   // Filter the matched values based on the input value
   const filteredValues = players.filter((player) =>
     player.name.toLowerCase().includes(value.toLowerCase())
   );
+  console.log('Filtered values:', filteredValues); // Debug message
+
   setMatchedValues(filteredValues);
   setSelectedValueIndex(-1); // Reset the selected value index
+
+  console.log('Selected players:', selectedPlayers); // Debug message
 }
 
-export function handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedValueIndex, setInputValue, setMatchedValues) {
+export function handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedValueIndex, setInputValue, setMatchedValues, selectedPlayers, setSelectedPlayers) {
   if (e.key === 'ArrowUp') {
     e.preventDefault();
     setSelectedValueIndex((prevIndex) => {
@@ -27,6 +33,15 @@ export function handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedV
     e.preventDefault();
     if (selectedValueIndex !== -1) {
       const selectedValue = matchedValues[selectedValueIndex];
+
+      console.log('Selected value:', selectedValue); // Debug message
+
+      // Store the selected player in selectedPlayers map
+      setSelectedPlayers((prevSelectedPlayers) => ({
+        ...prevSelectedPlayers,
+        [selectedValue.id]: selectedValue,
+      }));
+
       setInputValue(selectedValue.name);
       setMatchedValues([]);
     }

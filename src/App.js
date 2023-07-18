@@ -8,6 +8,7 @@ function App() {
   const [inputValue, setInputValue] = useState('');
   const [matchedValues, setMatchedValues] = useState([]);
   const [selectedValueIndex, setSelectedValueIndex] = useState(-1);
+  const [selectedPlayers, setSelectedPlayers] = useState({});
   const [sortField, setSortField] = useState(null);
   const [sortOrder, setSortOrder] = useState('asc');
   const inputRef = useRef(null);
@@ -19,7 +20,6 @@ function App() {
     const sortedValues = [...matchedValues].sort((a, b) => {
       const valueA = parseFloat(a[sortField]) || 0;
       const valueB = parseFloat(b[sortField]) || 0;
-
       return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
     });
 
@@ -45,10 +45,25 @@ function App() {
         type="text"
         value={inputValue}
         onChange={(e) =>
-          handleInputChange(e, setInputValue, players, setMatchedValues, setSelectedValueIndex)
+          handleInputChange(
+            e,
+            setInputValue,
+            players,
+            setMatchedValues,
+            setSelectedValueIndex
+          )
         }
         onKeyDown={(e) =>
-          handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedValueIndex, setInputValue, setMatchedValues)
+          handleKeyDown(
+            e,
+            setSelectedValueIndex,
+            matchedValues,
+            selectedValueIndex,
+            setInputValue,
+            setMatchedValues,
+            selectedPlayers,
+            setSelectedPlayers
+          )
         }
         placeholder="Enter text"
         ref={inputRef}
@@ -61,8 +76,19 @@ function App() {
         setMatchedValues={setMatchedValues}
         setSelectedValueIndex={setSelectedValueIndex}
         players={players}
+        selectedPlayers={selectedPlayers}
+        setSelectedPlayers={setSelectedPlayers}
         handleKeyDown={(e) =>
-          handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedValueIndex, setInputValue, setMatchedValues)
+          handleKeyDown(
+            e,
+            setSelectedValueIndex,
+            matchedValues,
+            selectedValueIndex,
+            setInputValue,
+            setMatchedValues,
+            selectedPlayers,
+            setSelectedPlayers
+          )
         }
         handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
         sortField={sortField}

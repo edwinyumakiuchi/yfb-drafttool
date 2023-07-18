@@ -10,12 +10,23 @@ function AppUI({
   setMatchedValues,
   setSelectedValueIndex,
   players,
+  selectedPlayers,
+  setSelectedPlayers,
   handleKeyDown,
   handleSort,
   sortField,
   sortOrder
 }) {
-  const selectedPlayer = players.find((player) => player.name === inputValue);
+  const handleSelectPlayer = (player) => {
+    setSelectedPlayers((prevSelectedPlayers) => ({
+      ...prevSelectedPlayers,
+      [player.id]: player,
+    }));
+    setInputValue(player.name);
+    setMatchedValues([]);
+  };
+  // console.log(`selectedPlayers: ${selectedPlayers}`);
+
   return (
     <>
       {inputValue && matchedValues.length > 0 && (
@@ -24,9 +35,15 @@ function AppUI({
           selectedValueIndex={selectedValueIndex}
           handleSort={handleSort}
           sortField={sortField}
+          handleSelectPlayer={handleSelectPlayer}
         />
       )}
-      {selectedPlayer && <SelectedPlayerRow selectedPlayer={selectedPlayer} />}
+      {selectedPlayers && (
+        <SelectedPlayerRow
+          selectedPlayers={selectedPlayers}
+          setSelectedPlayers={setSelectedPlayers}
+        />
+      )}
     </>
   );
 }
