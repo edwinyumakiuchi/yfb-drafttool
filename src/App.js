@@ -20,6 +20,7 @@ function App() {
     const sortedValues = [...matchedValues].sort((a, b) => {
       const valueA = parseFloat(a[sortField]) || 0;
       const valueB = parseFloat(b[sortField]) || 0;
+
       return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
     });
 

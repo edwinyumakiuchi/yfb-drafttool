@@ -1,7 +1,5 @@
-export function handleInputChange(e, setInputValue, players, setMatchedValues, setSelectedValueIndex, selectedPlayers) {
+export function handleInputChange(e, setInputValue, players, setMatchedValues, setSelectedValueIndex) {
   const value = e.target.value;
-  console.log('Input value:', value); // Debug message
-
   setInputValue(value);
 
   // Filter the matched values based on the input value
