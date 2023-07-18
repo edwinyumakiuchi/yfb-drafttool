@@ -1,0 +1,198 @@
+const secretConfig = require('./src/secretConfig.js');
+const fetch = require('node-fetch');
+const cheerio = require('cheerio');
+
+// Define the MongoDB API endpoint and API key
+const API_ENDPOINT = 'https://us-west-2.aws.data.mongodb-api.com/app/data-natmv/endpoint/data/v1/action/';
+const API_DELETEMANY_ENDPOINT = 'deleteMany';
+const API_INSERTONE_ENDPOINT = 'insertOne';
+const API_KEY = secretConfig.mongoKey;
+
+// Function to scrape the webpage and store data using the MongoDB API
+async function scrapeAndStoreData() {
+  try {
+    const response = await fetch('https://hashtagbasketball.com/fantasy-basketball-projections');
+    const html = await response.text();
+    const $ = cheerio.load(html);
+
+    const fetchedPlayers = [];
+
+    $('#ContentPlaceHolder1_GridView1 tr:has(td)').each((index, element) => {
+      const playerNameElement = $(element).find('a');
+      const playerName = playerNameElement.text().trim();
+
+      if (!playerName) {
+        return; // Skip to the next iteration if playerName is falsy
+      }
+
+      let playerRank = 0, playerADP = 0, playerPos = 0, playerTeam = 0, playerGP = 0, playerMPG = 0, playerFG = 0,
+        playerFGM = 0, playerFGA = 0, playerFGClass = '', playerFT = 0, playerFTM = 0, playerFTA = 0,
+        playerFTClass = '', playerTPM = 0, playerPTS = 0, playerTREB = 0, playerAST = 0, playerSTL = 0, playerBLK = 0,
+        playerTO = 0, playerTotal = 0
+
+      $(element).find('td').each((index, tdElement) => {
+        const tdValue = $(tdElement).text().trim();
+        const tdClass = $(tdElement).attr('class');
+
+        // TODO: retrieve colorcode class for all categories?
+        switch (index) {
+          case 0:
+            playerRank = tdValue
+            break;
+          case 1:
+            playerADP = tdValue
+            break;
+          case 3:
+            playerPos = tdValue
+            break;
+          case 4:
+            playerTeam = tdValue
+            break;
+          case 5:
+            playerGP = tdValue
+            break;
+          case 6:
+            playerMPG = tdValue
+            break;
+          case 7:
+            playerFG = tdValue
+            const matchFGResult = playerFG.match(/\((.*?)\)/);
+            [playerFGM, playerFGA] = matchFGResult[1].split('/').map(value => value.trim());
+            playerFG = playerFG.trim().split('\n')[0];
+            playerFGClass = tdClass
+            break;
+          case 8:
+            playerFT = tdValue
+            const matchFTResult = playerFT.match(/\((.*?)\)/);
+            [playerFTM, playerFTA] = matchFTResult[1].split('/').map(value => value.trim());
+            playerFT = playerFT.trim().split('\n')[0];
+            playerFTClass = tdClass
+            break;
+          case 9:
+            playerTPM = tdValue
+            break;
+          case 10:
+            playerPTS = tdValue
+            break;
+          case 11:
+            playerTREB = tdValue
+            break;
+          case 12:
+            playerAST = tdValue
+            break;
+          case 13:
+            playerSTL = tdValue
+            break;
+          case 14:
+            playerBLK = tdValue
+            break;
+          case 15:
+            playerTO = tdValue
+            break;
+          case 16:
+            playerTotal = tdValue
+            break;
+        }
+      });
+
+      fetchedPlayers.push({ name: playerName,
+        rank: playerRank,
+        adp: playerADP,
+        position: playerPos,
+        team: playerTeam,
+        gp: playerGP,
+        minutesPerGame: playerMPG,
+        fieldGoal: playerFG,
+        fieldGoalMade: playerFGM,
+        fieldGoalAttempt: playerFGA,
+        fieldGoalClass: playerFGClass,
+        freeThrow: playerFT,
+        freeThrowMade: playerFTM,
+        freeThrowAttempt: playerFTA,
+        freeThrowClass: playerFTClass,
+        threePointMade: playerTPM,
+        points: playerPTS,
+        totalRebounds: playerTREB,
+        assists: playerAST,
+        steals: playerSTL,
+        blocks: playerBLK,
+        turnovers: playerTO,
+        total: playerTotal});
+    });
+
+    // Delete all documents in the collection using the MongoDB API
+    const deleteManyResponse = await fetch(API_ENDPOINT + API_DELETEMANY_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'api-key': API_KEY,
+      },
+      body: JSON.stringify({
+        dataSource: 'Cluster0',
+        database: 'sample-nba',
+        collection: 'projections',
+        filter: {},
+      }),
+    });
+
+    if (deleteManyResponse.ok) {
+      console.log('All documents deleted successfully!');
+    } else {
+      console.error('Error deleting documents');
+    }
+
+    // Store the scraped data using the MongoDB API
+    for (const player of fetchedPlayers) {
+      const insertOneResponse = await fetch(API_ENDPOINT + API_INSERTONE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'api-key': API_KEY,
+        },
+        body: JSON.stringify({
+          dataSource: 'Cluster0',
+          database: 'sample-nba',
+          collection: 'projections',
+          document: {
+            name: player.name,
+            rank: player.rank,
+            adp: player.adp,
+            position: player.position,
+            team: player.team,
+            gp: player.gp,
+            minutesPerGame: player.minutesPerGame,
+            fieldGoal: player.fieldGoal,
+            fieldGoalMade: player.fieldGoalMade,
+            fieldGoalAttempt: player.fieldGoalAttempt,
+            fieldGoalClass: player.fieldGoalClass,
+            freeThrow: player.freeThrow,
+            freeThrowMade: player.freeThrowMade,
+            freeThrowAttempt: player.freeThrowAttempt,
+            freeThrowClass: player.freeThrowClass,
+            threePointMade: player.threePointMade,
+            points: player.points,
+            totalRebounds: player.totalRebounds,
+            assists: player.assists,
+            steals: player.steals,
+            blocks: player.blocks,
+            turnovers: player.turnovers,
+            total: player.total
+          },
+        }),
+      });
+
+      if (insertOneResponse.ok) {
+        console.log(`Player ${player.name} stored successfully!`);
+      } else {
+        console.error(`Error storing player ${player.name}`);
+      }
+    }
+
+    console.log('Data scraped and stored successfully!');
+  } catch (error) {
+    console.error('Error scraping and storing data:', error);
+  }
+}
+
+// Call the function to scrape and store data
+scrapeAndStoreData();
