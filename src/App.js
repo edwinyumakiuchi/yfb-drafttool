@@ -15,15 +15,30 @@ function App() {
   const accessToken = useLogin();
   const players = useGetPlayers(accessToken);
 
+  function arraysAreEqual(arr1, arr2) {
+    if (arr1.length !== arr2.length) {
+      return false;
+    }
+
+    for (let i = 0; i < arr1.length; i++) {
+      if (arr1[i] !== arr2[i]) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   useEffect(() => {
     const sortedValues = [...matchedValues].sort((a, b) => {
       const valueA = parseFloat(a[sortField]) || 0;
       const valueB = parseFloat(b[sortField]) || 0;
-
       return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
     });
 
-    setMatchedValues(sortedValues);
+    if (!arraysAreEqual(sortedValues, matchedValues)) {
+      setMatchedValues(sortedValues);
+    }
   }, [sortField, sortOrder, matchedValues]);
 
   useEffect(() => {
