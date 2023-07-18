@@ -18,7 +18,7 @@ function AppUI({
   const selectedPlayer = players.find((player) => player.name === inputValue);
   return (
     <>
-      {inputValue && matchedValues.length > 0 && (
+      {matchedValues.length > 0 && (
         <PlayerRow
           matchedValues={matchedValues}
           selectedValueIndex={selectedValueIndex}
