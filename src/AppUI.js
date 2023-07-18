@@ -29,7 +29,7 @@ function AppUI({
 
   return (
     <>
-      {inputValue && matchedValues.length > 0 && (
+      {matchedValues.length > 0 && (
         <PlayerRow
           matchedValues={matchedValues}
           selectedValueIndex={selectedValueIndex}

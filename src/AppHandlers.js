@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function handleInputChange(e, setInputValue, players, setMatchedValues, setSelectedValueIndex) {
   const value = e.target.value;
   setInputValue(value);
@@ -55,4 +57,18 @@ export function handleSort(field, sortField, setSortOrder, setSortField) {
     setSortField(field);
     setSortOrder('asc');
   }
+}
+
+export function arraysAreEqual(arr1, arr2) {
+  if (arr1.length !== arr2.length) {
+    return false;
+  }
+
+  for (let i = 0; i < arr1.length; i++) {
+    if (arr1[i] !== arr2[i]) {
+      return false;
+    }
+  }
+
+  return true;
 }

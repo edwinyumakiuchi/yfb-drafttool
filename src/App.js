@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
 import PlayerRow from './PlayerRow';
 import { useLogin, useGetPlayers } from './api';
-import { handleInputChange, handleKeyDown, handleSort } from './AppHandlers';
+import { handleInputChange, handleKeyDown, handleSort, arraysAreEqual } from './AppHandlers';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
@@ -20,11 +20,12 @@ function App() {
     const sortedValues = [...matchedValues].sort((a, b) => {
       const valueA = parseFloat(a[sortField]) || 0;
       const valueB = parseFloat(b[sortField]) || 0;
-
       return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
     });
 
-    setMatchedValues(sortedValues);
+    if (!arraysAreEqual(sortedValues, matchedValues)) {
+      setMatchedValues(sortedValues);
+    }
   }, [sortField, sortOrder, matchedValues]);
 
   useEffect(() => {
@@ -98,12 +99,14 @@ function App() {
       <br />
       <br />
       <br />
-      <PlayerRow
-        matchedValues={players}
-        selectedValueIndex={-1}
-        handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
-        sortField={sortField}
-      />
+      {inputValue && (
+        <PlayerRow
+          matchedValues={players}
+          selectedValueIndex={-1}
+          handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
+          sortField={sortField}
+        />
+      )}
     </div>
   );
 }
