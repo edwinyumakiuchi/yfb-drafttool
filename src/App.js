@@ -72,12 +72,14 @@ function App() {
       <br />
       <br />
       <br />
-      <PlayerRow
-        matchedValues={players}
-        selectedValueIndex={-1}
-        handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
-        sortField={sortField}
-      />
+      {inputValue && (
+        <PlayerRow
+          matchedValues={players}
+          selectedValueIndex={-1}
+          handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
+          sortField={sortField}
+        />
+      )}
     </div>
   );
 }
