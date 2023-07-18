@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
 import PlayerRow from './PlayerRow';
 import { useLogin, useGetPlayers } from './api';
-import { handleInputChange, handleKeyDown, handleSort } from './AppHandlers';
+import { handleInputChange, handleKeyDown, handleSort, arraysAreEqual } from './AppHandlers';
 
 function App() {
   const [inputValue, setInputValue] = useState('');
@@ -14,20 +14,6 @@ function App() {
 
   const accessToken = useLogin();
   const players = useGetPlayers(accessToken);
-
-  function arraysAreEqual(arr1, arr2) {
-    if (arr1.length !== arr2.length) {
-      return false;
-    }
-
-    for (let i = 0; i < arr1.length; i++) {
-      if (arr1[i] !== arr2[i]) {
-        return false;
-      }
-    }
-
-    return true;
-  }
 
   useEffect(() => {
     const sortedValues = [...matchedValues].sort((a, b) => {
