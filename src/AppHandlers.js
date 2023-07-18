@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function handleInputChange(e, setInputValue, players, setMatchedValues, setSelectedValueIndex) {
+export function handleInputChange(e, setInputValue, players, setMatchedValues, setSelectedValueIndex, selectedPlayers) {
   const value = e.target.value;
   setInputValue(value);
 
