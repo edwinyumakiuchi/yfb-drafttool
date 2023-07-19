@@ -25,11 +25,10 @@ function AppUI({
     setInputValue(player.name);
     setMatchedValues([]);
   };
-  // console.log(`selectedPlayers: ${selectedPlayers}`);
 
   return (
     <>
-      {matchedValues.length > 0 && (
+      {inputValue && matchedValues.length > 0 && (
         <PlayerRow
           matchedValues={matchedValues}
           selectedValueIndex={selectedValueIndex}

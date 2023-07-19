@@ -40,7 +40,10 @@ function App() {
     }
   }, [players]);
 
-  // TODO: sorting functionality for unselected players
+  // TODO: fix sorting functionality
+  // this commit seems to break the sorting functionality
+  // https://github.com/edwinyumakiuchi/yfb-drafttool/commit/bbc37864fb9ebbd034384fcda7bef6b5c8b95cfd
+  // however this is also required so selected players are stored properly
   return (
     <div className="App">
       <input
@@ -99,14 +102,12 @@ function App() {
       <br />
       <br />
       <br />
-      {inputValue && (
-        <PlayerRow
-          matchedValues={players}
-          selectedValueIndex={-1}
-          handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
-          sortField={sortField}
-        />
-      )}
+      <PlayerRow
+        matchedValues={players}
+        selectedValueIndex={-1}
+        handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
+        sortField={sortField}
+      />
     </div>
   );
 }
