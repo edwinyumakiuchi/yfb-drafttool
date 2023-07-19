@@ -26,7 +26,7 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers }) {
       assists: formatNumber(sum('assists') / numPlayers),
       steals: formatNumber(sum('steals') / numPlayers),
       blocks: formatNumber(sum('blocks') / numPlayers),
-      turnovers: formatNumber(sum('turnovers') / numPlayers),
+      turnovers: formatNumber(sum('turnovers') / numPlayers)
     };
   };
 
@@ -191,14 +191,30 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers }) {
               <td className="bold centered"></td>
               <td className="bold centered"></td>
               <td className="bold centered"></td>
-              <td className="bold centered"></td>
+              <td className="bold centered">
+                {isNaN(averages.fieldGoalMade / averages.fieldGoalAttempt)
+                  ? ''
+                  : (averages.fieldGoalMade / averages.fieldGoalAttempt).toFixed(3)}
+              </td>
               <td className="bold centered">{averages.fieldGoalMade}</td>
               <td className="bold centered">{averages.fieldGoalAttempt}</td>
-              <td className="bold centered"></td>
+              <td className="bold centered">
+                {isNaN(averages.freeThrowMade / averages.freeThrowAttempt)
+                  ? ''
+                  : (averages.freeThrowMade / averages.freeThrowAttempt).toFixed(3)}
+              </td>
               <td className="bold centered">{averages.freeThrowMade}</td>
               <td className="bold centered">{averages.freeThrowAttempt}</td>
-              <td className="bold centered"></td>
-              <td className="bold centered"></td>
+              <td className="bold centered">
+                {isNaN(averages.fieldGoalMade / averages.fieldGoalAttempt)
+                  ? ''
+                  : `${(averages.fieldGoalMade / averages.fieldGoalAttempt).toFixed(3)} (${averages.fieldGoalMade}/${averages.fieldGoalAttempt})`}
+              </td>
+              <td className="bold centered">
+                {isNaN(averages.freeThrowMade / averages.freeThrowAttempt)
+                  ? ''
+                  : `${(averages.freeThrowMade / averages.freeThrowAttempt).toFixed(3)} (${averages.freeThrowMade}/${averages.freeThrowAttempt})`}
+              </td>
               <td className="bold centered">{averages.threePointMade}</td>
               <td className="bold centered">{averages.points}</td>
               <td className="bold centered">{averages.totalRebounds}</td>
