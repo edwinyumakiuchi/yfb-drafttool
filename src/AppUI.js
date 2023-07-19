@@ -17,15 +17,6 @@ function AppUI({
   sortField,
   sortOrder
 }) {
-  const handleSelectPlayer = (player) => {
-    setSelectedPlayers((prevSelectedPlayers) => ({
-      ...prevSelectedPlayers,
-      [player.id]: player,
-    }));
-    setInputValue(player.name);
-    setMatchedValues([]);
-  };
-
   return (
     <>
       {inputValue && matchedValues.length > 0 && (
@@ -34,7 +25,6 @@ function AppUI({
           selectedValueIndex={selectedValueIndex}
           handleSort={handleSort}
           sortField={sortField}
-          handleSelectPlayer={handleSelectPlayer}
         />
       )}
       {selectedPlayers && (

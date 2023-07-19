@@ -6,15 +6,14 @@ export function handleInputChange(e, setInputValue, players, setMatchedValues, s
   const filteredValues = players.filter((player) =>
     player.name.toLowerCase().includes(value.toLowerCase())
   );
-  console.log('Filtered values:', filteredValues); // Debug message
 
   setMatchedValues(filteredValues);
   setSelectedValueIndex(-1); // Reset the selected value index
-
-  console.log('Selected players:', selectedPlayers); // Debug message
 }
 
-export function handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedValueIndex, setInputValue, setMatchedValues, selectedPlayers, setSelectedPlayers) {
+export function handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedValueIndex, setInputValue,
+  setMatchedValues, selectedPlayers, setSelectedPlayers, playerID, setPlayerID) {
+
   if (e.key === 'ArrowUp') {
     e.preventDefault();
     setSelectedValueIndex((prevIndex) => {
@@ -32,14 +31,20 @@ export function handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedV
     if (selectedValueIndex !== -1) {
       const selectedValue = matchedValues[selectedValueIndex];
 
-      console.log('Selected value:', selectedValue); // Debug message
+      // Generate a unique id for the selected player using the playerID state variable
+      const newPlayerID = playerID + 1;
 
-      // Store the selected player in selectedPlayers map
+      // Store the selected player in selectedPlayers map with the new id
       setSelectedPlayers((prevSelectedPlayers) => ({
         ...prevSelectedPlayers,
-        [selectedValue.id]: selectedValue,
+        [newPlayerID]: {
+          ...selectedValue,
+          id: newPlayerID,
+        },
       }));
 
+      // Update the playerID state to increment for the next player
+      setPlayerID(newPlayerID);
       setInputValue(selectedValue.name);
       setMatchedValues([]);
     }

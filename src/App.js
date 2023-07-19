@@ -5,13 +5,14 @@ import { useLogin, useGetPlayers } from './api';
 import { handleInputChange, handleKeyDown, handleSort, arraysAreEqual } from './AppHandlers';
 
 function App() {
+  const inputRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
   const [matchedValues, setMatchedValues] = useState([]);
   const [selectedValueIndex, setSelectedValueIndex] = useState(-1);
   const [selectedPlayers, setSelectedPlayers] = useState({});
+  const [playerID, setPlayerID] = useState(0);
   const [sortField, setSortField] = useState(null);
   const [sortOrder, setSortOrder] = useState('asc');
-  const inputRef = useRef(null);
 
   const accessToken = useLogin();
   const players = useGetPlayers(accessToken);
@@ -67,7 +68,9 @@ function App() {
             setInputValue,
             setMatchedValues,
             selectedPlayers,
-            setSelectedPlayers
+            setSelectedPlayers,
+            playerID,
+            setPlayerID
           )
         }
         placeholder="Enter text"
@@ -92,7 +95,9 @@ function App() {
             setInputValue,
             setMatchedValues,
             selectedPlayers,
-            setSelectedPlayers
+            setSelectedPlayers,
+            playerID,
+            setPlayerID
           )
         }
         handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
