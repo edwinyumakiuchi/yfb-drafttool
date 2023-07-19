@@ -1,6 +1,37 @@
 import React from 'react';
 
 function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers }) {
+  // Function to calculate column averages
+  const calculateAverages = () => {
+    const numPlayers = Object.values(selectedPlayers).length;
+    const sum = (field) =>
+      Object.values(selectedPlayers).reduce((acc, player) => {
+        const fieldValue = parseFloat(player[field]); // Parse the field value as a float
+        return isNaN(fieldValue) ? acc : acc + fieldValue; // Exclude NaN and add numeric values
+      }, 0);
+
+    const formatNumber = (num) => {
+      const formattedNumber = Number(num.toFixed(4));
+      return isNaN(formattedNumber) ? '' : formattedNumber.toString();
+    };
+
+    return {
+      fieldGoalMade: formatNumber(sum('fieldGoalMade') / numPlayers),
+      fieldGoalAttempt: formatNumber(sum('fieldGoalAttempt') / numPlayers),
+      freeThrowMade: formatNumber(sum('freeThrowMade') / numPlayers),
+      freeThrowAttempt: formatNumber(sum('freeThrowAttempt') / numPlayers),
+      threePointMade: formatNumber(sum('threePointMade') / numPlayers),
+      points: formatNumber(sum('points') / numPlayers),
+      totalRebounds: formatNumber(sum('totalRebounds') / numPlayers),
+      assists: formatNumber(sum('assists') / numPlayers),
+      steals: formatNumber(sum('steals') / numPlayers),
+      blocks: formatNumber(sum('blocks') / numPlayers),
+      turnovers: formatNumber(sum('turnovers') / numPlayers),
+    };
+  };
+
+  const averages = calculateAverages();
+
   return (
     <>
       <div>
@@ -151,6 +182,32 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers }) {
                 <td className="bold centered">{selectedPlayer.total}</td>
               </tr>
             ))}
+            {/* Render the row for averages */}
+            <tr>
+              <td className="bold centered">AVERAGE</td>
+              <td className="bold centered"></td>
+              <td className="bold centered"></td>
+              <td className="bold centered"></td>
+              <td className="bold centered"></td>
+              <td className="bold centered"></td>
+              <td className="bold centered"></td>
+              <td className="bold centered"></td>
+              <td className="bold centered">{averages.fieldGoalMade}</td>
+              <td className="bold centered">{averages.fieldGoalAttempt}</td>
+              <td className="bold centered"></td>
+              <td className="bold centered">{averages.freeThrowMade}</td>
+              <td className="bold centered">{averages.freeThrowAttempt}</td>
+              <td className="bold centered"></td>
+              <td className="bold centered"></td>
+              <td className="bold centered">{averages.threePointMade}</td>
+              <td className="bold centered">{averages.points}</td>
+              <td className="bold centered">{averages.totalRebounds}</td>
+              <td className="bold centered">{averages.assists}</td>
+              <td className="bold centered">{averages.steals}</td>
+              <td className="bold centered">{averages.blocks}</td>
+              <td className="bold centered">{averages.turnovers}</td>
+              <td className="bold centered"></td>
+            </tr>
           </tbody>
         </table>
       </div>
