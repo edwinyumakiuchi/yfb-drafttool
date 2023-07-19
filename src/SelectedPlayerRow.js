@@ -1,4 +1,6 @@
 import React from 'react';
+import { getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
+         getStealClass, getBlockClass, getTurnoverClass } from './classHelper';
 
 function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers }) {
   // Function to calculate column averages
@@ -102,81 +104,25 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers }) {
                 >
                   {selectedPlayer.freeThrow} ({selectedPlayer.freeThrowMade}/{selectedPlayer.freeThrowAttempt})
                 </td>
-                <td
-                  className={
-                    selectedPlayer.threePointMade >= 4 ? 'bold centered dark-green' :
-                    selectedPlayer.threePointMade >= 3 && selectedPlayer.threePointMade < 4 ? 'bold centered green' :
-                    selectedPlayer.threePointMade >= 2 && selectedPlayer.threePointMade < 3 ? 'bold centered light-green' :
-                    selectedPlayer.threePointMade >= 1 && selectedPlayer.threePointMade < 1.5 ? 'bold centered light-red' :
-                    selectedPlayer.threePointMade < 1 ? 'bold centered red' : 'bold centered'
-                  }
-                >
+                <td className={getThreePointMadeClass(selectedPlayer.threePointMade)}>
                   {selectedPlayer.threePointMade}
                 </td>
-                <td
-                  className={
-                    selectedPlayer.points >= 30 ? 'bold centered dark-green' :
-                    selectedPlayer.points >= 25 && selectedPlayer.points < 30 ? 'bold centered green' :
-                    selectedPlayer.points >= 20 && selectedPlayer.points < 25 ? 'bold centered light-green' :
-                    selectedPlayer.points >= 10 && selectedPlayer.points < 15 ? 'bold centered light-red' :
-                    selectedPlayer.points < 10 ? 'bold centered red' : 'bold centered'
-                  }
-                >
+                <td className={getPointClass(selectedPlayer.points)}>
                   {selectedPlayer.points}
                 </td>
-                <td
-                  className={
-                    selectedPlayer.totalRebounds >= 10 ? 'bold centered dark-green' :
-                    selectedPlayer.totalRebounds >= 9 && selectedPlayer.totalRebounds < 10 ? 'bold centered green' :
-                    selectedPlayer.totalRebounds >= 7 && selectedPlayer.totalRebounds < 9 ? 'bold centered light-green' :
-                    selectedPlayer.totalRebounds >= 3 && selectedPlayer.totalRebounds < 5 ? 'bold centered light-red' :
-                    selectedPlayer.totalRebounds < 3 ? 'bold centered red' : 'bold centered'
-                  }
-                >
+                <td className={getReboundClass(selectedPlayer.totalRebounds)}>
                   {selectedPlayer.totalRebounds}
                 </td>
-                <td
-                  className={
-                    selectedPlayer.assists >= 8 ? 'bold centered dark-green' :
-                    selectedPlayer.assists >= 6 && selectedPlayer.assists < 8 ? 'bold centered green' :
-                    selectedPlayer.assists >= 4 && selectedPlayer.assists < 6 ? 'bold centered light-green' :
-                    selectedPlayer.assists >= 1 && selectedPlayer.assists < 2 ? 'bold centered light-red' :
-                    selectedPlayer.assists < 1 ? 'bold centered red' : 'bold centered'
-                  }
-                >
+                <td className={getAssistClass(selectedPlayer.assists)}>
                   {selectedPlayer.assists}
                 </td>
-                <td
-                  className={
-                    selectedPlayer.steals >= 2 ? 'bold centered dark-green' :
-                    selectedPlayer.steals >= 1.5 && selectedPlayer.steals < 2 ? 'bold centered green' :
-                    selectedPlayer.steals >= 1 && selectedPlayer.steals < 1.5 ? 'bold centered light-green' :
-                    selectedPlayer.steals >= 0.5 && selectedPlayer.steals < 0.7 ? 'bold centered light-red' :
-                    selectedPlayer.steals < 0.5 ? 'bold centered red' : 'bold centered'
-                  }
-                >
+                <td className={getStealClass(selectedPlayer.steals)}>
                   {selectedPlayer.steals}
                 </td>
-                <td
-                  className={
-                    selectedPlayer.blocks >= 1.5 ? 'bold centered dark-green' :
-                    selectedPlayer.blocks >= 1.2 && selectedPlayer.blocks < 1.5 ? 'bold centered green' :
-                    selectedPlayer.blocks >= 0.8 && selectedPlayer.blocks < 1.2 ? 'bold centered light-green' :
-                    selectedPlayer.blocks >= 0.3 && selectedPlayer.blocks < 0.5 ? 'bold centered light-red' :
-                    selectedPlayer.blocks < 0.3 ? 'bold centered red' : 'bold centered'
-                  }
-                >
+                <td className={getBlockClass(selectedPlayer.blocks)}>
                   {selectedPlayer.blocks}
                 </td>
-                <td
-                  className={
-                    selectedPlayer.turnovers <= 0.7 ? 'bold centered dark-green' :
-                    selectedPlayer.turnovers <= 1 && selectedPlayer.turnovers > 0.7 ? 'bold centered green' :
-                    selectedPlayer.turnovers <= 1.5 && selectedPlayer.turnovers > 1 ? 'bold centered light-green' :
-                    selectedPlayer.turnovers < 3 && selectedPlayer.turnovers >= 2 ? 'bold centered light-red' :
-                    selectedPlayer.turnovers >= 3 ? 'bold centered red' : 'bold centered'
-                  }
-                >
+                <td className={getTurnoverClass(selectedPlayer.turnovers)}>
                   {selectedPlayer.turnovers}
                 </td>
                 <td className="bold centered">{selectedPlayer.total}</td>
@@ -215,13 +161,13 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers }) {
                   ? ''
                   : `${(averages.freeThrowMade / averages.freeThrowAttempt).toFixed(3)} (${averages.freeThrowMade}/${averages.freeThrowAttempt})`}
               </td>
-              <td className="bold centered">{averages.threePointMade}</td>
-              <td className="bold centered">{averages.points}</td>
-              <td className="bold centered">{averages.totalRebounds}</td>
-              <td className="bold centered">{averages.assists}</td>
-              <td className="bold centered">{averages.steals}</td>
-              <td className="bold centered">{averages.blocks}</td>
-              <td className="bold centered">{averages.turnovers}</td>
+              <td className={getThreePointMadeClass(averages.threePointMade)}>{averages.threePointMade}</td>
+              <td className={getPointClass(averages.points)}>{averages.points}</td>
+              <td className={getReboundClass(averages.totalRebounds)}>{averages.totalRebounds}</td>
+              <td className={getAssistClass(averages.assists)}>{averages.assists}</td>
+              <td className={getStealClass(averages.steals)}>{averages.steals}</td>
+              <td className={getBlockClass(averages.blocks)}>{averages.blocks}</td>
+              <td className={getTurnoverClass(averages.turnovers)}>{averages.turnovers}</td>
               <td className="bold centered"></td>
             </tr>
           </tbody>
