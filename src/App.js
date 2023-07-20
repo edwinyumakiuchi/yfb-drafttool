@@ -41,6 +41,20 @@ function App() {
     }
   }, [players]);
 
+  // Calculate the league averages
+  const leagueAverages = players.reduce((averages, player) => {
+    Object.entries(player).forEach(([field, value]) => {
+      if (field !== 'id' && !isNaN(parseFloat(value))) {
+        averages[field] = (averages[field] || 0) + parseFloat(value);
+      }
+    });
+    return averages;
+  }, {});
+
+  Object.entries(leagueAverages).forEach(([field, sum]) => {
+    leagueAverages[field] = sum / players.length;
+  });
+
   // TODO: fix sorting functionality
   // this commit seems to break the sorting functionality
   // https://github.com/edwinyumakiuchi/yfb-drafttool/commit/bbc37864fb9ebbd034384fcda7bef6b5c8b95cfd
@@ -103,6 +117,7 @@ function App() {
         handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
         sortField={sortField}
         sortOrder={sortOrder}
+        leagueAverages={leagueAverages}
       />
       <br />
       <br />

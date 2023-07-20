@@ -15,7 +15,8 @@ function AppUI({
   handleKeyDown,
   handleSort,
   sortField,
-  sortOrder
+  sortOrder,
+  leagueAverages
 }) {
   return (
     <>
@@ -31,6 +32,7 @@ function AppUI({
         <SelectedPlayerRow
           selectedPlayers={selectedPlayers}
           setSelectedPlayers={setSelectedPlayers}
+          leagueAverages={leagueAverages}
         />
       )}
     </>

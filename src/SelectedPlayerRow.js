@@ -1,8 +1,8 @@
 import React from 'react';
-import { getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
+import { getFieldGoalClass, getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
          getStealClass, getBlockClass, getTurnoverClass } from './classHelper';
 
-function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers }) {
+function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages }) {
   // Function to calculate column averages
   const calculateAverages = () => {
     const numPlayers = Object.values(selectedPlayers).length;
@@ -129,6 +129,8 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers }) {
               </tr>
             ))}
             {/* Render the row for averages */}
+            {/* Display number of players for each position */}
+            {/* e.g. PG: 2, SG: 1, SF: 0, PF: 0, C: 1 */}
             <tr>
               <td className="bold centered">AVERAGE</td>
               <td className="bold centered"></td>
@@ -151,7 +153,7 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers }) {
               </td>
               <td className="bold centered">{averages.freeThrowMade}</td>
               <td className="bold centered">{averages.freeThrowAttempt}</td>
-              <td className="bold centered">
+              <td className={getFieldGoalClass(averages.fieldGoalMade, averages.fieldGoalAttempt, leagueAverages)}>
                 {isNaN(averages.fieldGoalMade / averages.fieldGoalAttempt)
                   ? ''
                   : `${(averages.fieldGoalMade / averages.fieldGoalAttempt).toFixed(3)} (${averages.fieldGoalMade}/${averages.fieldGoalAttempt})`}

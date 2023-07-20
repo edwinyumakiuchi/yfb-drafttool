@@ -1,3 +1,26 @@
+function getFieldGoalClass(fieldGoalMade, fieldGoalAttempt, leagueAverages) {
+  if (!fieldGoalMade || !fieldGoalAttempt) return;
+
+  const leagueFieldGoalPercentage = (leagueAverages.fieldGoal + (leagueAverages.fieldGoalMade / leagueAverages.fieldGoalAttempt))/2;
+  const playerFieldGoalPercentage = fieldGoalMade / fieldGoalAttempt;
+  const value = (playerFieldGoalPercentage - leagueFieldGoalPercentage) * (fieldGoalAttempt / leagueAverages.fieldGoalAttempt);
+
+  switch (true) {
+    case value >= 0.075:
+      return 'bold centered dark-green';
+    case value >= 0.03 && value < 0.075:
+      return 'bold centered green';
+    case value >= 0 && value < 0.03:
+      return 'bold centered light-green';
+    case value >= -0.05 && value < -0.02:
+      return 'bold centered light-red';
+    case value < -0.05:
+      return 'bold centered red';
+    default:
+      return 'bold centered';
+  }
+}
+
 function getThreePointMadeClass(value) {
   if (!value) return;
 
@@ -132,11 +155,12 @@ function getTurnoverClass(value) {
 }
 
 export {
+  getFieldGoalClass,
   getThreePointMadeClass,
   getPointClass,
   getReboundClass,
   getAssistClass,
   getStealClass,
   getBlockClass,
-  getTurnoverClass,
+  getTurnoverClass
 };
