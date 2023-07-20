@@ -28,6 +28,7 @@ function AppUI({
           sortField={sortField}
         />
       )}
+      <br />
       {selectedPlayers && (
         <SelectedPlayerRow
           selectedPlayers={selectedPlayers}

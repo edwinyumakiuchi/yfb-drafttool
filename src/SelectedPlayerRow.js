@@ -32,28 +32,7 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages
     };
   };
 
-  function countPositions(selectedPlayers) {
-    const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
-    const positionCounts = positions.reduce((acc, position) => {
-      acc[position] = 0;
-      return acc;
-    }, {});
-
-    Object.values(selectedPlayers).forEach((selectedPlayer) => {
-      const playerPositions = selectedPlayer.position.split(',').map((pos) => pos.trim());
-      playerPositions.forEach((position) => {
-        if (positionCounts.hasOwnProperty(position)) {
-          positionCounts[position]++;
-        }
-      });
-    });
-
-    return positionCounts;
-  }
-
   const averages = calculateAverages();
-  const positionCounts = countPositions(selectedPlayers);
-  const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
 
   return (
     <>
@@ -203,20 +182,6 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages
         <br />
         <br />
         <br />
-        <table className="bordered-table">
-          <tbody>
-            <tr>
-              {positions.map((position) => (
-                <td key={position} className="bold centered">{position}</td>
-              ))}
-            </tr>
-            <tr>
-              {positions.map((position) => (
-                <td key={position} className="bold centered">{positionCounts[position]}</td>
-              ))}
-            </tr>
-          </tbody>
-        </table>
       </div>
     </>
   );

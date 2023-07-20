@@ -92,3 +92,44 @@ th {
   background-color: #cce6ff;
   color: black;
 }
+
+.app-container {
+  display: flex;
+  justify-content: space-between; /* Positions the input-table-container and left-tables-container on opposite sides */
+  align-items: center; /* Optional: Align vertically centered */
+}
+
+.input-table-container {
+  display: grid;
+  grid-template-columns: 200px 500px; /* Set the width of the textbox and the table */
+  column-gap: 10px; /* Optional: Add some gap between the input and the table */
+  height: 30px; /* Set the desired height of the container */
+}
+
+.input-table-container input {
+  height: 100%; /* Set the height of the input to fill the container height */
+}
+
+.input-table-container table {
+  width: 100%;
+}
+
+.input-table-container td {
+  height: 1em; /* Set a fixed height for the table cells */
+  white-space: nowrap; /* Prevents text from wrapping to the next line */
+  overflow: hidden; /* Optional: Hide any overflowing content */
+  text-overflow: ellipsis; /* Optional: Show ellipsis (...) for overflowing content */
+}
+
+.left-tables-container {
+  width: 100%;
+  flex-grow: 1;
+}
+
+.left-tables-container table {
+  width: 100%;
+}
+
+.left-tables-container td {
+  white-space: nowrap; /* Prevents text from wrapping to the next line */
+}
