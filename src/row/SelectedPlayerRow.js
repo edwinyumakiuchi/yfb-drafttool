@@ -1,6 +1,6 @@
 import React from 'react';
 import { getFieldGoalClass, getFreeThrowClass, getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
-         getStealClass, getBlockClass, getTurnoverClass } from './classHelper';
+         getStealClass, getBlockClass, getTurnoverClass } from './../classHelper';
 
 function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages }) {
   // Function to calculate column averages

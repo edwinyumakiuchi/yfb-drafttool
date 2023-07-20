@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
-import PlayerRow from './PlayerRow';
+import PlayerRow from './row/PlayerRow';
 import { useLogin, useGetPlayers } from './api';
 import { handleInputChange, handleKeyDown } from './AppHandlers';
 import { calculateLeagueAverages, countPositions } from './LeagueUtils';

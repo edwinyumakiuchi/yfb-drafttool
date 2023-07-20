@@ -1,6 +1,6 @@
 import React from 'react';
-import PlayerRow from './PlayerRow';
-import SelectedPlayerRow from './SelectedPlayerRow';
+import PlayerRow from './row/PlayerRow';
+import SelectedPlayerRow from './row/SelectedPlayerRow';
 
 function AppUI({
   inputValue,
