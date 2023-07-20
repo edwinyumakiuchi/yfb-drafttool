@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
 import PlayerRow from './PlayerRow';
 import { useLogin, useGetPlayers } from './api';
-import { handleInputChange, handleKeyDown, handleSort, arraysAreEqual } from './AppHandlers';
+// import { handleInputChange, handleKeyDown, handleSort, arraysAreEqual } from './AppHandlers';
+import { handleInputChange, handleKeyDown, arraysAreEqual } from './AppHandlers';
 
 function App() {
   const inputRef = useRef(null);
@@ -11,13 +12,13 @@ function App() {
   const [selectedValueIndex, setSelectedValueIndex] = useState(-1);
   const [selectedPlayers, setSelectedPlayers] = useState({});
   const [playerID, setPlayerID] = useState(0);
-  const [sortField, setSortField] = useState(null);
-  const [sortOrder, setSortOrder] = useState('asc');
+  /* const [sortField, setSortField] = useState(null);
+  const [sortOrder, setSortOrder] = useState('asc'); */
 
   const accessToken = useLogin();
   const players = useGetPlayers(accessToken);
 
-  useEffect(() => {
+  /* useEffect(() => {
     const sortedValues = [...matchedValues].sort((a, b) => {
       const valueA = parseFloat(a[sortField]) || 0;
       const valueB = parseFloat(b[sortField]) || 0;
@@ -27,7 +28,7 @@ function App() {
     if (!arraysAreEqual(sortedValues, matchedValues)) {
       setMatchedValues(sortedValues);
     }
-  }, [sortField, sortOrder, matchedValues]);
+  }, [sortField, sortOrder, matchedValues]); */
 
   useEffect(() => {
     if (inputRef.current) {
@@ -153,9 +154,9 @@ function App() {
                 setPlayerID
               )
             }
-            handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
+            /* handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
             sortField={sortField}
-            sortOrder={sortOrder}
+            sortOrder={sortOrder} */
             leagueAverages={leagueAverages}
           />
           <br />
@@ -164,8 +165,8 @@ function App() {
           <PlayerRow
             matchedValues={players}
             selectedValueIndex={-1}
-            handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
-            sortField={sortField}
+            /* handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
+            sortField={sortField} */
           />
         </div>
       </div>

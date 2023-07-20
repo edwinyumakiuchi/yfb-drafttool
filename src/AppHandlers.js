@@ -51,7 +51,7 @@ export function handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedV
   }
 }
 
-export function handleSort(field, sortField, setSortOrder, setSortField) {
+/* export function handleSort(field, sortField, setSortOrder, setSortField) {
   if (sortField === field) {
     // Toggle the sort order if the same field is clicked
     setSortOrder((prevSortOrder) => (prevSortOrder === 'asc' ? 'desc' : 'asc'));
@@ -60,7 +60,7 @@ export function handleSort(field, sortField, setSortOrder, setSortField) {
     setSortField(field);
     setSortOrder('asc');
   }
-}
+} */
 
 export function arraysAreEqual(arr1, arr2) {
   if (arr1.length !== arr2.length) {

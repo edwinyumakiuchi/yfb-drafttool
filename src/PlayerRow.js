@@ -2,9 +2,10 @@ import React from 'react';
 
 function PlayerRow({
   matchedValues,
-  selectedValueIndex,
+  selectedValueIndex
+  /* selectedValueIndex,
   handleSort,
-  sortField
+  sortField */
 }) {
   const playerRows = matchedValues.map((player, index) => {
     return (
@@ -129,15 +130,16 @@ function PlayerRow({
                 <th className="bold centered">RANK</th>
                 {/* <th className="bold centered" onClick={() => handleSort('originalRank')}>
                   ORANK {sortField === 'originalRank'}
-                </th> */}
+                </th>
                 <th className="bold centered" onClick={() => handleSort('adp')}>
                   ADP {sortField === 'adp'}
-                </th>
+                </th> */}
+                <th className="bold centered">ADP</th>
                 <th className="bold centered">PLAYER</th>
                 <th className="bold centered">POS</th>
                 <th className="bold centered">TEAM</th>
                 <th className="bold centered">GP</th>
-                <th className="bold centered" onClick={() => handleSort('minutesPerGame')}>
+                {/* <th className="bold centered" onClick={() => handleSort('minutesPerGame')}>
                   MPG {sortField === 'minutesPerGame'}
                 </th>
                 <th className="bold centered" onClick={() => handleSort('fieldGoal')}>
@@ -157,10 +159,17 @@ function PlayerRow({
                 </th>
                 <th className="bold centered" onClick={() => handleSort('freeThrowAttempt')}>
                   FTA {sortField === 'freeThrowAttempt'}
-                </th>
+                </th> */}
+                <th className="bold centered">MPG</th>
+                <th className="bold centered">FG%</th>
+                <th className="bold centered">FGM</th>
+                <th className="bold centered">FGA</th>
+                <th className="bold centered">FT%</th>
+                <th className="bold centered">FTM</th>
+                <th className="bold centered">FTA</th>
                 <th className="bold centered">FG</th>
                 <th className="bold centered">FT</th>
-                <th className="bold centered" onClick={() => handleSort('threePointMade')}>
+                {/* <th className="bold centered" onClick={() => handleSort('threePointMade')}>
                   3PM {sortField === 'threePointMade'}
                 </th>
                 <th className="bold centered" onClick={() => handleSort('points')}>
@@ -180,7 +189,14 @@ function PlayerRow({
                 </th>
                 <th className="bold centered" onClick={() => handleSort('turnovers')}>
                   TO {sortField === 'turnovers'}
-                </th>
+                </th> */}
+                <th className="bold centered">3PM</th>
+                <th className="bold centered">PTS</th>
+                <th className="bold centered">TREB</th>
+                <th className="bold centered">AST</th>
+                <th className="bold centered">STL</th>
+                <th className="bold centered">BLK</th>
+                <th className="bold centered">TO</th>
                 <th className="bold centered">TOTAL</th>
               </tr>
             </thead>
