@@ -41,7 +41,8 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages
         <table className="bordered-table">
           <thead className="header-row">
             <tr>
-              <th className="bold centered">ORANK</th>
+              <th className="bold centered">PICK</th>
+              <th className="bold centered">RANK</th>
               <th className="bold centered">ADP</th>
               <th className="bold centered">PLAYER</th>
               <th className="bold centered">POS</th>
@@ -69,6 +70,7 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages
           <tbody>
             {Object.values(selectedPlayers).map((selectedPlayer) => (
               <tr key={selectedPlayer.id}>
+                <td className="bold centered">{selectedPlayer.id}</td>
                 <td className="bold centered">{selectedPlayer.originalRank}</td>
                 <td className="bold centered">{selectedPlayer.adp}</td>
                 <td className="bold centered">{selectedPlayer.name}</td>
@@ -131,6 +133,7 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages
             {/* Render the row for averages */}
             <tr>
               <td className="bold centered">AVERAGE</td>
+              <td className="bold centered"></td>
               <td className="bold centered"></td>
               <td className="bold centered"></td>
               <td className="bold centered"></td>

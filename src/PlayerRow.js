@@ -9,7 +9,7 @@ function PlayerRow({
   const playerRows = matchedValues.map((player, index) => {
     return (
       <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
-        <td className="bold centered">{index + 1}</td>
+        {/* <td className="bold centered">{index + 1}</td> */}
         <td className="bold centered">{player.originalRank}</td>
         <td className="bold centered">{player.adp}</td>
         <td className="bold centered">{player.name}</td>
@@ -127,9 +127,9 @@ function PlayerRow({
             <thead className="header-row">
               <tr>
                 <th className="bold centered">RANK</th>
-                <th className="bold centered" onClick={() => handleSort('originalRank')}>
+                {/* <th className="bold centered" onClick={() => handleSort('originalRank')}>
                   ORANK {sortField === 'originalRank'}
-                </th>
+                </th> */}
                 <th className="bold centered" onClick={() => handleSort('adp')}>
                   ADP {sortField === 'adp'}
                 </th>
