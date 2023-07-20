@@ -13,9 +13,6 @@ function AppUI({
   selectedPlayers,
   setSelectedPlayers,
   handleKeyDown,
-  /* handleSort,
-  sortField,
-  sortOrder, */
   leagueAverages
 }) {
   return (
@@ -24,8 +21,6 @@ function AppUI({
         <PlayerRow
           matchedValues={matchedValues}
           selectedValueIndex={selectedValueIndex}
-          /* handleSort={handleSort}
-          sortField={sortField} */
         />
       )}
       <br />

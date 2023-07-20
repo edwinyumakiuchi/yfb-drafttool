@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
 import PlayerRow from './PlayerRow';
 import { useLogin, useGetPlayers } from './api';
-// import { handleInputChange, handleKeyDown, handleSort, arraysAreEqual } from './AppHandlers';
 import { handleInputChange, handleKeyDown, arraysAreEqual } from './AppHandlers';
 
 function App() {
@@ -12,23 +11,9 @@ function App() {
   const [selectedValueIndex, setSelectedValueIndex] = useState(-1);
   const [selectedPlayers, setSelectedPlayers] = useState({});
   const [playerID, setPlayerID] = useState(0);
-  /* const [sortField, setSortField] = useState(null);
-  const [sortOrder, setSortOrder] = useState('asc'); */
 
   const accessToken = useLogin();
   const players = useGetPlayers(accessToken);
-
-  /* useEffect(() => {
-    const sortedValues = [...matchedValues].sort((a, b) => {
-      const valueA = parseFloat(a[sortField]) || 0;
-      const valueB = parseFloat(b[sortField]) || 0;
-      return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
-    });
-
-    if (!arraysAreEqual(sortedValues, matchedValues)) {
-      setMatchedValues(sortedValues);
-    }
-  }, [sortField, sortOrder, matchedValues]); */
 
   useEffect(() => {
     if (inputRef.current) {
@@ -82,6 +67,8 @@ function App() {
   // this commit seems to break the sorting functionality
   // https://github.com/edwinyumakiuchi/yfb-drafttool/commit/bbc37864fb9ebbd034384fcda7bef6b5c8b95cfd
   // however this is also required so selected players are stored properly
+  // following commit comments out the sorting functionality
+  // https://github.com/edwinyumakiuchi/yfb-drafttool/commit/8cf9934c342aa8b141c2b37e9e4e371feb6329a1
   return (
     <div className="app-container">
       <div className="input-table-container">
@@ -154,9 +141,6 @@ function App() {
                 setPlayerID
               )
             }
-            /* handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
-            sortField={sortField}
-            sortOrder={sortOrder} */
             leagueAverages={leagueAverages}
           />
           <br />
@@ -165,8 +149,6 @@ function App() {
           <PlayerRow
             matchedValues={players}
             selectedValueIndex={-1}
-            /* handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
-            sortField={sortField} */
           />
         </div>
       </div>
