@@ -26,9 +26,9 @@ async function scrapeAndStoreData() {
       }
 
       let playerRank = 0, playerADP = 0, playerPos = 0, playerTeam = 0, playerGP = 0, playerMPG = 0, playerFG = 0,
-        playerFGM = 0, playerFGA = 0, playerFGClass = '', playerFT = 0, playerFTM = 0, playerFTA = 0,
-        playerFTClass = '', playerTPM = 0, playerPTS = 0, playerTREB = 0, playerAST = 0, playerSTL = 0, playerBLK = 0,
-        playerTO = 0, playerTotal = 0
+        playerFGMO = 0, playerFGMC = 0, playerFGA = 0, playerFGClass = '', playerFT = 0, playerFTMO = 0, playerFTMC = 0,
+        playerFTA = 0, playerFTClass = '', playerTPM = 0, playerPTS = 0, playerTREB = 0, playerAST = 0, playerSTL = 0,
+        playerBLK = 0, playerTO = 0, playerTotal = 0
 
       $(element).find('td').each((index, tdElement) => {
         const tdValue = $(tdElement).text().trim();
@@ -57,16 +57,18 @@ async function scrapeAndStoreData() {
           case 7:
             playerFG = tdValue
             const matchFGResult = playerFG.match(/\((.*?)\)/);
-            [playerFGM, playerFGA] = matchFGResult[1].split('/').map(value => value.trim());
+            [playerFGMO, playerFGA] = matchFGResult[1].split('/').map(value => value.trim());
             playerFG = playerFG.trim().split('\n')[0];
             playerFGClass = tdClass
+            playerFGMC = (playerFGA * playerFG).toFixed(3)
             break;
           case 8:
             playerFT = tdValue
             const matchFTResult = playerFT.match(/\((.*?)\)/);
-            [playerFTM, playerFTA] = matchFTResult[1].split('/').map(value => value.trim());
+            [playerFTMO, playerFTA] = matchFTResult[1].split('/').map(value => value.trim());
             playerFT = playerFT.trim().split('\n')[0];
             playerFTClass = tdClass
+            playerFTMC = (playerFTA * playerFT).toFixed(3)
             break;
           case 9:
             playerTPM = tdValue
@@ -103,11 +105,13 @@ async function scrapeAndStoreData() {
         gp: playerGP,
         minutesPerGame: playerMPG,
         fieldGoal: playerFG,
-        fieldGoalMade: playerFGM,
+        fieldGoalMadeOriginal: playerFGMO,
+        fieldGoalMadeCalculated: playerFGMC,
         fieldGoalAttempt: playerFGA,
         fieldGoalClass: playerFGClass,
         freeThrow: playerFT,
-        freeThrowMade: playerFTM,
+        freeThrowMadeOriginal: playerFTMO,
+        freeThrowMadeCalculated: playerFTMC,
         freeThrowAttempt: playerFTA,
         freeThrowClass: playerFTClass,
         threePointMade: playerTPM,
@@ -162,11 +166,13 @@ async function scrapeAndStoreData() {
             gp: player.gp,
             minutesPerGame: player.minutesPerGame,
             fieldGoal: player.fieldGoal,
-            fieldGoalMade: player.fieldGoalMade,
+            fieldGoalMadeOriginal: player.fieldGoalMadeOriginal,
+            fieldGoalMadeCalculated: player.fieldGoalMadeCalculated,
             fieldGoalAttempt: player.fieldGoalAttempt,
             fieldGoalClass: player.fieldGoalClass,
             freeThrow: player.freeThrow,
-            freeThrowMade: player.freeThrowMade,
+            freeThrowMadeOriginal: player.freeThrowMadeOriginal,
+            freeThrowMadeCalculated: player.freeThrowMadeCalculated,
             freeThrowAttempt: player.freeThrowAttempt,
             freeThrowClass: player.freeThrowClass,
             threePointMade: player.threePointMade,

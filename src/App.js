@@ -91,6 +91,7 @@ function App() {
             </tr>
           </tbody>
         </table>
+        {/* TODO: add another table that lists the number of players from each team */}
         <div className="left-tables-container">
           <AppUI
             inputValue={inputValue}
