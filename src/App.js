@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
 import PlayerRow from './PlayerRow';
 import { useLogin, useGetPlayers } from './api';
-import { handleInputChange, handleKeyDown, arraysAreEqual } from './AppHandlers';
+import { handleInputChange, handleKeyDown } from './AppHandlers';
+import { calculateLeagueAverages, countPositions } from './LeagueUtils';
 
 function App() {
   const inputRef = useRef(null);
@@ -28,37 +29,11 @@ function App() {
   }, [players]);
 
   // Calculate the league averages
-  const leagueAverages = players.reduce((averages, player) => {
-    Object.entries(player).forEach(([field, value]) => {
-      if (field !== 'id' && !isNaN(parseFloat(value))) {
-        averages[field] = (averages[field] || 0) + parseFloat(value);
-      }
-    });
-    return averages;
-  }, {});
+  const leagueAverages = calculateLeagueAverages(players);
 
   Object.entries(leagueAverages).forEach(([field, sum]) => {
     leagueAverages[field] = sum / players.length;
   });
-
-  function countPositions(selectedPlayers) {
-    const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
-    const positionCounts = positions.reduce((acc, position) => {
-      acc[position] = 0;
-      return acc;
-    }, {});
-
-    Object.values(selectedPlayers).forEach((selectedPlayer) => {
-      const playerPositions = selectedPlayer.position.split(',').map((pos) => pos.trim());
-      playerPositions.forEach((position) => {
-        if (positionCounts.hasOwnProperty(position)) {
-          positionCounts[position]++;
-        }
-      });
-    });
-
-    return positionCounts;
-  }
 
   const positionCounts = countPositions(selectedPlayers);
   const positions = ['PG', 'SG', 'SF', 'PF', 'C'];

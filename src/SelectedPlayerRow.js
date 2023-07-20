@@ -13,7 +13,7 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages
       }, 0);
 
     const formatNumber = (num) => {
-      const formattedNumber = Number(num.toFixed(4));
+      const formattedNumber = Number(num.toFixed(3));
       return isNaN(formattedNumber) ? '' : formattedNumber.toString();
     };
 
