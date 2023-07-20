@@ -32,7 +32,28 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages
     };
   };
 
+  function countPositions(selectedPlayers) {
+    const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
+    const positionCounts = positions.reduce((acc, position) => {
+      acc[position] = 0;
+      return acc;
+    }, {});
+
+    Object.values(selectedPlayers).forEach((selectedPlayer) => {
+      const playerPositions = selectedPlayer.position.split(',').map((pos) => pos.trim());
+      playerPositions.forEach((position) => {
+        if (positionCounts.hasOwnProperty(position)) {
+          positionCounts[position]++;
+        }
+      });
+    });
+
+    return positionCounts;
+  }
+
   const averages = calculateAverages();
+  const positionCounts = countPositions(selectedPlayers);
+  const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
 
   return (
     <>
@@ -129,13 +150,18 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages
               </tr>
             ))}
             {/* Render the row for averages */}
-            {/* Display number of players for each position */}
-            {/* e.g. PG: 2, SG: 1, SF: 0, PF: 0, C: 1 */}
             <tr>
               <td className="bold centered">AVERAGE</td>
               <td className="bold centered"></td>
               <td className="bold centered"></td>
               <td className="bold centered"></td>
+              {/* <td className="bold centered">
+                {`PG=${positionCounts['PG']}`}<br />
+                {`SG=${positionCounts['SG']}`}<br />
+                {`SF=${positionCounts['SF']}`}<br />
+                {`PF=${positionCounts['PF']}`}<br />
+                {`C=${positionCounts['C']}`}
+              </td> */}
               <td className="bold centered"></td>
               <td className="bold centered"></td>
               <td className="bold centered"></td>
@@ -171,6 +197,23 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages
               <td className={getBlockClass(averages.blocks)}>{averages.blocks}</td>
               <td className={getTurnoverClass(averages.turnovers)}>{averages.turnovers}</td>
               <td className="bold centered"></td>
+            </tr>
+          </tbody>
+        </table>
+        <br />
+        <br />
+        <br />
+        <table className="bordered-table">
+          <tbody>
+            <tr>
+              {positions.map((position) => (
+                <td key={position} className="bold centered">{position}</td>
+              ))}
+            </tr>
+            <tr>
+              {positions.map((position) => (
+                <td key={position} className="bold centered">{positionCounts[position]}</td>
+              ))}
             </tr>
           </tbody>
         </table>
