@@ -21,6 +21,29 @@ function getFieldGoalClass(fieldGoalMade, fieldGoalAttempt, leagueAverages) {
   }
 }
 
+function getFreeThrowClass(freeThrowMade, freeThrowAttempt, leagueAverages) {
+  if (!freeThrowMade || !freeThrowAttempt) return;
+
+  const leagueFreeThrowPercentage = (leagueAverages.freeThrow + (leagueAverages.freeThrowMade / leagueAverages.freeThrowAttempt))/2;
+  const playerFreeThrowPercentage = freeThrowMade / freeThrowAttempt;
+  const value = (playerFreeThrowPercentage - leagueFreeThrowPercentage) * (freeThrowAttempt / leagueAverages.freeThrowAttempt);
+
+  switch (true) {
+    case value >= 0.15:
+      return 'bold centered dark-green';
+    case value >= 0.08 && value < 0.15:
+      return 'bold centered green';
+    case value >= 0.03 && value < 0.08:
+      return 'bold centered light-green';
+    case value >= -0.0425 && value < -0.00875:
+      return 'bold centered light-red';
+    case value < -0.0425:
+      return 'bold centered red';
+    default:
+      return 'bold centered';
+  }
+}
+
 function getThreePointMadeClass(value) {
   if (!value) return;
 
@@ -156,6 +179,7 @@ function getTurnoverClass(value) {
 
 export {
   getFieldGoalClass,
+  getFreeThrowClass,
   getThreePointMadeClass,
   getPointClass,
   getReboundClass,

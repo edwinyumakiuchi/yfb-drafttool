@@ -1,5 +1,5 @@
 import React from 'react';
-import { getFieldGoalClass, getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
+import { getFieldGoalClass, getFreeThrowClass, getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
          getStealClass, getBlockClass, getTurnoverClass } from './classHelper';
 
 function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages }) {
@@ -158,7 +158,7 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages
                   ? ''
                   : `${(averages.fieldGoalMade / averages.fieldGoalAttempt).toFixed(3)} (${averages.fieldGoalMade}/${averages.fieldGoalAttempt})`}
               </td>
-              <td className="bold centered">
+              <td className={getFreeThrowClass(averages.freeThrowMade, averages.freeThrowAttempt, leagueAverages)}>
                 {isNaN(averages.freeThrowMade / averages.freeThrowAttempt)
                   ? ''
                   : `${(averages.freeThrowMade / averages.freeThrowAttempt).toFixed(3)} (${averages.freeThrowMade}/${averages.freeThrowAttempt})`}
