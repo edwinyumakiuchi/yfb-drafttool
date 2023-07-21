@@ -21,6 +21,7 @@ function AppUI({
         <PlayerRow
           matchedValues={matchedValues}
           selectedValueIndex={selectedValueIndex}
+          leagueAverages={leagueAverages}
         />
       )}
       <br />

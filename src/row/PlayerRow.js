@@ -1,9 +1,11 @@
 import React from 'react';
+import { getFieldGoalClass, getFreeThrowClass, getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
+         getStealClass, getBlockClass, getTurnoverClass } from './../classHelper';
 
 function PlayerRow({
   matchedValues,
-  selectedValueIndex
-}) {
+  selectedValueIndex,
+  leagueAverages }) {
   const playerRows = matchedValues.map((player, index) => {
     return (
       <tr key={index} className={index === selectedValueIndex ? 'selected' : ''}>
@@ -20,94 +22,31 @@ function PlayerRow({
         <td className="bold centered">{player.freeThrow}</td>
         <td className="bold centered">{player.freeThrowMade}</td>
         <td className="bold centered">{player.freeThrowAttempt}</td>
-        <td
-          className={
-            player.fieldGoalClass === 'elite' ? 'bold centered dark-green' :
-            player.fieldGoalClass === 'vgood' ? 'bold centered green' :
-            player.fieldGoalClass === 'good' ? 'bold centered light-green' :
-            player.fieldGoalClass === 'bavg' ? 'bold centered light-red' :
-            player.fieldGoalClass === 'ngood' ? 'bold centered red' : 'bold centered'
-          }>
+        <td className={getFieldGoalClass(player.fieldGoalMade, player.fieldGoalAttempt, leagueAverages)}>
           {player.fieldGoal} ({player.fieldGoalMade}/{player.fieldGoalAttempt})
         </td>
-        <td
-          className={
-            player.freeThrowClass === 'elite' ? 'bold centered dark-green' :
-            player.freeThrowClass === 'vgood' ? 'bold centered green' :
-            player.freeThrowClass === 'good' ? 'bold centered light-green' :
-            player.freeThrowClass === 'bavg' ? 'bold centered light-red' :
-            player.freeThrowClass === 'ngood' ? 'bold centered red' : 'bold centered'
-          }>
+        <td className={getFreeThrowClass(player.freeThrowMade, player.freeThrowAttempt, leagueAverages)}>
           {player.freeThrow} ({player.freeThrowMade}/{player.freeThrowAttempt})
         </td>
-        <td
-          className={
-            player.threePointMade >= 4 ? 'bold centered dark-green' :
-            player.threePointMade >= 3 && player.threePointMade < 4 ? 'bold centered green' :
-            player.threePointMade >= 2 && player.threePointMade < 3 ? 'bold centered light-green' :
-            player.threePointMade >= 1 && player.threePointMade < 1.5 ? 'bold centered light-red' :
-            player.threePointMade < 1 ? 'bold centered red' : 'bold centered'
-          }>
+        <td className={getThreePointMadeClass(player.threePointMade)}>
           {player.threePointMade}
         </td>
-        <td
-          className={
-            player.points >= 30 ? 'bold centered dark-green' :
-            player.points >= 25 && player.points < 30 ? 'bold centered green' :
-            player.points >= 20 && player.points < 25 ? 'bold centered light-green' :
-            player.points >= 10 && player.points < 15 ? 'bold centered light-red' :
-            player.points < 10 ? 'bold centered red' : 'bold centered'
-          }>
+        <td className={getPointClass(player.points)}>
           {player.points}
         </td>
-        <td
-          className={
-            player.totalRebounds >= 10 ? 'bold centered dark-green' :
-            player.totalRebounds >= 9 && player.totalRebounds < 10 ? 'bold centered green' :
-            player.totalRebounds >= 7 && player.totalRebounds < 9 ? 'bold centered light-green' :
-            player.totalRebounds >= 3 && player.totalRebounds < 5 ? 'bold centered light-red' :
-            player.totalRebounds < 3 ? 'bold centered red' : 'bold centered'
-          }>
+        <td className={getReboundClass(player.totalRebounds)}>
           {player.totalRebounds}
         </td>
-        <td
-          className={
-            player.assists >= 8 ? 'bold centered dark-green' :
-            player.assists >= 6 && player.assists < 8 ? 'bold centered green' :
-            player.assists >= 4 && player.assists < 6 ? 'bold centered light-green' :
-            player.assists >= 1 && player.assists < 2 ? 'bold centered light-red' :
-            player.assists < 1 ? 'bold centered red' : 'bold centered'
-          }>
+        <td className={getAssistClass(player.assists)}>
           {player.assists}
         </td>
-        <td
-          className={
-            player.steals >= 2 ? 'bold centered dark-green' :
-            player.steals >= 1.5 && player.steals < 2 ? 'bold centered green' :
-            player.steals >= 1 && player.steals < 1.5 ? 'bold centered light-green' :
-            player.steals >= 0.5 && player.steals < 0.7 ? 'bold centered light-red' :
-            player.steals < 0.5 ? 'bold centered red' : 'bold centered'
-          }>
+        <td className={getStealClass(player.steals)}>
           {player.steals}
         </td>
-        <td
-          className={
-            player.blocks >= 1.5 ? 'bold centered dark-green' :
-            player.blocks >= 1.2 && player.blocks < 1.5 ? 'bold centered green' :
-            player.blocks >= 0.8 && player.blocks < 1.2 ? 'bold centered light-green' :
-            player.blocks >= 0.3 && player.blocks < 0.5 ? 'bold centered light-red' :
-            player.blocks < 0.3 ? 'bold centered red' : 'bold centered'
-          }>
+        <td className={getBlockClass(player.blocks)}>
           {player.blocks}
         </td>
-        <td
-          className={
-            player.turnovers <= 0.7 ? 'bold centered dark-green' :
-            player.turnovers <= 1 && player.turnovers > 0.7 ? 'bold centered green' :
-            player.turnovers <= 1.5 && player.turnovers > 1 ? 'bold centered light-green' :
-            player.turnovers < 3 && player.turnovers >= 2 ? 'bold centered light-red' :
-            player.turnovers >= 3 ? 'bold centered red' : 'bold centered'
-          }>
+        <td className={getTurnoverClass(player.turnovers)}>
           {player.turnovers}
         </td>
         <td className="bold centered">{player.total}</td>

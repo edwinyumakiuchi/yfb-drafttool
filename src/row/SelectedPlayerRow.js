@@ -2,7 +2,10 @@ import React from 'react';
 import { getFieldGoalClass, getFreeThrowClass, getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
          getStealClass, getBlockClass, getTurnoverClass } from './../classHelper';
 
-function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages }) {
+function SelectedPlayerRow({
+  selectedPlayers,
+  setSelectedPlayers,
+  leagueAverages }) {
   // Function to calculate column averages
   const calculateAverages = () => {
     const numPlayers = Object.values(selectedPlayers).length;
@@ -85,26 +88,10 @@ function SelectedPlayerRow({ selectedPlayers, setSelectedPlayers, leagueAverages
                 <td className="bold centered">{selectedPlayer.freeThrow}</td>
                 <td className="bold centered">{selectedPlayer.freeThrowMade}</td>
                 <td className="bold centered">{selectedPlayer.freeThrowAttempt}</td>
-                <td
-                  className={
-                    selectedPlayer.fieldGoalClass === 'elite' ? 'bold centered dark-green' :
-                    selectedPlayer.fieldGoalClass === 'vgood' ? 'bold centered green' :
-                    selectedPlayer.fieldGoalClass === 'good' ? 'bold centered light-green' :
-                    selectedPlayer.fieldGoalClass === 'bavg' ? 'bold centered light-red' :
-                    selectedPlayer.fieldGoalClass === 'ngood' ? 'bold centered red' : 'bold centered'
-                  }
-                >
+                <td className={getFieldGoalClass(selectedPlayer.fieldGoalMade, selectedPlayer.fieldGoalAttempt, leagueAverages)}>
                   {selectedPlayer.fieldGoal} ({selectedPlayer.fieldGoalMade}/{selectedPlayer.fieldGoalAttempt})
                 </td>
-                <td
-                  className={
-                    selectedPlayer.freeThrowClass === 'elite' ? 'bold centered dark-green' :
-                    selectedPlayer.freeThrowClass === 'vgood' ? 'bold centered green' :
-                    selectedPlayer.freeThrowClass === 'good' ? 'bold centered light-green' :
-                    selectedPlayer.freeThrowClass === 'bavg' ? 'bold centered light-red' :
-                    selectedPlayer.freeThrowClass === 'ngood' ? 'bold centered red' : 'bold centered'
-                  }
-                >
+                <td className={getFreeThrowClass(selectedPlayer.freeThrowMade, selectedPlayer.freeThrowAttempt, leagueAverages)}>
                   {selectedPlayer.freeThrow} ({selectedPlayer.freeThrowMade}/{selectedPlayer.freeThrowAttempt})
                 </td>
                 <td className={getThreePointMadeClass(selectedPlayer.threePointMade)}>

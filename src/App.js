@@ -125,6 +125,7 @@ function App() {
           <PlayerRow
             matchedValues={players}
             selectedValueIndex={-1}
+            leagueAverages={leagueAverages}
           />
         </div>
       </div>
