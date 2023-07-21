@@ -1,4 +1,4 @@
-const secretConfig = require('./src/secretConfig.js');
+const secretConfigs = require('./src/configs/SecretConfigs.js');
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 
@@ -6,7 +6,7 @@ const cheerio = require('cheerio');
 const API_ENDPOINT = 'https://us-west-2.aws.data.mongodb-api.com/app/data-natmv/endpoint/data/v1/action/';
 const API_DELETEMANY_ENDPOINT = 'deleteMany';
 const API_INSERTONE_ENDPOINT = 'insertOne';
-const API_KEY = secretConfig.mongoKey;
+const API_KEY = secretConfigs.mongoKey;
 
 // Function to scrape the webpage and store data using the MongoDB API
 async function scrapeAndStoreData() {

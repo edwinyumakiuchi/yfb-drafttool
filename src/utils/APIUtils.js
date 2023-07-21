@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import fetch from 'isomorphic-fetch';
-import secretConfig from './secretConfig';
+import secretConfig from './../configs/SecretConfigs';
 
 export function useLogin() {
   const [accessToken, setAccessToken] = useState('');

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
 import PlayerRow from './row/PlayerRow';
-import { useLogin, useGetPlayers } from './api';
+import { useLogin, useGetPlayers } from './utils/APIUtils';
 import { handleInputChange, handleKeyDown } from './utils/HandlerUtils';
 import { calculateLeagueAverages, countPositions } from './utils/LeagueUtils';
 
