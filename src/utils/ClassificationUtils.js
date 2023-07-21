@@ -1,43 +1,48 @@
-function getFieldGoalClass(fieldGoalMade, fieldGoalAttempt, leagueAverages) {
-  if (!fieldGoalMade || !fieldGoalAttempt) return;
+const configs = require('./../configs/ClassificationConfigs');
 
-  const leagueFieldGoalPercentage = (leagueAverages.fieldGoal + (leagueAverages.fieldGoalMade / leagueAverages.fieldGoalAttempt))/2;
-  const playerFieldGoalPercentage = fieldGoalMade / fieldGoalAttempt;
-  const value = (playerFieldGoalPercentage - leagueFieldGoalPercentage) * (fieldGoalAttempt / leagueAverages.fieldGoalAttempt);
+function getPercentageClassification(category, made, attempt, leagueAverages) {
+  if (!made || !attempt) return;
 
-  switch (true) {
-    case value >= 0.075:
-      return 'bold centered dark-green';
-    case value >= 0.03 && value < 0.075:
-      return 'bold centered green';
-    case value >= 0 && value < 0.03:
-      return 'bold centered light-green';
-    case value >= -0.05 && value < -0.02:
-      return 'bold centered light-red';
-    case value < -0.05:
-      return 'bold centered red';
-    default:
-      return 'bold centered';
+  let leaguePercentage, leagueMade, leagueAttempt,
+    eliteClassification, greatClassification, goodClassification, badClassification, horribleClassification;
+
+  switch (category) {
+    case 'fieldgoal':
+      leaguePercentage = leagueAverages.fieldGoal;
+      leagueMade = leagueAverages.fieldGoalMade;
+      leagueAttempt = leagueAverages.fieldGoalAttempt;
+      eliteClassification = configs.fieldgoal.eliteClassification;
+      greatClassification = configs.fieldgoal.greatClassification;
+      goodClassification = configs.fieldgoal.goodClassification;
+      badClassification = configs.fieldgoal.badClassification;
+      horribleClassification = configs.fieldgoal.horribleClassification;
+      break;
+    case 'freethrow':
+      leaguePercentage = leagueAverages.freeThrow;
+      leagueMade = leagueAverages.freeThrowMade;
+      leagueAttempt = leagueAverages.freeThrowAttempt;
+      eliteClassification = configs.freethrow.eliteClassification;
+      greatClassification = configs.freethrow.greatClassification;
+      goodClassification = configs.freethrow.goodClassification;
+      badClassification = configs.freethrow.badClassification;
+      horribleClassification = configs.freethrow.horribleClassification;
+      break;
   }
-}
 
-function getFreeThrowClass(freeThrowMade, freeThrowAttempt, leagueAverages) {
-  if (!freeThrowMade || !freeThrowAttempt) return;
-
-  const leagueFreeThrowPercentage = (leagueAverages.freeThrow + (leagueAverages.freeThrowMade / leagueAverages.freeThrowAttempt))/2;
-  const playerFreeThrowPercentage = freeThrowMade / freeThrowAttempt;
-  const value = (playerFreeThrowPercentage - leagueFreeThrowPercentage) * (freeThrowAttempt / leagueAverages.freeThrowAttempt);
+  const leagueAveragePercentage = (leaguePercentage + (leagueMade / leagueAttempt))/2;
+  const playerPercentage = made / attempt;
+  const value = (playerPercentage - leagueAveragePercentage) * (attempt / leagueAttempt);
 
   switch (true) {
-    case value >= 0.15:
+    case value >= eliteClassification:
       return 'bold centered dark-green';
-    case value >= 0.08 && value < 0.15:
+    case value >= greatClassification && value < eliteClassification:
       return 'bold centered green';
-    case value >= 0.03 && value < 0.08:
+    case value >= goodClassification && value < greatClassification:
       return 'bold centered light-green';
-    case value >= -0.0425 && value < -0.00875:
+    case value >= horribleClassification && value < badClassification:
       return 'bold centered light-red';
-    case value < -0.0425:
+    case value < horribleClassification:
       return 'bold centered red';
     default:
       return 'bold centered';
@@ -178,8 +183,7 @@ function getTurnoverClass(value) {
 }
 
 export {
-  getFieldGoalClass,
-  getFreeThrowClass,
+  getPercentageClassification,
   getThreePointMadeClass,
   getPointClass,
   getReboundClass,

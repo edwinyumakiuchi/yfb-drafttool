@@ -1,5 +1,5 @@
 import React from 'react';
-import { getFieldGoalClass, getFreeThrowClass, getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
+import { getPercentageClassification, getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
          getStealClass, getBlockClass, getTurnoverClass } from './../utils/ClassificationUtils';
 
 function PlayerRow({
@@ -22,10 +22,10 @@ function PlayerRow({
         <td className="bold centered">{player.freeThrow}</td>
         <td className="bold centered">{player.freeThrowMade}</td>
         <td className="bold centered">{player.freeThrowAttempt}</td>
-        <td className={getFieldGoalClass(player.fieldGoalMade, player.fieldGoalAttempt, leagueAverages)}>
+        <td className={getPercentageClassification('fieldgoal', player.fieldGoalMade, player.fieldGoalAttempt, leagueAverages)}>
           {player.fieldGoal} ({player.fieldGoalMade}/{player.fieldGoalAttempt})
         </td>
-        <td className={getFreeThrowClass(player.freeThrowMade, player.freeThrowAttempt, leagueAverages)}>
+        <td className={getPercentageClassification('freethrow', player.freeThrowMade, player.freeThrowAttempt, leagueAverages)}>
           {player.freeThrow} ({player.freeThrowMade}/{player.freeThrowAttempt})
         </td>
         <td className={getThreePointMadeClass(player.threePointMade)}>

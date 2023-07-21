@@ -1,5 +1,5 @@
 import React from 'react';
-import { getFieldGoalClass, getFreeThrowClass, getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
+import { getPercentageClassification, getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
          getStealClass, getBlockClass, getTurnoverClass } from './../utils/ClassificationUtils';
 
 function SelectedPlayerRow({
@@ -88,10 +88,10 @@ function SelectedPlayerRow({
                 <td className="bold centered">{selectedPlayer.freeThrow}</td>
                 <td className="bold centered">{selectedPlayer.freeThrowMade}</td>
                 <td className="bold centered">{selectedPlayer.freeThrowAttempt}</td>
-                <td className={getFieldGoalClass(selectedPlayer.fieldGoalMade, selectedPlayer.fieldGoalAttempt, leagueAverages)}>
+                <td className={getPercentageClassification('fieldgoal', selectedPlayer.fieldGoalMade, selectedPlayer.fieldGoalAttempt, leagueAverages)}>
                   {selectedPlayer.fieldGoal} ({selectedPlayer.fieldGoalMade}/{selectedPlayer.fieldGoalAttempt})
                 </td>
-                <td className={getFreeThrowClass(selectedPlayer.freeThrowMade, selectedPlayer.freeThrowAttempt, leagueAverages)}>
+                <td className={getPercentageClassification('freethrow', selectedPlayer.freeThrowMade, selectedPlayer.freeThrowAttempt, leagueAverages)}>
                   {selectedPlayer.freeThrow} ({selectedPlayer.freeThrowMade}/{selectedPlayer.freeThrowAttempt})
                 </td>
                 <td className={getThreePointMadeClass(selectedPlayer.threePointMade)}>
@@ -149,12 +149,12 @@ function SelectedPlayerRow({
               </td>
               <td className="bold centered">{averages.freeThrowMade}</td>
               <td className="bold centered">{averages.freeThrowAttempt}</td>
-              <td className={getFieldGoalClass(averages.fieldGoalMade, averages.fieldGoalAttempt, leagueAverages)}>
+              <td className={getPercentageClassification('fieldgoal', averages.fieldGoalMade, averages.fieldGoalAttempt, leagueAverages)}>
                 {isNaN(averages.fieldGoalMade / averages.fieldGoalAttempt)
                   ? ''
                   : `${(averages.fieldGoalMade / averages.fieldGoalAttempt).toFixed(3)} (${averages.fieldGoalMade}/${averages.fieldGoalAttempt})`}
               </td>
-              <td className={getFreeThrowClass(averages.freeThrowMade, averages.freeThrowAttempt, leagueAverages)}>
+              <td className={getPercentageClassification('freethrow', averages.freeThrowMade, averages.freeThrowAttempt, leagueAverages)}>
                 {isNaN(averages.freeThrowMade / averages.freeThrowAttempt)
                   ? ''
                   : `${(averages.freeThrowMade / averages.freeThrowAttempt).toFixed(3)} (${averages.freeThrowMade}/${averages.freeThrowAttempt})`}
