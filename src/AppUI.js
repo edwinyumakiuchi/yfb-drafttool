@@ -6,11 +6,8 @@ function AppUI({
   matchedPlayers,
   selectedPlayerIndex,
   setInputValue,
-  setSelectedPlayerIndex,
   players,
   selectedPlayers,
-  setSelectedPlayers,
-  handleKeyDown,
   leagueAverages
 }) {
   return (

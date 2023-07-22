@@ -97,24 +97,8 @@ function App() {
             matchedPlayers={matchedPlayers}
             selectedPlayerIndex={selectedPlayerIndex}
             setInputValue={setInputValue}
-            setSelectedPlayerIndex={setSelectedPlayerIndex}
             players={players}
             selectedPlayers={selectedPlayers}
-            setSelectedPlayers={setSelectedPlayers}
-            handleKeyDown={(e) =>
-              handleKeyDown(
-                e,
-                setSelectedPlayerIndex,
-                matchedPlayers,
-                selectedPlayerIndex,
-                setInputValue,
-                setMatchedPlayers,
-                selectedPlayers,
-                setSelectedPlayers,
-                playerID,
-                setPlayerID
-              )
-            }
             leagueAverages={leagueAverages}
           />
         </div>
