@@ -1,6 +1,5 @@
 import React from 'react';
-import { getPercentageClassification, getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
-         getStealClass, getBlockClass, getTurnoverClass } from './../utils/ClassificationUtils';
+import { getPercentageClassification, getCountingClassification, getTurnoverClassification } from './../utils/ClassificationUtils';
 
 function PlayerRow({
   matchedValues,
@@ -28,25 +27,25 @@ function PlayerRow({
         <td className={getPercentageClassification('freethrow', player.freeThrowMade, player.freeThrowAttempt, leagueAverages)}>
           {player.freeThrow} ({player.freeThrowMade}/{player.freeThrowAttempt})
         </td>
-        <td className={getThreePointMadeClass(player.threePointMade)}>
+        <td className={getCountingClassification('threePoint', player.threePointMade)}>
           {player.threePointMade}
         </td>
-        <td className={getPointClass(player.points)}>
+        <td className={getCountingClassification('point', player.points)}>
           {player.points}
         </td>
-        <td className={getReboundClass(player.totalRebounds)}>
+        <td className={getCountingClassification('rebound', player.totalRebounds)}>
           {player.totalRebounds}
         </td>
-        <td className={getAssistClass(player.assists)}>
+        <td className={getCountingClassification('assist', player.assists)}>
           {player.assists}
         </td>
-        <td className={getStealClass(player.steals)}>
+        <td className={getCountingClassification('steal', player.steals)}>
           {player.steals}
         </td>
-        <td className={getBlockClass(player.blocks)}>
+        <td className={getCountingClassification('block', player.blocks)}>
           {player.blocks}
         </td>
-        <td className={getTurnoverClass(player.turnovers)}>
+        <td className={getTurnoverClassification(player.turnovers)}>
           {player.turnovers}
         </td>
         <td className="bold centered">{player.total}</td>

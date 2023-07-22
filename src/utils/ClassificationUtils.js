@@ -49,133 +49,85 @@ function getPercentageClassification(category, made, attempt, leagueAverages) {
   }
 }
 
-function getThreePointMadeClass(value) {
+function getCountingClassification(category, value) {
   if (!value) return;
 
+  let eliteClassification, greatClassification, goodClassification, badClassification, horribleClassification;
+
+  switch (category) {
+    case 'threePoint':
+      eliteClassification = configs.threePoint.eliteClassification;
+      greatClassification = configs.threePoint.greatClassification;
+      goodClassification = configs.threePoint.goodClassification;
+      badClassification = configs.threePoint.badClassification;
+      horribleClassification = configs.threePoint.horribleClassification;
+      break;
+    case 'point':
+      eliteClassification = configs.point.eliteClassification;
+      greatClassification = configs.point.greatClassification;
+      goodClassification = configs.point.goodClassification;
+      badClassification = configs.point.badClassification;
+      horribleClassification = configs.point.horribleClassification;
+      break;
+    case 'rebound':
+      eliteClassification = configs.rebound.eliteClassification;
+      greatClassification = configs.rebound.greatClassification;
+      goodClassification = configs.rebound.goodClassification;
+      badClassification = configs.rebound.badClassification;
+      horribleClassification = configs.rebound.horribleClassification;
+      break;
+    case 'assist':
+      eliteClassification = configs.assist.eliteClassification;
+      greatClassification = configs.assist.greatClassification;
+      goodClassification = configs.assist.goodClassification;
+      badClassification = configs.assist.badClassification;
+      horribleClassification = configs.assist.horribleClassification;
+      break;
+    case 'steal':
+      eliteClassification = configs.steal.eliteClassification;
+      greatClassification = configs.steal.greatClassification;
+      goodClassification = configs.steal.goodClassification;
+      badClassification = configs.steal.badClassification;
+      horribleClassification = configs.steal.horribleClassification;
+      break;
+    case 'block':
+      eliteClassification = configs.block.eliteClassification;
+      greatClassification = configs.block.greatClassification;
+      goodClassification = configs.block.goodClassification;
+      badClassification = configs.block.badClassification;
+      horribleClassification = configs.block.horribleClassification;
+      break;
+  }
+
   switch (true) {
-    case value >= 4:
+    case value >= eliteClassification:
       return 'bold centered dark-green';
-    case value >= 3 && value < 4:
+    case value >= greatClassification && value < eliteClassification:
       return 'bold centered green';
-    case value >= 2 && value < 3:
+    case value >= goodClassification && value < greatClassification:
       return 'bold centered light-green';
-    case value >= 1 && value < 1.5:
+    case value >= horribleClassification && value < badClassification:
       return 'bold centered light-red';
-    case value < 1:
+    case value < horribleClassification:
       return 'bold centered red';
     default:
       return 'bold centered';
   }
 }
 
-function getPointClass(value) {
+function getTurnoverClassification(value) {
   if (!value) return;
 
   switch (true) {
-    case value >= 30:
+    case value <= configs.turnover.eliteClassification:
       return 'bold centered dark-green';
-    case value >= 25 && value < 30:
+    case value <= configs.turnover.greatClassification && value > configs.turnover.eliteClassification:
       return 'bold centered green';
-    case value >= 20 && value < 25:
+    case value <= configs.turnover.goodClassification && value > configs.turnover.greatClassification:
       return 'bold centered light-green';
-    case value >= 10 && value < 15:
+    case value < configs.turnover.horribleClassification && value >= configs.turnover.badClassification:
       return 'bold centered light-red';
-    case value < 10:
-      return 'bold centered red';
-    default:
-      return 'bold centered';
-  }
-}
-
-function getReboundClass(value) {
-  if (!value) return;
-
-  switch (true) {
-    case value >= 10:
-      return 'bold centered dark-green';
-    case value >= 9 && value < 10:
-      return 'bold centered green';
-    case value >= 7 && value < 9:
-      return 'bold centered light-green';
-    case value >= 3 && value < 5:
-      return 'bold centered light-red';
-    case value < 3:
-      return 'bold centered red';
-    default:
-      return 'bold centered';
-  }
-}
-
-function getAssistClass(value) {
-  if (!value) return;
-
-  switch (true) {
-    case value >= 8:
-      return 'bold centered dark-green';
-    case value >= 6 && value < 8:
-      return 'bold centered green';
-    case value >= 4 && value < 6:
-      return 'bold centered light-green';
-    case value >= 1 && value < 2:
-      return 'bold centered light-red';
-    case value < 1:
-      return 'bold centered red';
-    default:
-      return 'bold centered';
-  }
-}
-
-function getStealClass(value) {
-  if (!value) return;
-
-  switch (true) {
-    case value >= 2:
-      return 'bold centered dark-green';
-    case value >= 1.5 && value < 2:
-      return 'bold centered green';
-    case value >= 1 && value < 1.5:
-      return 'bold centered light-green';
-    case value >= 0.5 && value < 0.7:
-      return 'bold centered light-red';
-    case value < 0.5:
-      return 'bold centered red';
-    default:
-      return 'bold centered';
-  }
-}
-
-function getBlockClass(value) {
-  if (!value) return;
-
-  switch (true) {
-    case value >= 1.5:
-      return 'bold centered dark-green';
-    case value >= 1.2 && value < 1.5:
-      return 'bold centered green';
-    case value >= 0.8 && value < 1.2:
-      return 'bold centered light-green';
-    case value >= 0.3 && value < 0.5:
-      return 'bold centered light-red';
-    case value < 0.3:
-      return 'bold centered red';
-    default:
-      return 'bold centered';
-  }
-}
-
-function getTurnoverClass(value) {
-  if (!value) return;
-
-  switch (true) {
-    case value <= 0.7:
-      return 'bold centered dark-green';
-    case value <= 1 && value > 0.7:
-      return 'bold centered green';
-    case value <= 1.5 && value > 1:
-      return 'bold centered light-green';
-    case value < 3 && value >= 2:
-      return 'bold centered light-red';
-    case value >= 3:
+    case value >= configs.turnover.horribleClassification:
       return 'bold centered red';
     default:
       return 'bold centered';
@@ -184,11 +136,6 @@ function getTurnoverClass(value) {
 
 export {
   getPercentageClassification,
-  getThreePointMadeClass,
-  getPointClass,
-  getReboundClass,
-  getAssistClass,
-  getStealClass,
-  getBlockClass,
-  getTurnoverClass
+  getCountingClassification,
+  getTurnoverClassification
 };

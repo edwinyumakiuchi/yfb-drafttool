@@ -1,6 +1,5 @@
 import React from 'react';
-import { getPercentageClassification, getThreePointMadeClass, getPointClass, getReboundClass, getAssistClass,
-         getStealClass, getBlockClass, getTurnoverClass } from './../utils/ClassificationUtils';
+import { getPercentageClassification, getCountingClassification, getTurnoverClassification } from './../utils/ClassificationUtils';
 
 function SelectedPlayerRow({
   selectedPlayers,
@@ -94,25 +93,25 @@ function SelectedPlayerRow({
                 <td className={getPercentageClassification('freethrow', selectedPlayer.freeThrowMade, selectedPlayer.freeThrowAttempt, leagueAverages)}>
                   {selectedPlayer.freeThrow} ({selectedPlayer.freeThrowMade}/{selectedPlayer.freeThrowAttempt})
                 </td>
-                <td className={getThreePointMadeClass(selectedPlayer.threePointMade)}>
+                <td className={getCountingClassification('threePoint', selectedPlayer.threePointMade)}>
                   {selectedPlayer.threePointMade}
                 </td>
-                <td className={getPointClass(selectedPlayer.points)}>
+                <td className={getCountingClassification('point', selectedPlayer.points)}>
                   {selectedPlayer.points}
                 </td>
-                <td className={getReboundClass(selectedPlayer.totalRebounds)}>
+                <td className={getCountingClassification('rebound', selectedPlayer.totalRebounds)}>
                   {selectedPlayer.totalRebounds}
                 </td>
-                <td className={getAssistClass(selectedPlayer.assists)}>
+                <td className={getCountingClassification('assist', selectedPlayer.assists)}>
                   {selectedPlayer.assists}
                 </td>
-                <td className={getStealClass(selectedPlayer.steals)}>
+                <td className={getCountingClassification('steal', selectedPlayer.steals)}>
                   {selectedPlayer.steals}
                 </td>
-                <td className={getBlockClass(selectedPlayer.blocks)}>
+                <td className={getCountingClassification('block', selectedPlayer.blocks)}>
                   {selectedPlayer.blocks}
                 </td>
-                <td className={getTurnoverClass(selectedPlayer.turnovers)}>
+                <td className={getTurnoverClassification(selectedPlayer.turnovers)}>
                   {selectedPlayer.turnovers}
                 </td>
                 <td className="bold centered">{selectedPlayer.total}</td>
@@ -159,13 +158,13 @@ function SelectedPlayerRow({
                   ? ''
                   : `${(averages.freeThrowMade / averages.freeThrowAttempt).toFixed(3)} (${averages.freeThrowMade}/${averages.freeThrowAttempt})`}
               </td>
-              <td className={getThreePointMadeClass(averages.threePointMade)}>{averages.threePointMade}</td>
-              <td className={getPointClass(averages.points)}>{averages.points}</td>
-              <td className={getReboundClass(averages.totalRebounds)}>{averages.totalRebounds}</td>
-              <td className={getAssistClass(averages.assists)}>{averages.assists}</td>
-              <td className={getStealClass(averages.steals)}>{averages.steals}</td>
-              <td className={getBlockClass(averages.blocks)}>{averages.blocks}</td>
-              <td className={getTurnoverClass(averages.turnovers)}>{averages.turnovers}</td>
+              <td className={getCountingClassification('threePoint', averages.threePointMade)}>{averages.threePointMade}</td>
+              <td className={getCountingClassification('point', averages.points)}>{averages.points}</td>
+              <td className={getCountingClassification('rebound', averages.totalRebounds)}>{averages.totalRebounds}</td>
+              <td className={getCountingClassification('assist', averages.assists)}>{averages.assists}</td>
+              <td className={getCountingClassification('steal', averages.steals)}>{averages.steals}</td>
+              <td className={getCountingClassification('block', averages.blocks)}>{averages.blocks}</td>
+              <td className={getTurnoverClassification(averages.turnovers)}>{averages.turnovers}</td>
               <td className="bold centered"></td>
             </tr>
           </tbody>
