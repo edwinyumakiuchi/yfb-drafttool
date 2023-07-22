@@ -32,6 +32,11 @@ function AppUI({
           leagueAverages={leagueAverages}
         />
       )}
+      <PlayerRow
+        matchedValues={players}
+        selectedValueIndex={-1}
+        leagueAverages={leagueAverages}
+      />
     </>
   );
 }
