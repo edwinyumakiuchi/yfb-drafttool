@@ -1,14 +1,12 @@
 import React from 'react';
-import PlayerRow from './row/PlayerRow';
-import SelectedPlayerRow from './row/SelectedPlayerRow';
+import PlayerTable from './PlayerTable';
 
 function AppUI({
   inputValue,
-  matchedValues,
-  selectedValueIndex,
+  matchedPlayers,
+  selectedPlayerIndex,
   setInputValue,
-  setMatchedValues,
-  setSelectedValueIndex,
+  setSelectedPlayerIndex,
   players,
   selectedPlayers,
   setSelectedPlayers,
@@ -17,25 +15,32 @@ function AppUI({
 }) {
   return (
     <>
-      {inputValue && matchedValues.length > 0 && (
-        <PlayerRow
-          matchedValues={matchedValues}
-          selectedValueIndex={selectedValueIndex}
+      {inputValue && matchedPlayers.length > 0 && (
+        <PlayerTable
+          matchedPlayers={matchedPlayers}
+          selectedPlayers={null}
+          selectedPlayerIndex={selectedPlayerIndex}
           leagueAverages={leagueAverages}
+          isSelectedPlayerTable={false}
         />
       )}
       <br />
       {selectedPlayers && (
-        <SelectedPlayerRow
+        <PlayerTable
+          matchedPlayers={null}
           selectedPlayers={selectedPlayers}
-          setSelectedPlayers={setSelectedPlayers}
+          selectedPlayerIndex={null}
           leagueAverages={leagueAverages}
+          isSelectedPlayerTable={true}
         />
       )}
-      <PlayerRow
-        matchedValues={players}
-        selectedValueIndex={-1}
+      <br/>
+      <PlayerTable
+        matchedPlayers={players}
+        selectedPlayers={null}
+        selectedPlayerIndex={-1}
         leagueAverages={leagueAverages}
+        isSelectedPlayerTable={false}
       />
     </>
   );

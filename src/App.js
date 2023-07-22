@@ -7,8 +7,8 @@ import { calculateLeagueAverages, countPositions } from './utils/LeagueUtils';
 function App() {
   const inputRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
-  const [matchedValues, setMatchedValues] = useState([]);
-  const [selectedValueIndex, setSelectedValueIndex] = useState(-1);
+  const [matchedPlayers, setMatchedPlayers] = useState([]);
+  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState(-1);
   const [selectedPlayers, setSelectedPlayers] = useState({});
   const [playerID, setPlayerID] = useState(0);
 
@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     if (players.length > 0) {
-      setMatchedValues(players);
+      setMatchedPlayers(players);
     }
   }, [players]);
 
@@ -54,18 +54,18 @@ function App() {
               e,
               setInputValue,
               players,
-              setMatchedValues,
-              setSelectedValueIndex
+              setMatchedPlayers,
+              setSelectedPlayerIndex
             )
           }
           onKeyDown={(e) =>
             handleKeyDown(
               e,
-              setSelectedValueIndex,
-              matchedValues,
-              selectedValueIndex,
+              setSelectedPlayerIndex,
+              matchedPlayers,
+              selectedPlayerIndex,
               setInputValue,
-              setMatchedValues,
+              setMatchedPlayers,
               selectedPlayers,
               setSelectedPlayers,
               playerID,
@@ -94,22 +94,21 @@ function App() {
         <div className="left-tables-container">
           <AppUI
             inputValue={inputValue}
-            matchedValues={matchedValues}
-            selectedValueIndex={selectedValueIndex}
+            matchedPlayers={matchedPlayers}
+            selectedPlayerIndex={selectedPlayerIndex}
             setInputValue={setInputValue}
-            setMatchedValues={setMatchedValues}
-            setSelectedValueIndex={setSelectedValueIndex}
+            setSelectedPlayerIndex={setSelectedPlayerIndex}
             players={players}
             selectedPlayers={selectedPlayers}
             setSelectedPlayers={setSelectedPlayers}
             handleKeyDown={(e) =>
               handleKeyDown(
                 e,
-                setSelectedValueIndex,
-                matchedValues,
-                selectedValueIndex,
+                setSelectedPlayerIndex,
+                matchedPlayers,
+                selectedPlayerIndex,
                 setInputValue,
-                setMatchedValues,
+                setMatchedPlayers,
                 selectedPlayers,
                 setSelectedPlayers,
                 playerID,
