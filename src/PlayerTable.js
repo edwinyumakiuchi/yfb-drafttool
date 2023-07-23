@@ -50,12 +50,6 @@ function PlayerTable({
         <td className="bold centered">{player.team}</td>
         <td className="bold centered">{player.gp}</td>
         <td className="bold centered">{player.minutesPerGame}</td>
-        <td className="bold centered">{player.fieldGoal}</td>
-        <td className="bold centered">{player.fieldGoalMade}</td>
-        <td className="bold centered">{player.fieldGoalAttempt}</td>
-        <td className="bold centered">{player.freeThrow}</td>
-        <td className="bold centered">{player.freeThrowMade}</td>
-        <td className="bold centered">{player.freeThrowAttempt}</td>
         <td className={getPercentageClassification('fieldgoal', player.fieldGoalMade, player.fieldGoalAttempt, leagueAverages)}>
           {player.fieldGoal} ({player.fieldGoalMade}/{player.fieldGoalAttempt})
         </td>
@@ -83,7 +77,6 @@ function PlayerTable({
         <td className={getTurnoverClassification(player.turnovers)}>
           {player.turnovers}
         </td>
-        <td className="bold centered">{player.total}</td>
       </>
     );
   };
@@ -104,12 +97,6 @@ function PlayerTable({
                 <th className="bold centered">TEAM</th>
                 <th className="bold centered">GP</th>
                 <th className="bold centered">MPG</th>
-                <th className="bold centered">FG%</th>
-                <th className="bold centered">FGM</th>
-                <th className="bold centered">FGA</th>
-                <th className="bold centered">FT%</th>
-                <th className="bold centered">FTM</th>
-                <th className="bold centered">FTA</th>
                 <th className="bold centered">FG</th>
                 <th className="bold centered">FT</th>
                 <th className="bold centered">3PM</th>
@@ -119,7 +106,6 @@ function PlayerTable({
                 <th className="bold centered">STL</th>
                 <th className="bold centered">BLK</th>
                 <th className="bold centered">TO</th>
-                <th className="bold centered">TOTAL</th>
               </tr>
             </thead>
             <tbody>
@@ -147,20 +133,6 @@ function PlayerTable({
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
-                      <td className="bold centered">
-                        {isNaN(averages.fieldGoalMade / averages.fieldGoalAttempt)
-                          ? ''
-                          : (averages.fieldGoalMade / averages.fieldGoalAttempt).toFixed(3)}
-                      </td>
-                      <td className="bold centered">{averages.fieldGoalMade}</td>
-                      <td className="bold centered">{averages.fieldGoalAttempt}</td>
-                      <td className="bold centered">
-                        {isNaN(averages.freeThrowMade / averages.freeThrowAttempt)
-                          ? ''
-                          : (averages.freeThrowMade / averages.freeThrowAttempt).toFixed(3)}
-                      </td>
-                      <td className="bold centered">{averages.freeThrowMade}</td>
-                      <td className="bold centered">{averages.freeThrowAttempt}</td>
                       <td className={getPercentageClassification('fieldgoal', averages.fieldGoalMade, averages.fieldGoalAttempt, leagueAverages)}>
                         {isNaN(averages.fieldGoalMade / averages.fieldGoalAttempt)
                           ? ''
@@ -178,7 +150,6 @@ function PlayerTable({
                       <td className={getCountingClassification('steal', averages.steals)}>{averages.steals}</td>
                       <td className={getCountingClassification('block', averages.blocks)}>{averages.blocks}</td>
                       <td className={getTurnoverClassification(averages.turnovers)}>{averages.turnovers}</td>
-                      <td className="bold centered"></td>
                     </tr>
                   </>
                 )
