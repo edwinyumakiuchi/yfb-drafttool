@@ -58,12 +58,12 @@ export function useGetPlayers(accessToken, collection) {
                 _id: player._id,
                 name: player.name,
                 originalRank: player.rank,
+                position: player.position,
+                team: player.team,
+                gp: player.gp,
                 ...(collection === "projections"
                   ? {
                       adp: player.adp,
-                      position: player.position,
-                      team: player.team,
-                      gp: player.gp,
                       minutesPerGame: player.minutesPerGame,
                       fieldGoal: player.fieldGoal,
                       fieldGoalMade: player.fieldGoalMadeCalculated,
@@ -80,13 +80,10 @@ export function useGetPlayers(accessToken, collection) {
                       steals: player.steals,
                       blocks: player.blocks,
                       turnovers: player.turnovers,
-                      total: player.total,
+                      total: player.total
                     }
                   : {
-                      position: player.position,
-                      team: player.team,
-                      gp: player.gp,
-                      yahooAvg: player.yahooAvg,
+                      yahooAvg: player.yahooAvg
                     }),
               };
             });
