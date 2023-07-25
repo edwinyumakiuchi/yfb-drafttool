@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
-import { useLogin, useGetPlayers, useGetAuctionValues } from './utils/APIUtils';
+import { useLogin, useGetPlayers } from './utils/APIUtils';
 import { handleInputChange, handleKeyDown } from './utils/HandlerUtils';
 import { calculateLeagueAverages, countPositions } from './utils/LeagueUtils';
 import { sortAuctionPlayers, assignAuctionValues } from './utils/AuctionUtils';
@@ -14,8 +14,8 @@ function App() {
   const [playerID, setPlayerID] = useState(0);
 
   const accessToken = useLogin();
-  const players = useGetPlayers(accessToken);
-  const auctionPlayers = useGetAuctionValues(accessToken);
+  const players = useGetPlayers(accessToken, "projections");
+  const auctionPlayers = useGetPlayers(accessToken, "auction-values");
 
   // Step 1: Sort auctionPlayers based on yahooAvg in descending order
   sortAuctionPlayers(auctionPlayers);
