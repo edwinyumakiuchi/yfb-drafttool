@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import fetch from 'isomorphic-fetch';
-import secretConfig from './secretConfig';
+import secretConfig from './../configs/SecretConfigs';
 
 export function useLogin() {
   const [accessToken, setAccessToken] = useState('');
@@ -32,7 +32,7 @@ export function useLogin() {
   return accessToken;
 }
 
-export function useGetPlayers(accessToken) {
+export function useGetPlayers(accessToken, collection) {
   const [players, setPlayers] = useState([]);
 
   useEffect(() => {
@@ -46,39 +46,47 @@ export function useGetPlayers(accessToken) {
         body: JSON.stringify({
           dataSource: 'Cluster0',
           database: 'sample-nba',
-          collection: 'projections',
+          collection: collection,
           filter: {},
         }),
       })
         .then((response) => response.json())
         .then((data) => {
           if (data.documents && Array.isArray(data.documents)) {
-            const fetchedPlayers = data.documents.map((player) => ({
-              _id: player._id,
-              name: player.name,
-              originalRank: player.rank,
-              adp: player.adp,
-              position: player.position,
-              team: player.team,
-              gp: player.gp,
-              minutesPerGame: player.minutesPerGame,
-              fieldGoal: player.fieldGoal,
-              fieldGoalMade: player.fieldGoalMade,
-              fieldGoalAttempt: player.fieldGoalAttempt,
-              fieldGoalClass: player.fieldGoalClass,
-              freeThrow: player.freeThrow,
-              freeThrowMade: player.freeThrowMade,
-              freeThrowAttempt: player.freeThrowAttempt,
-              freeThrowClass: player.freeThrowClass,
-              threePointMade: player.threePointMade,
-              points: player.points,
-              totalRebounds: player.totalRebounds,
-              assists: player.assists,
-              steals: player.steals,
-              blocks: player.blocks,
-              turnovers: player.turnovers,
-              total: player.total,
-            }));
+            const fetchedPlayers = data.documents.map((player) => {
+              return {
+                _id: player._id,
+                name: player.name,
+                originalRank: player.rank,
+                position: player.position,
+                team: player.team,
+                gp: player.gp,
+                ...(collection === "projections"
+                  ? {
+                      adp: player.adp,
+                      minutesPerGame: player.minutesPerGame,
+                      fieldGoal: player.fieldGoal,
+                      fieldGoalMade: player.fieldGoalMadeCalculated,
+                      fieldGoalAttempt: player.fieldGoalAttempt,
+                      fieldGoalClass: player.fieldGoalClass,
+                      freeThrow: player.freeThrow,
+                      freeThrowMade: player.freeThrowMadeCalculated,
+                      freeThrowAttempt: player.freeThrowAttempt,
+                      freeThrowClass: player.freeThrowClass,
+                      threePointMade: player.threePointMade,
+                      points: player.points,
+                      totalRebounds: player.totalRebounds,
+                      assists: player.assists,
+                      steals: player.steals,
+                      blocks: player.blocks,
+                      turnovers: player.turnovers,
+                      total: player.total
+                    }
+                  : {
+                      yahooAvg: player.yahooAvg
+                    }),
+              };
+            });
             setPlayers(fetchedPlayers);
           } else {
             console.error('Invalid data format');

@@ -1,32 +1,45 @@
 import React from 'react';
-import PlayerRow from './PlayerRow';
-import SelectedPlayerRow from './SelectedPlayerRow';
+import PlayerTable from './PlayerTable';
 
 function AppUI({
   inputValue,
-  matchedValues,
-  selectedValueIndex,
+  matchedPlayers,
+  selectedPlayerIndex,
   setInputValue,
-  setMatchedValues,
-  setSelectedValueIndex,
   players,
-  handleKeyDown,
-  handleSort,
-  sortField,
-  sortOrder
+  selectedPlayers,
+  leagueAverages,
+  auctionValues
 }) {
-  const selectedPlayer = players.find((player) => player.name === inputValue);
   return (
     <>
-      {matchedValues.length > 0 && (
-        <PlayerRow
-          matchedValues={matchedValues}
-          selectedValueIndex={selectedValueIndex}
-          handleSort={handleSort}
-          sortField={sortField}
+      {inputValue && matchedPlayers.length > 0 && (
+        <PlayerTable
+          matchedPlayers={matchedPlayers}
+          selectedPlayers={null}
+          selectedPlayerIndex={selectedPlayerIndex}
+          leagueAverages={leagueAverages}
+          isSelectedPlayerTable={false}
         />
       )}
-      {selectedPlayer && <SelectedPlayerRow selectedPlayer={selectedPlayer} />}
+      <br />
+      {selectedPlayers && (
+        <PlayerTable
+          matchedPlayers={null}
+          selectedPlayers={selectedPlayers}
+          selectedPlayerIndex={null}
+          leagueAverages={leagueAverages}
+          isSelectedPlayerTable={true}
+        />
+      )}
+      <br/>
+      <PlayerTable
+        matchedPlayers={players}
+        selectedPlayers={null}
+        selectedPlayerIndex={-1}
+        leagueAverages={leagueAverages}
+        isSelectedPlayerTable={false}
+      />
     </>
   );
 }

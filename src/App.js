@@ -1,31 +1,27 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
-import PlayerRow from './PlayerRow';
-import { useLogin, useGetPlayers } from './api';
-import { handleInputChange, handleKeyDown, handleSort, arraysAreEqual } from './AppHandlers';
+import { useLogin, useGetPlayers } from './utils/APIUtils';
+import { handleInputChange, handleKeyDown } from './utils/HandlerUtils';
+import { calculateLeagueAverages, countPositions } from './utils/LeagueUtils';
+import { sortAuctionPlayers, assignAuctionValues } from './utils/AuctionUtils';
 
 function App() {
-  const [inputValue, setInputValue] = useState('');
-  const [matchedValues, setMatchedValues] = useState([]);
-  const [selectedValueIndex, setSelectedValueIndex] = useState(-1);
-  const [sortField, setSortField] = useState(null);
-  const [sortOrder, setSortOrder] = useState('asc');
   const inputRef = useRef(null);
+  const [inputValue, setInputValue] = useState('');
+  const [matchedPlayers, setMatchedPlayers] = useState([]);
+  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState(-1);
+  const [selectedPlayers, setSelectedPlayers] = useState({});
+  const [playerID, setPlayerID] = useState(0);
 
   const accessToken = useLogin();
-  const players = useGetPlayers(accessToken);
+  const players = useGetPlayers(accessToken, "projections");
+  const auctionPlayers = useGetPlayers(accessToken, "auction-values");
 
-  useEffect(() => {
-    const sortedValues = [...matchedValues].sort((a, b) => {
-      const valueA = parseFloat(a[sortField]) || 0;
-      const valueB = parseFloat(b[sortField]) || 0;
-      return sortOrder === 'asc' ? valueA - valueB : valueB - valueA;
-    });
+  // Step 1: Sort auctionPlayers based on yahooAvg in descending order
+  sortAuctionPlayers(auctionPlayers);
 
-    if (!arraysAreEqual(sortedValues, matchedValues)) {
-      setMatchedValues(sortedValues);
-    }
-  }, [sortField, sortOrder, matchedValues]);
+  // Step 2: Assign auctionValue to each player in the players array
+  assignAuctionValues(players, auctionPlayers);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -35,51 +31,86 @@ function App() {
 
   useEffect(() => {
     if (players.length > 0) {
-      setMatchedValues(players);
+      setMatchedPlayers(players);
     }
   }, [players]);
 
-  // TODO: sorting functionality for unselected players
+  // Calculate the league averages
+  const leagueAverages = calculateLeagueAverages(players);
+
+  Object.entries(leagueAverages).forEach(([field, sum]) => {
+    leagueAverages[field] = sum / players.length;
+  });
+
+  const positionCounts = countPositions(selectedPlayers);
+  const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
+
+  // TODO: fix sorting functionality
+  // this commit seems to break the sorting functionality
+  // https://github.com/edwinyumakiuchi/yfb-drafttool/commit/bbc37864fb9ebbd034384fcda7bef6b5c8b95cfd
+  // however this is also required so selected players are stored properly
+  // following commit comments out the sorting functionality
+  // https://github.com/edwinyumakiuchi/yfb-drafttool/commit/8cf9934c342aa8b141c2b37e9e4e371feb6329a1
   return (
-    <div className="App">
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(e) =>
-          handleInputChange(e, setInputValue, players, setMatchedValues, setSelectedValueIndex)
-        }
-        onKeyDown={(e) =>
-          handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedValueIndex, setInputValue, setMatchedValues)
-        }
-        placeholder="Enter text"
-        ref={inputRef}
-      />
-      <AppUI
-        inputValue={inputValue}
-        matchedValues={matchedValues}
-        selectedValueIndex={selectedValueIndex}
-        setInputValue={setInputValue}
-        setMatchedValues={setMatchedValues}
-        setSelectedValueIndex={setSelectedValueIndex}
-        players={players}
-        handleKeyDown={(e) =>
-          handleKeyDown(e, setSelectedValueIndex, matchedValues, selectedValueIndex, setInputValue, setMatchedValues)
-        }
-        handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
-        sortField={sortField}
-        sortOrder={sortOrder}
-      />
-      <br />
-      <br />
-      <br />
-      {inputValue && (
-        <PlayerRow
-          matchedValues={players}
-          selectedValueIndex={-1}
-          handleSort={(field) => handleSort(field, sortField, setSortOrder, setSortField)}
-          sortField={sortField}
+    <div className="app-container">
+      <div className="input-table-container">
+        <input
+          type="text"
+          value={inputValue}
+          onChange={(e) =>
+            handleInputChange(
+              e,
+              setInputValue,
+              players,
+              setMatchedPlayers,
+              setSelectedPlayerIndex
+            )
+          }
+          onKeyDown={(e) =>
+            handleKeyDown(
+              e,
+              setSelectedPlayerIndex,
+              matchedPlayers,
+              selectedPlayerIndex,
+              setInputValue,
+              setMatchedPlayers,
+              selectedPlayers,
+              setSelectedPlayers,
+              playerID,
+              setPlayerID
+            )
+          }
+          placeholder="Enter text"
+          ref={inputRef}
+          style={{ width: '150px', height: '30px' }}
         />
-      )}
+        <table className="bordered-table" style={{ width: '500px' }}>
+          <tbody>
+            <tr>
+              {positions.map((position) => (
+                <td key={position} className="bold centered">{position}</td>
+              ))}
+            </tr>
+            <tr>
+              {positions.map((position) => (
+                <td key={position} className="bold centered">{positionCounts[position]}</td>
+              ))}
+            </tr>
+          </tbody>
+        </table>
+        {/* TODO: add another table that lists the number of players from each team */}
+        <div className="left-tables-container">
+          <AppUI
+            inputValue={inputValue}
+            matchedPlayers={matchedPlayers}
+            selectedPlayerIndex={selectedPlayerIndex}
+            setInputValue={setInputValue}
+            players={players}
+            selectedPlayers={selectedPlayers}
+            leagueAverages={leagueAverages}
+          />
+        </div>
+      </div>
     </div>
   );
 }
