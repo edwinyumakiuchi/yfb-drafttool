@@ -160,10 +160,10 @@ async function hashtagAPI(hashtagPage) {
               steals: player.steals,
               blocks: player.blocks,
               turnovers: player.turnovers,
-              total: player.total,
+              total: player.total
             }
           : {
-              yahooAvg: player.yahooAvg,
+              yahooAvg: player.yahooAvg
             }),
       };
 

@@ -8,7 +8,8 @@ function AppUI({
   setInputValue,
   players,
   selectedPlayers,
-  leagueAverages
+  leagueAverages,
+  auctionValues
 }) {
   return (
     <>

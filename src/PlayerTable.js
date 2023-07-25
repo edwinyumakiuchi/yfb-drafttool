@@ -40,29 +40,13 @@ function PlayerTable({
 
   const averages = isSelectedPlayerTable ? calculateAverages() : null;
 
-  const AuctionConfigs = require('./configs/AuctionConfigs');
-
-  // Function to find the auctionValue for a given originalRank
-  function findAuctionValue(originalRank) {
-    originalRank = parseInt(originalRank, 10); // Convert originalRank to a number
-    const auctionValueObject = AuctionConfigs.auctionValues.find((config) => {
-      if (typeof config.pick === "number") {
-        return config.pick === originalRank;
-      } else if (typeof config.pick === "object" && "start" in config.pick && "end" in config.pick) {
-        const { start, end } = config.pick;
-        return originalRank >= start && originalRank <= end;
-      }
-      return false;
-    });
-
-    return auctionValueObject ? auctionValueObject.value : 0;
-  }
-
   const playerRow = (player) => {
     return (
       <>
         <td className="bold centered">{player.originalRank}</td>
-        <td className="bold centered">{findAuctionValue(player.originalRank)}</td>
+        {!isSelectedPlayerTable && (
+          <td className="bold centered">{player.auctionValue}</td>
+        )}
         <td className="bold centered">{player.adp}</td>
         <td className="bold centered">{player.name}</td>
         <td className="bold centered">{player.position}</td>

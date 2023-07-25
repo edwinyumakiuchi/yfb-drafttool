@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
-import { useLogin, useGetPlayers } from './utils/APIUtils';
+import { useLogin, useGetPlayers, useGetAuctionValues } from './utils/APIUtils';
 import { handleInputChange, handleKeyDown } from './utils/HandlerUtils';
 import { calculateLeagueAverages, countPositions } from './utils/LeagueUtils';
 
@@ -14,6 +14,42 @@ function App() {
 
   const accessToken = useLogin();
   const players = useGetPlayers(accessToken);
+  const auctionPlayers = useGetAuctionValues(accessToken);
+
+  // Step 1: Sort auctionPlayers based on yahooAvg in descending order
+  if (auctionPlayers) {
+    // Convert yahooAvg to numerical value before sorting, handle the dollar sign if present
+    auctionPlayers.forEach((player) => {
+      // console.log("player.yahooAvg: " + player.yahooAvg)
+      if (typeof player.yahooAvg === 'string' && player.yahooAvg.startsWith('$')) {
+        player.yahooAvg = parseFloat(player.yahooAvg.slice(1)); // Remove the dollar sign and convert to number
+      } else {
+        player.yahooAvg = parseFloat(player.yahooAvg); // Convert to number directly (in case it's already a number or doesn't start with '$')
+      }
+
+      // Remove the yahooAvg if it's NaN
+      if (isNaN(player.yahooAvg) || player.yahooAvg === undefined) {
+        player.yahooAvg = 1;
+      }
+    });
+
+    // Now sort based on numerical yahooAvg
+    auctionPlayers.sort((a, b) => b.yahooAvg - a.yahooAvg);
+  }
+
+  // Step 2: Assign auctionValue to each player in the players array
+  if (players && auctionPlayers) {
+    for (let i = 0; i < players.length; i++) {
+      const player = players[i];
+      if (auctionPlayers[i]) {
+        player.auctionValue = auctionPlayers[i].yahooAvg;
+      } else {
+        // Handle the case when there are more players than auctionPlayers
+        player.auctionValue = 0;
+      }
+      // console.log(`player.name: ${player.name}, auctionValue: $${player.auctionValue}`);
+    }
+  }
 
   useEffect(() => {
     if (inputRef.current) {
