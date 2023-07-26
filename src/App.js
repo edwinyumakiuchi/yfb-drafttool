@@ -8,19 +8,18 @@ import { sortAuctionPlayers, assignAuctionValues } from './utils/AuctionUtils';
 function App() {
   const inputRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
-  const [matchedPlayers, setMatchedPlayers] = useState([]);
-  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState(-1);
-  const [selectedPlayers, setSelectedPlayers] = useState({});
   const [playerID, setPlayerID] = useState(0);
+  const [matchedPlayers, setMatchedPlayers] = useState([]);
+  const [selectedPlayers, setSelectedPlayers] = useState({});
+  const [selectedPlayerIndex, setSelectedPlayerIndex] = useState(-1);
 
   const accessToken = useLogin();
   const players = useGetPlayers(accessToken, "projections");
   const auctionPlayers = useGetPlayers(accessToken, "auction-values");
 
-  // Step 1: Sort auctionPlayers based on yahooAvg in descending order
+  // Sort auctionPlayers based on yahooAvg in descending order
   sortAuctionPlayers(auctionPlayers);
-
-  // Step 2: Assign auctionValue to each player in the players array
+  // Assign auctionValue to each player in the players array
   assignAuctionValues(players, auctionPlayers);
 
   useEffect(() => {
@@ -35,13 +34,10 @@ function App() {
     }
   }, [players]);
 
-  // Calculate the league averages
   const leagueAverages = calculateLeagueAverages(players);
-
   Object.entries(leagueAverages).forEach(([field, sum]) => {
     leagueAverages[field] = sum / players.length;
   });
-
   const positionCounts = countPositions(selectedPlayers);
   const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
 

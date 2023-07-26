@@ -63,7 +63,6 @@ async function hashtagAPI(hashtagPage) {
       const commonPlayerProps = {
         name: playerName,
         rank: playerData[0],
-        gp: playerData[4],
         minutesPerGame: playerData[5],
       };
 
@@ -73,6 +72,7 @@ async function hashtagAPI(hashtagPage) {
           adp: playerData[1],
           position: playerData[3],
           team: playerData[4],
+          gp: playerData[5],
           fieldGoal: playerData[17],
           fieldGoalMadeOriginal: playerData[18],
           fieldGoalMadeCalculated: playerData[21],
@@ -92,16 +92,15 @@ async function hashtagAPI(hashtagPage) {
           turnovers: playerData[15],
           total: playerData[16],
         };
-
         fetchedPlayers.push({ ...commonPlayerProps, ...projectionsProps });
       } else {
-        // Player properties for other pages
+        // Player properties for "auction-values" page
         const otherProps = {
           position: playerData[2],
           team: playerData[3],
+          gp: playerData[4],
           yahooAvg: playerData[8],
         };
-
         fetchedPlayers.push({ ...commonPlayerProps, ...otherProps });
       }
     });
@@ -187,7 +186,6 @@ async function hashtagAPI(hashtagPage) {
         console.error('Collection ' + hashtagPage + ': Error storing player ' + player.name);
       }
     }
-
     console.log('Collection ' + hashtagPage + ': Data scraped and stored successfully!');
   } catch (error) {
     console.error('Collection ' + hashtagPage + ': Error scraping - ', error);

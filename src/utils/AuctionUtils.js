@@ -1,5 +1,3 @@
-// AuctionUtils.js
-
 // Function to sort auctionPlayers based on yahooAvg in descending order
 export function sortAuctionPlayers(auctionPlayers) {
   if (auctionPlayers) {
@@ -14,7 +12,6 @@ export function sortAuctionPlayers(auctionPlayers) {
         player.yahooAvg = 1;
       }
     });
-
     auctionPlayers.sort((a, b) => b.yahooAvg - a.yahooAvg);
   }
 }
