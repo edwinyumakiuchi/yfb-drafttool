@@ -127,13 +127,6 @@ function PlayerTable({
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
-                      {/* <td className="bold centered">
-                        {`PG=${positionCounts['PG']}`}<br />
-                        {`SG=${positionCounts['SG']}`}<br />
-                        {`SF=${positionCounts['SF']}`}<br />
-                        {`PF=${positionCounts['PF']}`}<br />
-                        {`C=${positionCounts['C']}`}
-                      </td> */}
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>

@@ -4,7 +4,6 @@ import secretConfig from './../configs/SecretConfigs';
 
 export function useLogin() {
   const [accessToken, setAccessToken] = useState('');
-
   useEffect(() => {
     fetch('https://realm.mongodb.com/api/client/v2.0/app/data-natmv/auth/providers/local-userpass/login', {
       method: 'POST',
@@ -28,13 +27,11 @@ export function useLogin() {
         console.error('Login API call error:', error);
       });
   }, []);
-
   return accessToken;
 }
 
 export function useGetPlayers(accessToken, collection) {
   const [players, setPlayers] = useState([]);
-
   useEffect(() => {
     if (accessToken) {
       fetch('https://us-west-2.aws.data.mongodb-api.com/app/data-natmv/endpoint/data/v1/action/find', {
@@ -97,6 +94,5 @@ export function useGetPlayers(accessToken, collection) {
         });
     }
   }, [accessToken]);
-
   return players;
 }
