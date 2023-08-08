@@ -5,6 +5,7 @@ import { handleInputChange, handleKeyDown } from './utils/HandlerUtils';
 import { calculateLeagueAverages, countPositions } from './utils/LeagueUtils';
 import { sortAuctionPlayers, assignAuctionValues } from './utils/AuctionUtils';
 
+// npm run start
 function App() {
   const inputRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
