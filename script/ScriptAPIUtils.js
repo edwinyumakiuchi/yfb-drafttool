@@ -18,10 +18,12 @@ async function hashtagAPI(hashtagPage) {
 
     $('#ContentPlaceHolder1_GridView1 tr:has(td)').each((index, element) => {
       const playerNameElement = $(element).find('a');
-      const playerName = playerNameElement.text().trim();
+      playerName = playerNameElement.text().trim();
 
       if (!playerName) {
         return;
+      } else {
+        playerName = convertPlayerName(playerName);
       }
 
       let playerData = {};
@@ -190,6 +192,19 @@ async function hashtagAPI(hashtagPage) {
   } catch (error) {
     console.error('Collection ' + hashtagPage + ': Error scraping - ', error);
   }
+}
+
+function convertPlayerName(name) {
+  const hardcodedNames = {
+    "PJ Washington": "P.J. Washington",
+    "Robert Williams": "Robert Williams III"
+  };
+
+  if (hardcodedNames.hasOwnProperty(name)) {
+    return hardcodedNames[name];
+  }
+
+  return name;
 }
 
 module.exports = { hashtagAPI };
