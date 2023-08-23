@@ -10,7 +10,7 @@ const API_KEY = secretConfigs.mongoKey;
 
 async function hashtagAPI(hashtagPage) {
   try {
-    const response = await fetch('https://hashtagbasketball.com/fantasy-basketball-' + hashtagPage);
+    const response = await fetch('https://hashtagbasketball.com/' + hashtagPage);
     const html = await response.text();
     const $ = cheerio.load(html);
 
@@ -34,7 +34,7 @@ async function hashtagAPI(hashtagPage) {
 
         switch (index) {
           case 7:
-            if (hashtagPage === "projections") {
+            if (hashtagPage === "fantasy-basketball-projections") {
               playerData[17] = tdValue
               const matchFGResult = playerData[17].match(/\((.*?)\)/);
               [playerData[18], playerData[19]] = matchFGResult[1].split('/').map(value => value.trim());
@@ -44,7 +44,7 @@ async function hashtagAPI(hashtagPage) {
             }
             break;
           case 8:
-            if (hashtagPage === "projections") {
+            if (hashtagPage === "fantasy-basketball-projections") {
               playerData[22] = tdValue
               const matchFTResult = playerData[22].match(/\((.*?)\)/);
               [playerData[23], playerData[24]] = matchFTResult[1].split('/').map(value => value.trim());
@@ -68,7 +68,7 @@ async function hashtagAPI(hashtagPage) {
         minutesPerGame: playerData[5],
       };
 
-      if (hashtagPage === "projections") {
+      if (hashtagPage === "fantasy-basketball-projections") {
         // Player properties for "projections" page
         const projectionsProps = {
           adp: playerData[1],
@@ -107,6 +107,79 @@ async function hashtagAPI(hashtagPage) {
       }
     });
 
+    const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    const dayNames = ['mon', 'tues', 'wed', 'thurs', 'fri', 'sat', 'sun'];
+    const teamNameAbbreviations = {
+      "Atlanta Hawks": "ATL",
+      "Boston Celtics": "BOS",
+      "Brooklyn Nets": "BKN",
+      "Charlotte Hornets": "CHA",
+      "Chicago Bulls": "CHI",
+      "Cleveland Cavaliers": "CLE",
+      "Dallas Mavericks": "DAL",
+      "Denver Nuggets": "DEN",
+      "Detroit Pistons": "DET",
+      "Golden State Warriors": "GSW",
+      "Houston Rockets": "HOU",
+      "Indiana Pacers": "IND",
+      "Los Angeles Clippers": "LAC",
+      "Los Angeles Lakers": "LAL",
+      "Memphis Grizzlies": "MEM",
+      "Miami Heat": "MIA",
+      "Milwaukee Bucks": "MIL",
+      "Minnesota Timberwolves": "MIN",
+      "New Orleans Pelicans": "NOP",
+      "New York Knicks": "NYK",
+      "Oklahoma City Thunder": "OKC",
+      "Orlando Magic": "ORL",
+      "Philadelphia 76ers": "PHI",
+      "Phoenix Suns": "PHO",
+      "Portland Trail Blazers": "POR",
+      "Sacramento Kings": "SAC",
+      "San Antonio Spurs": "SAS",
+      "Toronto Raptors": "TOR",
+      "Utah Jazz": "UTA",
+      "Washington Wizards": "WAS"
+    };
+
+    const scheduleData = {
+        data: daysOfWeek.map(day => ({
+            date: day,
+            teams: [],
+            matchups: []
+        }))
+    };
+    const addedMatchups = new Set();
+
+    $('.text-left.mw200').each((index, element) => {
+      const teamName = $(element).text().trim();
+
+      if (teamName === "# Games Played") {
+        return;
+      }
+
+      const teamAbbreviation = teamNameAbbreviations[teamName];
+
+      for (let i = 0; i < dayNames.length; i++) {
+        const opp = $(element).nextAll().eq(i + 1).text().trim();
+
+        if (opp) {
+          scheduleData.data[i].teams.push(teamAbbreviation);
+
+          const sortedMatchup = [teamAbbreviation, opp.replace('@', '')].sort();
+          if (!addedMatchups.has(sortedMatchup.toString())) {
+            addedMatchups.add(sortedMatchup.toString());
+
+            if (!opp.includes('@')) {
+              scheduleData.data[i].matchups.push(['@' + teamAbbreviation, opp].sort());
+            } else {
+              scheduleData.data[i].matchups.push([teamAbbreviation, opp].sort());
+            }
+          }
+        }
+      }
+    });
+
     // Delete all documents in the collection to store fresh data
     const deleteManyResponse = await fetch(API_ENDPOINT + API_DELETEMANY_ENDPOINT, {
       method: 'POST',
@@ -117,7 +190,7 @@ async function hashtagAPI(hashtagPage) {
       body: JSON.stringify({
         dataSource: 'Cluster0',
         database: 'sample-nba',
-        collection: hashtagPage,
+        collection: hashtagPage.replace('fantasy-basketball-', ''),
         filter: {},
       }),
     });
@@ -140,7 +213,7 @@ async function hashtagAPI(hashtagPage) {
 
       const dataDocument = {
         ...commonProps,
-        ...(hashtagPage === "projections"
+        ...(hashtagPage === "fantasy-basketball-projections"
           ? {
               adp: player.adp,
               minutesPerGame: player.minutesPerGame,
@@ -177,7 +250,7 @@ async function hashtagAPI(hashtagPage) {
         body: JSON.stringify({
           dataSource: 'Cluster0',
           database: 'sample-nba',
-          collection: hashtagPage,
+          collection: hashtagPage.replace('fantasy-basketball-', ''),
           document: dataDocument,
         }),
       });
@@ -188,6 +261,29 @@ async function hashtagAPI(hashtagPage) {
         console.error('Collection ' + hashtagPage + ': Error storing player ' + player.name);
       }
     }
+
+    if (hashtagPage === "advanced-nba-schedule-grid") {
+      const insertOneResponse = await fetch(API_ENDPOINT + API_INSERTONE_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'api-key': API_KEY,
+        },
+        body: JSON.stringify({
+          dataSource: 'Cluster0',
+          database: 'sample-nba',
+          collection: hashtagPage,
+          document: scheduleData,
+        }),
+      });
+
+      if (insertOneResponse.ok) {
+        console.log('Collection ' + hashtagPage + ': scheduleData stored successfully!');
+      } else {
+        console.error('Collection ' + hashtagPage + ': Error storing scheduleData');
+      }
+    }
+
     console.log('Collection ' + hashtagPage + ': Data scraped and stored successfully!');
   } catch (error) {
     console.error('Collection ' + hashtagPage + ': Error scraping - ', error);
