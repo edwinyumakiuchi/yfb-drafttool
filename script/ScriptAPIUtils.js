@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
 const secretConfigs = require('./../src/configs/SecretConfigs.js');
+const bidConfigs = require('./../src/configs/BidConfigs.js');
 
 // Define the MongoDB API endpoint and API key
 const API_ENDPOINT = 'https://us-west-2.aws.data.mongodb-api.com/app/data-natmv/endpoint/data/v1/action/';
@@ -16,6 +17,8 @@ async function hashtagAPI(hashtagPage) {
 
     const fetchedPlayers = [];
 
+    let bidIndex = 0;
+
     $('#ContentPlaceHolder1_GridView1 tr:has(td)').each((index, element) => {
       const playerNameElement = $(element).find('a');
       playerName = playerNameElement.text().trim();
@@ -25,6 +28,9 @@ async function hashtagAPI(hashtagPage) {
       } else {
         playerName = convertPlayerName(playerName);
       }
+
+      let goftBid = bidConfigs[bidIndex];
+      goftBid = goftBid !== undefined ? goftBid : 0;
 
       let playerData = {};
 
@@ -65,7 +71,7 @@ async function hashtagAPI(hashtagPage) {
       const commonPlayerProps = {
         name: playerName,
         rank: playerData[0],
-        minutesPerGame: playerData[5],
+        minutesPerGame: playerData[6],
       };
 
       if (hashtagPage === "fantasy-basketball-projections") {
@@ -102,9 +108,12 @@ async function hashtagAPI(hashtagPage) {
           team: playerData[3],
           gp: playerData[4],
           yahooAvg: playerData[8],
+          goftBid: goftBid
         };
         fetchedPlayers.push({ ...commonPlayerProps, ...otherProps });
       }
+
+      bidIndex++
     });
 
     const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -237,7 +246,8 @@ async function hashtagAPI(hashtagPage) {
               total: player.total
             }
           : {
-              yahooAvg: player.yahooAvg
+              yahooAvg: player.yahooAvg,
+              goftBid: player.goftBid
             }),
       };
 
