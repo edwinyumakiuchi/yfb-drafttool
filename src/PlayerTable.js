@@ -45,7 +45,11 @@ function PlayerTable({
       <>
         <td className="bold centered">{player.originalRank}</td>
         {!isSelectedPlayerTable && (
+          <>
+          <td className="bold centered">{player.avgAuctionValue}</td>
           <td className="bold centered">{player.auctionValue}</td>
+          <td className="bold centered">{player.goftBid}</td>
+          </>
         )}
         <td className="bold centered">{player.adp}</td>
         <td className="bold centered">{player.name}</td>
@@ -92,10 +96,11 @@ function PlayerTable({
           <table className="bordered-table">
             <thead className="header-row">
               <tr>
-                {isSelectedPlayerTable && <th className="bold centered">PICK</th>}
-                {!isSelectedPlayerTable && <th className="bold centered">RANK</th>}
-                {!isSelectedPlayerTable && <th className="bold centered">AUCTION VALUE</th>}
-                <th className="bold centered">ADP</th>
+                <th className="bold centered">H-RANK</th>
+                {!isSelectedPlayerTable && <th className="bold centered">AVG-AUCTION</th>}
+                {!isSelectedPlayerTable && <th className="bold centered">Y-AUCTION</th>}
+                {!isSelectedPlayerTable && <th className="bold centered">GOFT-AUCTION</th>}
+                <th className="bold centered">Y-ADP</th>
                 <th className="bold centered">PLAYER</th>
                 <th className="bold centered">POS</th>
                 <th className="bold centered">TEAM</th>

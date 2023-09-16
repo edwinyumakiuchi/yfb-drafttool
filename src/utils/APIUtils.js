@@ -80,7 +80,8 @@ export function useGetPlayers(accessToken, collection) {
                       total: player.total
                     }
                   : {
-                      yahooAvg: player.yahooAvg
+                      yahooAvg: player.yahooAvg,
+                      goftBid: player.goftBid
                     }),
               };
             });
