@@ -40,17 +40,19 @@ function PlayerTable({
 
   const averages = isSelectedPlayerTable ? calculateAverages() : null;
 
-  const playerRow = (player) => {
+  const playerRow = (player, rowIndex) => {
     return (
       <>
-        <td className="bold centered">{player.originalRank}</td>
+        <td className="bold centered">{rowIndex+1}</td>
         {!isSelectedPlayerTable && (
           <>
           <td className="bold centered">{player.avgAuctionValue}</td>
           <td className="bold centered">{player.auctionValue}</td>
+          <td className="bold centered">{player.valuedAt}</td>
           <td className="bold centered">{player.goftBid}</td>
           </>
         )}
+        <td className="bold centered">{player.originalRank}</td>
         <td className="bold centered">{player.adp}</td>
         <td className="bold centered">{player.name}</td>
         <td className="bold centered">{player.position}</td>
@@ -96,10 +98,13 @@ function PlayerTable({
           <table className="bordered-table">
             <thead className="header-row">
               <tr>
-                <th className="bold centered">H-RANK</th>
+                {!isSelectedPlayerTable && <th className="bold centered">RANK</th>}
+                {isSelectedPlayerTable && <th className="bold centered">PICK</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">AVG-AUCTION</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">Y-AUCTION</th>}
+                {!isSelectedPlayerTable && <th className="bold centered">H-AUCTION</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">GOFT-AUCTION</th>}
+                <th className="bold centered">H-RANK</th>
                 <th className="bold centered">Y-ADP</th>
                 <th className="bold centered">PLAYER</th>
                 <th className="bold centered">POS</th>
@@ -121,14 +126,15 @@ function PlayerTable({
               {isSelectedPlayerTable
                 ? (
                   <>
-                    {Object.values(selectedPlayers).map((player) => (
+                    {Object.values(selectedPlayers).map((player, index) => (
                       <tr key={player.id}>
-                        {playerRow(player)}
+                        {playerRow(player, index)}
                       </tr>
                     ))}
                     {/* Render the row for averages */}
                     <tr>
                       <td className="bold centered">AVERAGE</td>
+                      <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
@@ -157,7 +163,7 @@ function PlayerTable({
                 )
                 : matchedPlayers.map((player, index) => (
                     <tr key={index} className={index === selectedPlayerIndex ? 'selected' : ''}>
-                      {playerRow(player)}
+                      {playerRow(player, index)}
                     </tr>
                   ))}
             </tbody>
