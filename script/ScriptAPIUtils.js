@@ -17,8 +17,6 @@ async function hashtagAPI(hashtagPage) {
 
     const fetchedPlayers = [];
 
-    let bidIndex = 0;
-
     $('#ContentPlaceHolder1_GridView1 tr:has(td)').each((index, element) => {
       const playerNameElement = $(element).find('a');
       playerName = playerNameElement.text().trim();
@@ -28,9 +26,6 @@ async function hashtagAPI(hashtagPage) {
       } else {
         playerName = convertPlayerName(playerName);
       }
-
-      let goftBid = bidConfigs[bidIndex];
-      goftBid = goftBid !== undefined ? goftBid : 0;
 
       let playerData = {};
 
@@ -47,6 +42,9 @@ async function hashtagAPI(hashtagPage) {
               playerData[17] = playerData[17].trim().split('\n')[0];
               playerData[20] = tdClass
               playerData[21] = (playerData[19] * playerData[17]).toFixed(3)
+            } else {
+              // auction: valued at
+              playerData[index] = tdValue
             }
             break;
           case 8:
@@ -108,13 +106,14 @@ async function hashtagAPI(hashtagPage) {
           team: playerData[3],
           gp: playerData[4],
           yahooAvg: playerData[8],
-          goftBid: goftBid
+          valuedAt: playerData[7],
+          hbAuctionAvg: (parseFloat(playerData[8].replace('$', '')) + parseFloat(playerData[7].replace('$', ''))) / 2
         };
         fetchedPlayers.push({ ...commonPlayerProps, ...otherProps });
       }
-
-      bidIndex++
     });
+
+    fetchedPlayers.sort((a, b) => b.hbAuctionAvg - a.hbAuctionAvg);
 
     const daysOfWeek = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
     const dayNames = ['mon', 'tues', 'wed', 'thurs', 'fri', 'sat', 'sun'];
@@ -210,8 +209,13 @@ async function hashtagAPI(hashtagPage) {
       console.error('Collection ' + hashtagPage + ': Error deleting documents');
     }
 
+    let bidIndex = 0;
+
     // Store the scraped data
     for (const player of fetchedPlayers) {
+      let goftBid = bidConfigs[bidIndex];
+      goftBid = goftBid !== undefined ? goftBid : 0;
+
       const commonProps = {
         name: player.name,
         rank: player.rank,
@@ -247,7 +251,9 @@ async function hashtagAPI(hashtagPage) {
             }
           : {
               yahooAvg: player.yahooAvg,
-              goftBid: player.goftBid
+              valuedAt: player.valuedAt,
+              hbAuctionAvg: player.hbAuctionAvg,
+              goftBid: goftBid
             }),
       };
 
@@ -270,6 +276,7 @@ async function hashtagAPI(hashtagPage) {
       } else {
         console.error('Collection ' + hashtagPage + ': Error storing player ' + player.name);
       }
+      bidIndex++
     }
 
     if (hashtagPage === "advanced-nba-schedule-grid") {

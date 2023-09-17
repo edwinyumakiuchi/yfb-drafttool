@@ -3,8 +3,7 @@ import AppUI from './AppUI';
 import { useLogin, useGetPlayers } from './utils/APIUtils';
 import { handleInputChange, handleKeyDown } from './utils/HandlerUtils';
 import { calculateLeagueAverages, countPositions } from './utils/LeagueUtils';
-import { sortAuctionPlayers, assignAuctionValues,
-  sortGoftAuctionPlayers, assignGoftValues } from './utils/AuctionUtils';
+import { assignAuctionValues } from './utils/AuctionUtils';
 
 // npm run start
 function App() {
@@ -19,15 +18,8 @@ function App() {
   const players = useGetPlayers(accessToken, "projections");
   const auctionPlayers = useGetPlayers(accessToken, "auction-values");
 
-  // Sort auctionPlayers based on yahooAvg in descending order
-  sortAuctionPlayers(auctionPlayers);
   // Assign auctionValue to each player in the players array
   assignAuctionValues(players, auctionPlayers);
-
-  // Sort auctionPlayers based on yahooAvg in descending order
-  sortGoftAuctionPlayers(auctionPlayers);
-  // Assign auctionValue to each player in the players array
-  assignGoftValues(players, auctionPlayers);
 
   useEffect(() => {
     if (inputRef.current) {

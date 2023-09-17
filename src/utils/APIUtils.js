@@ -81,6 +81,7 @@ export function useGetPlayers(accessToken, collection) {
                     }
                   : {
                       yahooAvg: player.yahooAvg,
+                      valuedAt: player.valuedAt,
                       goftBid: player.goftBid
                     }),
               };

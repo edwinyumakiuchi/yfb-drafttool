@@ -1,58 +1,25 @@
-// Function to sort auctionPlayers based on yahooAvg in descending order
-export function sortAuctionPlayers(auctionPlayers) {
-  if (auctionPlayers) {
-    auctionPlayers.forEach((player) => {
-      if (typeof player.yahooAvg === 'string' && player.yahooAvg.startsWith('$')) {
-        player.yahooAvg = parseFloat(player.yahooAvg.slice(1));
-      } else {
-        player.yahooAvg = parseFloat(player.yahooAvg);
-      }
-
-      if (isNaN(player.yahooAvg) || player.yahooAvg === undefined) {
-        player.yahooAvg = 0;
-      }
-    });
-    auctionPlayers.sort((a, b) => b.yahooAvg - a.yahooAvg);
-  }
-}
-
 // Function to assign auctionValue to each player in the players array
 export function assignAuctionValues(players, auctionPlayers) {
   if (players && auctionPlayers) {
     for (let i = 0; i < players.length; i++) {
-      const player = players[i];
-      if (auctionPlayers[i]) {
-        player.auctionValue = auctionPlayers[i].yahooAvg;
-      } else {
-        player.auctionValue = 0;
+      for (let j = 0; j < auctionPlayers.length; j++) {
+        if (players[i].name === auctionPlayers[j].name) {
+          players[i].auctionValue = parseFloat(auctionPlayers[j].yahooAvg.replace('$', '').replace(/\.?0+$/, ''))
+          players[i].valuedAt = parseFloat(auctionPlayers[j].valuedAt.replace('$', '').replace(/\.?0+$/, ''))
+          players[i].goftBid = parseFloat(auctionPlayers[j].goftBid)
+        }
       }
+      if (!players[i].auctionValue || isNaN(players[i].auctionValue)) {
+        players[i].auctionValue = 0;
+      }
+      if (!players[i].valuedAt || isNaN(players[i].valuedAt)) {
+        players[i].valuedAt = 0;
+      }
+      if (!players[i].goftBid || isNaN(players[i].goftBid)) {
+        players[i].goftBid = 0;
+      }
+      players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].goftBid) / 3).toFixed(2)
     }
   }
-}
-
-// Function to sort auctionPlayers based on goftBid in descending order
-export function sortGoftAuctionPlayers(auctionPlayers) {
-  if (auctionPlayers) {
-    auctionPlayers.forEach((player) => {
-      if (isNaN(player.goftBid) || player.goftBid === undefined) {
-        player.yahooAvg = 0;
-      }
-    });
-    auctionPlayers.sort((a, b) => b.goftBid - a.goftBid);
-  }
-}
-
-// Function to assign goftBid to each player in the players array
-export function assignGoftValues(players, auctionPlayers) {
-  if (players && auctionPlayers) {
-    for (let i = 0; i < players.length; i++) {
-      const player = players[i];
-      if (auctionPlayers[i]) {
-        player.goftBid = auctionPlayers[i].goftBid;
-      } else {
-        player.goftBid = 0;
-      }
-      player.avgAuctionValue = (player.auctionValue + player.goftBid) / 2;
-    }
-  }
+  players.sort((a, b) => b.avgAuctionValue - a.avgAuctionValue);
 }
