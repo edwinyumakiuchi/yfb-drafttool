@@ -13,6 +13,8 @@ function App() {
   const [matchedPlayers, setMatchedPlayers] = useState([]);
   const [selectedPlayers, setSelectedPlayers] = useState({});
   const [selectedPlayerIndex, setSelectedPlayerIndex] = useState(-1);
+  const [addExtraRow, setAddExtraRow] = useState(false);
+  const [highlightedPlayer, setHighlightedPlayer] = useState(false);
 
   const accessToken = useLogin();
   const players = useGetPlayers(accessToken, "projections");
@@ -72,7 +74,9 @@ function App() {
               selectedPlayers,
               setSelectedPlayers,
               playerID,
-              setPlayerID
+              setPlayerID,
+              setAddExtraRow,
+              setHighlightedPlayer
             )
           }
           placeholder="Enter text"
@@ -103,6 +107,8 @@ function App() {
             players={players}
             selectedPlayers={selectedPlayers}
             leagueAverages={leagueAverages}
+            addExtraRow={addExtraRow}
+            highlightedPlayer={highlightedPlayer}
           />
         </div>
       </div>

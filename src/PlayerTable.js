@@ -6,13 +6,15 @@ function PlayerTable({
   selectedPlayers,
   selectedPlayerIndex,
   leagueAverages,
-  isSelectedPlayerTable }) {
+  isSelectedPlayerTable,
+  addExtraRow,
+  highlightedPlayer }) {
 
   // Function to calculate column averages
-  const calculateAverages = () => {
-    const numPlayers = Object.values(selectedPlayers).length;
+  const calculateAverages = (highlightedPlayer) => {
+    const numPlayers = Object.values(selectedPlayers).length + (highlightedPlayer ? 1 : 0);
     const sum = (field) =>
-      Object.values(selectedPlayers).reduce((acc, player) => {
+      Object.values(selectedPlayers).concat(highlightedPlayer ? [highlightedPlayer] : []).reduce((acc, player) => {
         const fieldValue = parseFloat(player[field]); // Parse the field value as a float
         return isNaN(fieldValue) ? acc : acc + fieldValue; // Exclude NaN and add numeric values
       }, 0);
@@ -39,6 +41,7 @@ function PlayerTable({
   };
 
   const averages = isSelectedPlayerTable ? calculateAverages() : null;
+  const previewAverages = isSelectedPlayerTable ? calculateAverages(highlightedPlayer) : null;
 
   const playerRow = (player, rowIndex) => {
     return (
@@ -159,6 +162,36 @@ function PlayerTable({
                       <td className={getCountingClassification('block', averages.blocks)}>{averages.blocks}</td>
                       <td className={getTurnoverClassification(averages.turnovers)}>{averages.turnovers}</td>
                     </tr>
+                    {/* Render the row for preview-averages */}
+                    {addExtraRow && (
+                    <tr>
+                      <td className="bold centered">PREVIEW-AVERAGE</td>
+                      <td className="bold centered"></td>
+                      <td className="bold centered"></td>
+                      <td className="bold centered"></td>
+                      <td className="bold centered"></td>
+                      <td className="bold centered"></td>
+                      <td className="bold centered"></td>
+                      <td className="bold centered"></td>
+                      <td className={getPercentageClassification('fieldgoal', previewAverages.fieldGoalMade, previewAverages.fieldGoalAttempt, leagueAverages)}>
+                        {isNaN(previewAverages.fieldGoalMade / previewAverages.fieldGoalAttempt)
+                          ? ''
+                          : `${(previewAverages.fieldGoalMade / previewAverages.fieldGoalAttempt).toFixed(3)} (${previewAverages.fieldGoalMade}/${previewAverages.fieldGoalAttempt})`}
+                      </td>
+                      <td className={getPercentageClassification('freethrow', previewAverages.freeThrowMade, previewAverages.freeThrowAttempt, leagueAverages)}>
+                        {isNaN(previewAverages.freeThrowMade / previewAverages.freeThrowAttempt)
+                          ? ''
+                          : `${(previewAverages.freeThrowMade / previewAverages.freeThrowAttempt).toFixed(3)} (${previewAverages.freeThrowMade}/${previewAverages.freeThrowAttempt})`}
+                      </td>
+                      <td className={getCountingClassification('threePoint', previewAverages.threePointMade)}>{previewAverages.threePointMade}</td>
+                      <td className={getCountingClassification('point', previewAverages.points)}>{previewAverages.points}</td>
+                      <td className={getCountingClassification('rebound', previewAverages.totalRebounds)}>{previewAverages.totalRebounds}</td>
+                      <td className={getCountingClassification('assist', previewAverages.assists)}>{previewAverages.assists}</td>
+                      <td className={getCountingClassification('steal', previewAverages.steals)}>{previewAverages.steals}</td>
+                      <td className={getCountingClassification('block', previewAverages.blocks)}>{previewAverages.blocks}</td>
+                      <td className={getTurnoverClassification(previewAverages.turnovers)}>{previewAverages.turnovers}</td>
+                    </tr>
+                    )}
                   </>
                 )
                 : matchedPlayers.map((player, index) => (
