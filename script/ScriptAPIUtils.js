@@ -7,6 +7,7 @@ const bidConfigs = require('./../src/configs/BidConfigs.js');
 const API_ENDPOINT = 'https://us-west-2.aws.data.mongodb-api.com/app/data-natmv/endpoint/data/v1/action/';
 const API_DELETEMANY_ENDPOINT = 'deleteMany';
 const API_INSERTONE_ENDPOINT = 'insertOne';
+const API_INSERTMANY_ENDPOINT = 'insertMany';
 const API_KEY = secretConfigs.mongoKey;
 
 async function hashtagAPI(hashtagPage) {
@@ -210,9 +211,14 @@ async function hashtagAPI(hashtagPage) {
     }
 
     let bidIndex = 0;
+    let players = [];
 
     // Store the scraped data
     for (const player of fetchedPlayers) {
+      if (hashtagPage === "advanced-nba-schedule-grid") {
+        break;
+      }
+
       let goftBid = bidConfigs[bidIndex];
       goftBid = goftBid !== undefined ? goftBid : 0;
 
@@ -257,7 +263,13 @@ async function hashtagAPI(hashtagPage) {
             }),
       };
 
-      const insertOneResponse = await fetch(API_ENDPOINT + API_INSERTONE_ENDPOINT, {
+      console.log("Pushing: " + dataDocument.name)
+      players.push(dataDocument);
+      bidIndex++
+    }
+
+    if (hashtagPage != "advanced-nba-schedule-grid") {
+      const insertResponse = await fetch(API_ENDPOINT + API_INSERTMANY_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -267,16 +279,22 @@ async function hashtagAPI(hashtagPage) {
           dataSource: 'Cluster0',
           database: 'sample-nba',
           collection: hashtagPage.replace('fantasy-basketball-', ''),
-          document: dataDocument,
+          documents: players,
         }),
       });
 
-      if (insertOneResponse.ok) {
-        console.log('Collection ' + hashtagPage + ': Player ' + player.name + ' stored successfully!');
+      if (insertResponse.ok) {
+        console.log('Collection ' + hashtagPage + ': Inserted successfully!');
       } else {
-        console.error('Collection ' + hashtagPage + ': Error storing player ' + player.name);
+        console.error('Collection ' + hashtagPage + ': Error inserting player');
+        console.error('Status Code:', insertResponse.status);
+        console.error('Status Text:', insertResponse.statusText);
+
+        // You can also log the response body if needed
+        insertResponse.text().then((responseText) => {
+          console.error('Response Body:', responseText);
+        });
       }
-      bidIndex++
     }
 
     if (hashtagPage === "advanced-nba-schedule-grid") {
