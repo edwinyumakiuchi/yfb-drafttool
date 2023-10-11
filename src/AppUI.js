@@ -9,7 +9,9 @@ function AppUI({
   players,
   selectedPlayers,
   leagueAverages,
-  auctionValues
+  auctionValues,
+  addExtraRow,
+  highlightedPlayer
 }) {
   return (
     <>
@@ -20,6 +22,8 @@ function AppUI({
           selectedPlayerIndex={selectedPlayerIndex}
           leagueAverages={leagueAverages}
           isSelectedPlayerTable={false}
+          addExtraRow={false}
+          highlightedPlayer={null}
         />
       )}
       <br />
@@ -30,6 +34,8 @@ function AppUI({
           selectedPlayerIndex={null}
           leagueAverages={leagueAverages}
           isSelectedPlayerTable={true}
+          addExtraRow={addExtraRow}
+          highlightedPlayer={highlightedPlayer}
         />
       )}
       <br/>
@@ -39,6 +45,8 @@ function AppUI({
         selectedPlayerIndex={-1}
         leagueAverages={leagueAverages}
         isSelectedPlayerTable={false}
+        addExtraRow={false}
+        highlightedPlayer={null}
       />
     </>
   );

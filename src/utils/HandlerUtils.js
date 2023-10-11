@@ -12,19 +12,31 @@ export function handleInputChange(e, setInputValue, players, setMatchedPlayers, 
 }
 
 export function handleKeyDown(e, setSelectedPlayerIndex, matchedPlayers, selectedPlayerIndex, setInputValue,
-  setMatchedPlayers, selectedPlayers, setSelectedPlayers, playerID, setPlayerID) {
+  setMatchedPlayers, selectedPlayers, setSelectedPlayers, playerID, setPlayerID, setAddExtraRow, setHighlightedPlayer) {
 
   if (e.key === 'ArrowUp') {
     e.preventDefault();
     setSelectedPlayerIndex((prevIndex) => {
       const newIndex = prevIndex > 0 ? prevIndex - 1 : matchedPlayers.length - 1;
-      return matchedPlayers[newIndex] ? newIndex : prevIndex;
+
+      const playerIndex = matchedPlayers[newIndex] ? newIndex : prevIndex;
+      const highlightedPlayer = matchedPlayers[playerIndex];
+
+      setHighlightedPlayer(highlightedPlayer);
+      setAddExtraRow(true);
+      return playerIndex;
     });
   } else if (e.key === 'ArrowDown') {
     e.preventDefault();
     setSelectedPlayerIndex((prevIndex) => {
       const newIndex = prevIndex < matchedPlayers.length - 1 ? prevIndex + 1 : 0;
-      return matchedPlayers[newIndex] ? newIndex : prevIndex;
+
+      const playerIndex = matchedPlayers[newIndex] ? newIndex : prevIndex;
+      const highlightedPlayer = matchedPlayers[playerIndex];
+
+      setHighlightedPlayer(highlightedPlayer);
+      setAddExtraRow(true);
+      return playerIndex;
     });
   } else if (e.key === 'Enter') {
     e.preventDefault();
@@ -47,6 +59,7 @@ export function handleKeyDown(e, setSelectedPlayerIndex, matchedPlayers, selecte
       setPlayerID(newPlayerID);
       setInputValue(selectedPlayer.name);
       setMatchedPlayers([]);
+      setAddExtraRow(false);
     }
   }
 }
