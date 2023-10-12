@@ -1,18 +1,28 @@
 const selfRankingConfigs = require('./../configs/SelfRankingConfigs.js');
 
 // Function to assign auctionValue to each player in the players array
-export function assignAuctionValues(players, auctionPlayers, avgBids) {
+export function assignAuctionValues(players, auctionPlayers, avgYahooBids) {
   if (players && auctionPlayers) {
     for (let i = 0; i < players.length; i++) {
       for (let j = 0; j < auctionPlayers.length; j++) {
         if (players[i].name === auctionPlayers[j].name) {
           players[i].auctionValue = parseFloat(auctionPlayers[j].yahooAvg.replace('$', '').replace(/\.?0+$/, ''))
-          players[i].valuedAt = parseFloat(auctionPlayers[j].valuedAt.replace('$', '').replace(/\.?0+$/, ''))
         }
       }
       if (!players[i].auctionValue || isNaN(players[i].auctionValue)) {
         players[i].auctionValue = 0;
       }
+      avgYahooBids.push(players[i].auctionValue);
+    }
+  }
+  players.sort((a, b) => a.originalRank - b.originalRank);
+  avgYahooBids.sort((a, b) => b - a);
+}
+
+export function assignHRankAuctionValues(players, avgYahooBids, avgBids) {
+  if (players) {
+    for (let i = 0; i < players.length; i++) {
+      players[i].valuedAt = avgYahooBids[i]
       if (!players[i].valuedAt || isNaN(players[i].valuedAt)) {
         players[i].valuedAt = 0;
       }
@@ -43,14 +53,17 @@ export function assignSelfRanking(players, avgBids) {
   }
 }
 
-export function assignGoftBids(players, auctionPlayers) {
-  if (players && auctionPlayers) {
+export function assignGoftBids(players, auctionPlayers, goftBids) {
+  if (auctionPlayers) {
+    for (let j = 0; j < auctionPlayers.length; j++) {
+      goftBids[j] = auctionPlayers[j].goftBid
+    }
+  }
+  goftBids.sort((a, b) => b - a);
+
+  if (players) {
     for (let i = 0; i < players.length; i++) {
-      for (let j = 0; j < auctionPlayers.length; j++) {
-        if (players[i].name === auctionPlayers[j].name) {
-          players[i].goftBid = parseFloat(auctionPlayers[j].goftBid)
-        }
-      }
+      players[i].goftBid = goftBids[i]
       if (!players[i].goftBid || isNaN(players[i].goftBid)) {
         players[i].goftBid = 0;
       }
