@@ -3,7 +3,7 @@ import AppUI from './AppUI';
 import { useLogin, useGetPlayers } from './utils/APIUtils';
 import { handleInputChange, handleKeyDown } from './utils/HandlerUtils';
 import { calculateLeagueAverages, countPositions } from './utils/LeagueUtils';
-import { assignAuctionValues } from './utils/AuctionUtils';
+import { assignAuctionValues, assignSelfRanking, assignGoftBids } from './utils/AuctionUtils';
 
 // npm run start
 function App() {
@@ -15,13 +15,16 @@ function App() {
   const [selectedPlayerIndex, setSelectedPlayerIndex] = useState(-1);
   const [addExtraRow, setAddExtraRow] = useState(false);
   const [highlightedPlayer, setHighlightedPlayer] = useState(false);
+  const avgBids = [];
 
   const accessToken = useLogin();
   const players = useGetPlayers(accessToken, "projections");
   const auctionPlayers = useGetPlayers(accessToken, "auction-values");
 
   // Assign auctionValue to each player in the players array
-  assignAuctionValues(players, auctionPlayers);
+  assignAuctionValues(players, auctionPlayers, avgBids);
+  assignSelfRanking(players, avgBids);
+  assignGoftBids(players, auctionPlayers);
 
   useEffect(() => {
     if (inputRef.current) {
