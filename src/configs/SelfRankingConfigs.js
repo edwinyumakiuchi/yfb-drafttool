@@ -94,11 +94,11 @@ const SelfRankingConfigs = [
     },
     {
         name: "Evan Mobley",
-        selfRanking: 34
+        selfRanking: 33
     },
     {
         name: "Jordan Poole",
-        selfRanking: 36
+        selfRanking: 34
     },
     {
         name: "Kristaps Porzingis",
@@ -181,6 +181,10 @@ const SelfRankingConfigs = [
         selfRanking: 71
     },
     {
+        name: "Ja Morant",
+        selfRanking: 72
+    },
+    {
         name: "Jerami Grant",
         selfRanking: 75
     },
@@ -191,6 +195,10 @@ const SelfRankingConfigs = [
     {
         name: "Klay Thompson",
         selfRanking: 81
+    },
+    {
+        name: "Wendell Carter Jr.",
+        selfRanking: 90
     },
     {
         name: "Jalen Duren",
@@ -205,11 +213,11 @@ const SelfRankingConfigs = [
         selfRanking: 94
     },
     {
-        name: "Wendell Carter Jr.",
+        name: "Andrew Wiggins",
         selfRanking: 95
     },
     {
-        name: "Andrew Wiggins",
+        name: "Ben Simmons",
         selfRanking: 96
     },
     {
@@ -235,10 +243,6 @@ const SelfRankingConfigs = [
     {
         name: "Tre Jones",
         selfRanking: 102
-    },
-    {
-        name: "Ben Simmons",
-        selfRanking: 103
     },
     {
         name: "Steven Adams",
@@ -331,6 +335,10 @@ const SelfRankingConfigs = [
     {
         name: "Caris LeVert",
         selfRanking: 147
+    },
+    {
+        name: "Gordon Hayward",
+        selfRanking: 148
     },
     {
         name: "Brandon Clarke",

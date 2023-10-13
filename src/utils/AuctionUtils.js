@@ -68,6 +68,7 @@ export function assignGoftBids(players, auctionPlayers, goftBids) {
         players[i].goftBid = 0;
       }
       players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid + players[i].goftBid) / 4).toFixed(2)
+      players[i].auctionDiff = (players[i].avgAuctionValue - players[i].auctionValue).toFixed(2)
     }
     players.sort((a, b) => b.avgAuctionValue - a.avgAuctionValue);
 
