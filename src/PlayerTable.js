@@ -47,6 +47,12 @@ function PlayerTable({
     return (
       <>
         <td className="bold centered">{rowIndex+1}</td>
+        {isSelectedPlayerTable && (
+          <>
+          <td className="bold centered">{player.finalRank}</td>
+          </>
+        )}
+        <td className="bold centered">{player.finalRound}</td>
         {!isSelectedPlayerTable && (
           <>
           <td className="bold centered">{player.avgAuctionValue}</td>
@@ -103,8 +109,9 @@ function PlayerTable({
           <table className="bordered-table">
             <thead className="header-row">
               <tr>
-                {!isSelectedPlayerTable && <th className="bold centered">RANK</th>}
                 {isSelectedPlayerTable && <th className="bold centered">PICK</th>}
+                <th className="bold centered">RANK</th>
+                <th className="bold centered">ROUND</th>
                 {!isSelectedPlayerTable && <th className="bold centered">AVG-AUCTION</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">Y-AUCTION</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">H-AUCTION</th>}
@@ -148,6 +155,9 @@ function PlayerTable({
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
+                      <td className="bold centered"></td>
+                      <td className="bold centered"></td>
+                      <td className="bold centered"></td>
                       <td className={getPercentageClassification('fieldgoal', averages.fieldGoalMade, averages.fieldGoalAttempt, leagueAverages)}>
                         {isNaN(averages.fieldGoalMade / averages.fieldGoalAttempt)
                           ? ''
@@ -170,6 +180,9 @@ function PlayerTable({
                     {addExtraRow && (
                     <tr>
                       <td className="bold centered">PREVIEW-AVERAGE</td>
+                      <td className="bold centered"></td>
+                      <td className="bold centered"></td>
+                      <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>

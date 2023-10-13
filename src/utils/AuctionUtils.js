@@ -70,5 +70,29 @@ export function assignGoftBids(players, auctionPlayers, goftBids) {
       players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid + players[i].goftBid) / 4).toFixed(2)
     }
     players.sort((a, b) => b.avgAuctionValue - a.avgAuctionValue);
+
+    let pick = 1;
+    let increasePick = true;
+    let firstOfDoublePick = false;
+    for (let i = 0; i < players.length; i++) {
+      players[i].finalRank = i + 1;
+      // players[i].finalRound = Math.ceil(players[i].finalRank / 10);
+      players[i].finalRound = Math.ceil(players[i].finalRank / 12) + "." + pick;
+      if (firstOfDoublePick && (pick === 1 || pick === 12)) {
+        firstOfDoublePick = false
+        continue;
+      } else if (increasePick) {
+        pick++;
+        firstOfDoublePick = true
+      } else {
+        pick--;
+        firstOfDoublePick = true
+      }
+      if (pick === 1) {
+        increasePick = true;
+      } else if (pick === 12) {
+        increasePick = false;
+      }
+    }
   }
 }
