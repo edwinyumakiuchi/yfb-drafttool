@@ -11,8 +11,9 @@ function AppUI({
   leagueAverages,
   auctionValues,
   addExtraRow,
-  highlightedPlayer
-}) {
+  highlightedPlayer,
+  handleSort }) {
+
   return (
     <>
       {inputValue && matchedPlayers.length > 0 && (
@@ -24,6 +25,7 @@ function AppUI({
           isSelectedPlayerTable={false}
           addExtraRow={false}
           highlightedPlayer={null}
+          handleSort={null}
         />
       )}
       <br />
@@ -36,6 +38,7 @@ function AppUI({
           isSelectedPlayerTable={true}
           addExtraRow={addExtraRow}
           highlightedPlayer={highlightedPlayer}
+          handleSort={null}
         />
       )}
       <br/>
@@ -47,6 +50,7 @@ function AppUI({
         isSelectedPlayerTable={false}
         addExtraRow={false}
         highlightedPlayer={null}
+        handleSort={handleSort}
       />
     </>
   );

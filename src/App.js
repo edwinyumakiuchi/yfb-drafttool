@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
 import { useLogin, useGetPlayers } from './utils/APIUtils';
-import { handleInputChange, handleKeyDown } from './utils/HandlerUtils';
+import { handleInputChange, handleKeyDown, handleSort } from './utils/HandlerUtils';
 import { calculateLeagueAverages, countPositions } from './utils/LeagueUtils';
 import { assignAuctionValues, assignHRankAuctionValues, assignSelfRanking, assignGoftBids } from './utils/AuctionUtils';
 
@@ -15,6 +15,7 @@ function App() {
   const [selectedPlayerIndex, setSelectedPlayerIndex] = useState(-1);
   const [addExtraRow, setAddExtraRow] = useState(false);
   const [highlightedPlayer, setHighlightedPlayer] = useState(false);
+
   const avgBids = [];
   const avgYahooBids = [];
   const goftBids = [];
@@ -115,6 +116,7 @@ function App() {
             leagueAverages={leagueAverages}
             addExtraRow={addExtraRow}
             highlightedPlayer={highlightedPlayer}
+            handleSort={(field) => handleSort(field, players)}
           />
         </div>
       </div>

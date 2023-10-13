@@ -8,7 +8,8 @@ function PlayerTable({
   leagueAverages,
   isSelectedPlayerTable,
   addExtraRow,
-  highlightedPlayer }) {
+  highlightedPlayer,
+  handleSort }) {
 
   // Function to calculate column averages
   const calculateAverages = (highlightedPlayer) => {
@@ -115,7 +116,7 @@ function PlayerTable({
                 <th className="bold centered">ROUND</th>
                 {!isSelectedPlayerTable && <th className="bold centered">AVG-AUCTION</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">Y-AUCTION</th>}
-                {!isSelectedPlayerTable && <th className="bold centered">DIFF</th>}
+                {!isSelectedPlayerTable && <th className="bold centered" onClick={() => handleSort('auctionDiff', matchedPlayers)}>DIFF</th>}
                 {/* {!isSelectedPlayerTable && <th className="bold centered">H-AUCTION</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">SELF-AUCTION</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">GOFT-AUCTION</th>} */}

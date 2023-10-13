@@ -63,3 +63,8 @@ export function handleKeyDown(e, setSelectedPlayerIndex, matchedPlayers, selecte
     }
   }
 }
+
+export function handleSort(field, players) {
+  console.log("Sorting by field:", field);
+  players.sort((a, b) => b[field] - a[field]);
+}
