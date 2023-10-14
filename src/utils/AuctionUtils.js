@@ -75,11 +75,12 @@ export function assignGoftBids(players, auctionPlayers, goftBids) {
     let pick = 1;
     let increasePick = true;
     let firstOfDoublePick = false;
+    let leagueSize = 10;
+    // let leagueSize = 12;
     for (let i = 0; i < players.length; i++) {
       players[i].finalRank = i + 1;
-      // players[i].finalRound = Math.ceil(players[i].finalRank / 10);
-      players[i].finalRound = Math.ceil(players[i].finalRank / 12) + "." + pick;
-      if (firstOfDoublePick && (pick === 1 || pick === 12)) {
+      players[i].finalRound = Math.ceil(players[i].finalRank / leagueSize) + "." + pick.toString();
+      if (firstOfDoublePick && (pick === 1 || pick === leagueSize)) {
         firstOfDoublePick = false
         continue;
       } else if (increasePick) {
@@ -91,7 +92,7 @@ export function assignGoftBids(players, auctionPlayers, goftBids) {
       }
       if (pick === 1) {
         increasePick = true;
-      } else if (pick === 12) {
+      } else if (pick === leagueSize) {
         increasePick = false;
       }
     }
