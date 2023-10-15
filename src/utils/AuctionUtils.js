@@ -77,9 +77,27 @@ export function assignGoftBids(players, auctionPlayers, goftBids) {
     let firstOfDoublePick = false;
     let leagueSize = 10;
     // let leagueSize = 12;
+    let adjustedValue = 0
+    let teamBudgets = []
     for (let i = 0; i < players.length; i++) {
       players[i].finalRank = i + 1;
       players[i].finalRound = Math.ceil(players[i].finalRank / leagueSize) + "." + pick.toString();
+
+      if (typeof teamBudgets[pick] === 'undefined') {
+        teamBudgets[pick] = 0;
+      }
+      if (i <= leagueSize * 13) {
+        adjustedValue =  players[i].auctionValue - 4
+        if (adjustedValue <= 0) {
+          adjustedValue = 1
+        }
+        teamBudgets[pick] += adjustedValue
+        if (typeof teamBudgets[pick] != 'undefined') {
+          // console.log("round: ", players[i].finalRound);
+          // console.log("teamBudget: ", teamBudgets[pick].toFixed(1));
+        }
+      }
+
       if (firstOfDoublePick && (pick === 1 || pick === leagueSize)) {
         firstOfDoublePick = false
         continue;
@@ -94,6 +112,14 @@ export function assignGoftBids(players, auctionPlayers, goftBids) {
         increasePick = true;
       } else if (pick === leagueSize) {
         increasePick = false;
+      }
+    }
+
+    // console.log("=============================================");
+    for (let i = 1; i <= leagueSize; i++) {
+      if (typeof teamBudgets[pick] != 'undefined') {
+        // console.log("pick: ", i);
+        // console.log("teamBudget: ", teamBudgets[i].toFixed(1));
       }
     }
   }

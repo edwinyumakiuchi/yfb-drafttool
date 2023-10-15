@@ -33,15 +33,15 @@ const SelfRankingConfigs = [
         selfRanking: 12
     },
     {
-        name: "Kyrie Irving",
+        name: "Trae Young",
         selfRanking: 13
     },
     {
-        name: "Trae Young",
+        name: "Domantas Sabonis",
         selfRanking: 14
     },
     {
-        name: "Domantas Sabonis",
+        name: "Kyrie Irving",
         selfRanking: 15
     },
     {
@@ -73,6 +73,14 @@ const SelfRankingConfigs = [
         selfRanking: 24
     },
     {
+        name: "James Harden",
+        selfRanking: 25
+    },
+    {
+        name: "Kawhi Leonard",
+        selfRanking: 26
+    },
+    {
         name: "Cade Cunningham",
         selfRanking: 27
     },
@@ -81,16 +89,8 @@ const SelfRankingConfigs = [
         selfRanking: 28
     },
     {
-        name: "Kawhi Leonard",
-        selfRanking: 29
-    },
-    {
         name: "LeBron James",
         selfRanking: 30
-    },
-    {
-        name: "James Harden",
-        selfRanking: 31
     },
     {
         name: "Evan Mobley",
@@ -117,16 +117,16 @@ const SelfRankingConfigs = [
         selfRanking: 39
     },
     {
+        name: "Jaylen Brown",
+        selfRanking: 43
+    },
+    {
         name: "Pascal Siakam",
         selfRanking: 44
     },
     {
         name: "Nicolas Claxton",
         selfRanking: 45
-    },
-    {
-        name: "Jaylen Brown",
-        selfRanking: 46
     },
     {
         name: "Walker Kessler",
@@ -186,11 +186,11 @@ const SelfRankingConfigs = [
     },
     {
         name: "Brook Lopez",
-        selfRanking: 71
+        selfRanking: 72
     },
     {
         name: "Ja Morant",
-        selfRanking: 72
+        selfRanking: 74
     },
     {
         name: "Jerami Grant",
@@ -205,6 +205,10 @@ const SelfRankingConfigs = [
         selfRanking: 81
     },
     {
+        name: "Austin Reaves",
+        selfRanking: 89
+    },
+    {
         name: "Wendell Carter Jr.",
         selfRanking: 90
     },
@@ -215,10 +219,6 @@ const SelfRankingConfigs = [
     {
         name: "Clint Capela",
         selfRanking: 93
-    },
-    {
-        name: "Austin Reaves",
-        selfRanking: 94
     },
     {
         name: "Andrew Wiggins",
