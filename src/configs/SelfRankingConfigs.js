@@ -245,10 +245,6 @@ const SelfRankingConfigs = [
         selfRanking: 100
     },
     {
-        name: "Miles Bridges",
-        selfRanking: 101
-    },
-    {
         name: "Tre Jones",
         selfRanking: 102
     },
@@ -371,6 +367,10 @@ const SelfRankingConfigs = [
     {
         name: "Corey Kispert",
         selfRanking: 150
+    },
+    {
+        name: "Miles Bridges",
+        selfRanking: 175
     },
     {
         name: "Brandon Clarke",
