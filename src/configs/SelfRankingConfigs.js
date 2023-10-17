@@ -73,10 +73,6 @@ const SelfRankingConfigs = [
         selfRanking: 24
     },
     {
-        name: "James Harden",
-        selfRanking: 25
-    },
-    {
         name: "Kawhi Leonard",
         selfRanking: 26
     },
@@ -91,6 +87,10 @@ const SelfRankingConfigs = [
     {
         name: "LeBron James",
         selfRanking: 30
+    },
+    {
+        name: "James Harden",
+        selfRanking: 31
     },
     {
         name: "Evan Mobley",
@@ -121,12 +121,16 @@ const SelfRankingConfigs = [
         selfRanking: 43
     },
     {
-        name: "Pascal Siakam",
+        name: "Chet Holmgren",
         selfRanking: 44
     },
     {
-        name: "Nicolas Claxton",
+        name: "Pascal Siakam",
         selfRanking: 45
+    },
+    {
+        name: "Nicolas Claxton",
+        selfRanking: 46
     },
     {
         name: "Walker Kessler",
@@ -135,10 +139,6 @@ const SelfRankingConfigs = [
     {
         name: "Deandre Ayton",
         selfRanking: 48
-    },
-    {
-        name: "Chet Holmgren",
-        selfRanking: 49
     },
     {
         name: "Alperen Sengün",
@@ -151,6 +151,10 @@ const SelfRankingConfigs = [
     {
         name: "Nikola Vucevic",
         selfRanking: 53
+    },
+    {
+        name: "Tyrese Maxey",
+        selfRanking: 56
     },
     {
         name: "Brandon Ingram",
@@ -189,12 +193,12 @@ const SelfRankingConfigs = [
         selfRanking: 72
     },
     {
-        name: "Ja Morant",
-        selfRanking: 74
-    },
-    {
         name: "Jerami Grant",
         selfRanking: 75
+    },
+    {
+        name: "Ja Morant",
+        selfRanking: 79
     },
     {
         name: "Khris Middleton",
@@ -229,10 +233,6 @@ const SelfRankingConfigs = [
         selfRanking: 96
     },
     {
-        name: "Derrick White",
-        selfRanking: 97
-    },
-    {
         name: "CJ McCollum",
         selfRanking: 98
     },
@@ -243,6 +243,10 @@ const SelfRankingConfigs = [
     {
         name: "D'Angelo Russell",
         selfRanking: 100
+    },
+    {
+        name: "Derrick White",
+        selfRanking: 101
     },
     {
         name: "Tre Jones",
@@ -345,28 +349,36 @@ const SelfRankingConfigs = [
         selfRanking: 127
     },
     {
+        name: "Coby White",
+        selfRanking: 128
+    },
+    {
         name: "Gordon Hayward",
         selfRanking: 130
     },
     {
-        name: "Patrick Williams",
-        selfRanking: 142
+        name: "Jeremy Sochan",
+        selfRanking: 131
     },
     {
         name: "Caris LeVert",
-        selfRanking: 147
+        selfRanking: 132
     },
     {
         name: "Cole Anthony",
         selfRanking: 148
     },
     {
-        name: "Jeremy Sochan",
+        name: "Patrick Williams",
         selfRanking: 149
     },
     {
+        name: "Kyle Lowry",
+        selfRanking: 173
+    },
+    {
         name: "Corey Kispert",
-        selfRanking: 150
+        selfRanking: 174
     },
     {
         name: "Miles Bridges",
