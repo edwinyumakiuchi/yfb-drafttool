@@ -53,7 +53,7 @@ const SelfRankingConfigs = [
         selfRanking: 18
     },
     {
-        name: "Fred VanVleet",
+        name: "Jimmy Butler",
         selfRanking: 20
     },
     {
@@ -61,16 +61,20 @@ const SelfRankingConfigs = [
         selfRanking: 21
     },
     {
-        name: "Jimmy Butler",
+        name: "Jaren Jackson Jr.",
         selfRanking: 22
     },
     {
-        name: "Jaren Jackson Jr.",
+        name: "Fred VanVleet",
         selfRanking: 23
     },
     {
         name: "Mikal Bridges",
         selfRanking: 24
+    },
+    {
+        name: "Paul George",
+        selfRanking: 25
     },
     {
         name: "Kawhi Leonard",
@@ -125,19 +129,19 @@ const SelfRankingConfigs = [
         selfRanking: 44
     },
     {
-        name: "Pascal Siakam",
+        name: "Deandre Ayton",
         selfRanking: 45
     },
     {
-        name: "Nicolas Claxton",
+        name: "Pascal Siakam",
         selfRanking: 46
     },
     {
-        name: "Walker Kessler",
+        name: "Nicolas Claxton",
         selfRanking: 47
     },
     {
-        name: "Deandre Ayton",
+        name: "Walker Kessler",
         selfRanking: 48
     },
     {
@@ -145,12 +149,16 @@ const SelfRankingConfigs = [
         selfRanking: 51
     },
     {
+        name: "Bradley Beal",
+        selfRanking: 53
+    },
+    {
         name: "DeMar DeRozan",
-        selfRanking: 52
+        selfRanking: 54
     },
     {
         name: "Nikola Vucevic",
-        selfRanking: 53
+        selfRanking: 55
     },
     {
         name: "Tyrese Maxey",
@@ -158,11 +166,7 @@ const SelfRankingConfigs = [
     },
     {
         name: "Brandon Ingram",
-        selfRanking: 57
-    },
-    {
-        name: "Bradley Beal",
-        selfRanking: 61
+        selfRanking: 58
     },
     {
         name: "Jalen Williams",
@@ -173,12 +177,12 @@ const SelfRankingConfigs = [
         selfRanking: 63
     },
     {
-        name: "Scottie Barnes",
-        selfRanking: 65
+        name: "Rudy Gobert",
+        selfRanking: 64
     },
     {
-        name: "Rudy Gobert",
-        selfRanking: 68
+        name: "Scottie Barnes",
+        selfRanking: 65
     },
     {
         name: "Tyler Herro",
@@ -273,19 +277,19 @@ const SelfRankingConfigs = [
         selfRanking: 108
     },
     {
-        name: "Buddy Hield",
+        name: "Keegan Murray",
         selfRanking: 109
     },
     {
-        name: "Spencer Dinwiddie",
+        name: "Buddy Hield",
         selfRanking: 110
     },
     {
-        name: "Jaden Ivey",
+        name: "Spencer Dinwiddie",
         selfRanking: 111
     },
     {
-        name: "Keegan Murray",
+        name: "Jaden Ivey",
         selfRanking: 112
     },
     {
