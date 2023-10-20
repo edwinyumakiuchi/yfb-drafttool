@@ -328,7 +328,10 @@ async function hashtagAPI(hashtagPage) {
 function convertPlayerName(name) {
   const hardcodedNames = {
     "PJ Washington": "P.J. Washington",
-    "Robert Williams": "Robert Williams III"
+    "Robert Williams": "Robert Williams III",
+    "Alperen Sengün": "Alperen Sengun",
+    "Nicolas Claxton": "Nic Claxton",
+    "OG Anunoby": "O.G. Anunoby",
   };
 
   if (hardcodedNames.hasOwnProperty(name)) {
