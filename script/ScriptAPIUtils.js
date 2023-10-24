@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 const cheerio = require('cheerio');
+const puppeteer = require('puppeteer');
 const secretConfigs = require('./../src/configs/SecretConfigs.js');
 const bidConfigs = require('./../src/configs/BidConfigs.js');
 
@@ -11,11 +12,21 @@ const API_INSERTMANY_ENDPOINT = 'insertMany';
 const API_KEY = secretConfigs.mongoKey;
 
 async function hashtagAPI(hashtagPage) {
+  let html = ''
+  const browser = await puppeteer.launch();
   try {
-    const response = await fetch('https://hashtagbasketball.com/' + hashtagPage);
-    const html = await response.text();
+    if (hashtagPage != "fantasy-basketball-projections") {
+      const response = await fetch('https://hashtagbasketball.com/' + hashtagPage);
+      html = await response.text();
+    } else {
+      const page = await browser.newPage();
+      await page.goto('https://hashtagbasketball.com/' + hashtagPage);
+      await page.click('#ContentPlaceHolder1_DDSHOW');
+      await page.select('#ContentPlaceHolder1_DDSHOW', '900');
+      await page.waitForTimeout(5000);
+      html = await page.content();
+    }
     const $ = cheerio.load(html);
-
     const fetchedPlayers = [];
 
     $('#ContentPlaceHolder1_GridView1 tr:has(td)').each((index, element) => {
@@ -322,6 +333,8 @@ async function hashtagAPI(hashtagPage) {
     console.log('Collection ' + hashtagPage + ': Data scraped and stored successfully!');
   } catch (error) {
     console.error('Collection ' + hashtagPage + ': Error scraping - ', error);
+  } finally {
+    await browser.close();
   }
 }
 
