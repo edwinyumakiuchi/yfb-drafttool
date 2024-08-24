@@ -1,43 +1,51 @@
 // This is a configuration file that contains the self rankings
 const SelfRankingConfigs = [
     {
-        name: "Shai Gilgeous-Alexander",
-        selfRanking: 3
+        name: "Victor Wembanyama",
+        selfRanking: 1
     },
     {
-        name: "Tyrese Haliburton",
-        selfRanking: 4
-    },
-    {
-        name: "Luka Doncic",
-        selfRanking: 5
+        name: "Nikola Jokic",
+        selfRanking: 2
     },
     {
         name: "Giannis Antetokounmpo",
-        selfRanking: 8
+        selfRanking: 3
     },
     {
-        name: "Damian Lillard",
-        selfRanking: 9
+        name: "Luka Doncic",
+        selfRanking:4
     },
     {
-        name: "LaMelo Ball",
-        selfRanking: 10
+        name: "Shai Gilgeous-Alexander",
+        selfRanking: 5
     },
     {
-        name: "Kevin Durant",
-        selfRanking: 11
+        name: "Tyrese Haliburton",
+        selfRanking: 6
     },
     {
         name: "Anthony Davis",
-        selfRanking: 12
+        selfRanking: 7
+    },
+    {
+        name: "Jayson Tatum",
+        selfRanking: 8
     },
     {
         name: "Trae Young",
-        selfRanking: 13
+        selfRanking: 11
     },
     {
         name: "Domantas Sabonis",
+        selfRanking: 12
+    },
+    {
+        name: "Joel Embiid",
+        selfRanking: 13
+    },
+    {
+        name: "Stephen Curry",
         selfRanking: 14
     },
     {
@@ -45,31 +53,35 @@ const SelfRankingConfigs = [
         selfRanking: 15
     },
     {
-        name: "Devin Booker",
+        name: "Kevin Durant",
         selfRanking: 16
+    },
+    {
+        name: "Devin Booker",
+        selfRanking: 17
     },
     {
         name: "Donovan Mitchell",
         selfRanking: 18
     },
     {
-        name: "Jimmy Butler",
+        name: "Jalen Brunson",
         selfRanking: 20
     },
     {
-        name: "Karl-Anthony Towns",
+        name: "Anthony Edwards",
         selfRanking: 21
     },
     {
-        name: "Jaren Jackson Jr.",
+        name: "Damian Lillard",
         selfRanking: 22
     },
     {
-        name: "Fred VanVleet",
+        name: "Scottie Barnes",
         selfRanking: 23
     },
     {
-        name: "Mikal Bridges",
+        name: "Chet Holmgren",
         selfRanking: 24
     },
     {
@@ -77,31 +89,39 @@ const SelfRankingConfigs = [
         selfRanking: 25
     },
     {
-        name: "Kawhi Leonard",
+        name: "Lamelo Ball",
         selfRanking: 26
     },
     {
-        name: "Cade Cunningham",
+        name: "Dejounte Murray",
         selfRanking: 27
     },
     {
-        name: "Bam Adebayo",
+        name: "LeBron James",
         selfRanking: 28
     },
     {
-        name: "LeBron James",
-        selfRanking: 30
+        name: "Tyrese Maxey",
+        selfRanking: 29
     },
     {
         name: "James Harden",
+        selfRanking: 30
+    },
+    {
+        name: "Jaren Jackson Jr.",
         selfRanking: 31
     },
     {
-        name: "Evan Mobley",
+        name: "Kawhi Leonard",
+        selfRanking: 32
+    },
+    {
+        name: "Lauri Markkanen",
         selfRanking: 33
     },
     {
-        name: "Jordan Poole",
+        name: "Ja Morant",
         selfRanking: 34
     },
     {
@@ -109,67 +129,63 @@ const SelfRankingConfigs = [
         selfRanking: 36
     },
     {
-        name: "Kristaps Porzingis",
+        name: "Alperen Sengun",
         selfRanking: 37
     },
     {
-        name: "Victor Wembanyama",
+        name: "Desmond Bane",
         selfRanking: 38
     },
     {
-        name: "Dejounte Murray",
-        selfRanking: 39
+        name: "Jalen Williams",
+        selfRanking: 41
     },
     {
-        name: "Jaylen Brown",
-        selfRanking: 43
-    },
-    {
-        name: "Chet Holmgren",
-        selfRanking: 44
+        name: "Jalen Johnson",
+        selfRanking: 46
     },
     {
         name: "Deandre Ayton",
         selfRanking: 45
     },
     {
-        name: "Pascal Siakam",
-        selfRanking: 46
-    },
-    {
-        name: "Nicolas Claxton",
+        name: "Jarrett Allen",
         selfRanking: 47
     },
     {
-        name: "Walker Kessler",
+        name: "Darius Garland",
         selfRanking: 48
     },
     {
-        name: "Alperen Sengün",
+        name: "Zion Williamson",
+        selfRanking: 49
+    },
+    {
+        name: "Rudy Gobert",
+        selfRanking: 50
+    },
+    {
+        name: "Immanuel Quickley",
         selfRanking: 51
     },
     {
-        name: "Bradley Beal",
+        name: "DeMar DeRozan",
+        selfRanking: 52
+    },
+    {
+        name: "Derrick White",
         selfRanking: 53
     },
     {
-        name: "DeMar DeRozan",
-        selfRanking: 54
-    },
-    {
-        name: "Nikola Vucevic",
+        name: "Mikal Bridges",
         selfRanking: 55
     },
     {
-        name: "Tyrese Maxey",
-        selfRanking: 56
+        name: "Nikola Vucevic",
+        selfRanking: 57
     },
     {
-        name: "Brandon Ingram",
-        selfRanking: 58
-    },
-    {
-        name: "Jalen Williams",
+        name: "Pascal Siakam",
         selfRanking: 62
     },
     {
@@ -177,224 +193,64 @@ const SelfRankingConfigs = [
         selfRanking: 63
     },
     {
-        name: "Rudy Gobert",
-        selfRanking: 64
-    },
-    {
-        name: "Scottie Barnes",
-        selfRanking: 65
+        name: "Zach LaVine",
+        selfRanking: 66
     },
     {
         name: "Tyler Herro",
         selfRanking: 69
     },
     {
-        name: "Jakob Poeltl",
-        selfRanking: 70
+        name: "Mark Williams",
+        selfRanking: 72
     },
     {
-        name: "Brook Lopez",
-        selfRanking: 72
+        name: "Josh Giddey",
+        selfRanking: 73
     },
     {
         name: "Jerami Grant",
         selfRanking: 75
     },
     {
-        name: "Ja Morant",
-        selfRanking: 79
+        name: "Alex Caruso",
+        selfRanking: 88
     },
     {
-        name: "Khris Middleton",
-        selfRanking: 80
-    },
-    {
-        name: "Klay Thompson",
-        selfRanking: 81
-    },
-    {
-        name: "Austin Reaves",
+        name: "OG Anunoby",
         selfRanking: 89
     },
     {
-        name: "Wendell Carter Jr.",
-        selfRanking: 90
-    },
-    {
-        name: "Jalen Duren",
-        selfRanking: 91
-    },
-    {
-        name: "Clint Capela",
-        selfRanking: 93
-    },
-    {
-        name: "Andrew Wiggins",
+        name: "Austin Reaves",
         selfRanking: 95
     },
     {
-        name: "Ben Simmons",
-        selfRanking: 96
+        name: "Coby White",
+        selfRanking: 97
     },
     {
         name: "CJ McCollum",
         selfRanking: 98
     },
     {
-        name: "Zach Collins",
+        name: "Collin Sexton",
         selfRanking: 99
     },
     {
-        name: "D'Angelo Russell",
-        selfRanking: 100
-    },
-    {
-        name: "Derrick White",
+        name: "Clint Capela",
         selfRanking: 101
     },
     {
-        name: "Tre Jones",
+        name: "Tyus Jones",
         selfRanking: 102
     },
     {
-        name: "Steven Adams",
-        selfRanking: 104
-    },
-    {
-        name: "Bruce Brown",
-        selfRanking: 105
-    },
-    {
-        name: "Jonas Valanciunas",
-        selfRanking: 106
-    },
-    {
-        name: "Paul Reed",
-        selfRanking: 107
-    },
-    {
-        name: "Robert Williams III",
-        selfRanking: 108
-    },
-    {
-        name: "Keegan Murray",
-        selfRanking: 109
-    },
-    {
-        name: "Buddy Hield",
-        selfRanking: 110
-    },
-    {
-        name: "Spencer Dinwiddie",
+        name: "Klay Thompson",
         selfRanking: 111
     },
     {
-        name: "Jaden Ivey",
+        name: "Trayce Jackson-Davis",
         selfRanking: 112
-    },
-    {
-        name: "Josh Richardson",
-        selfRanking: 113
-    },
-    {
-        name: "Dennis Schröder",
-        selfRanking: 114
-    },
-    {
-        name: "Jordan Clarkson",
-        selfRanking: 115
-    },
-    {
-        name: "Mike Conley",
-        selfRanking: 116
-    },
-    {
-        name: "Saddiq Bey",
-        selfRanking: 117
-    },
-    {
-        name: "Bennedict Mathurin",
-        selfRanking: 118
-    },
-    {
-        name: "Deni Avdija",
-        selfRanking: 119
-    },
-    {
-        name: "Quentin Grimes",
-        selfRanking: 120
-    },
-    {
-        name: "Ausar Thompson",
-        selfRanking: 121
-    },
-    {
-        name: "Kevon Looney",
-        selfRanking: 122
-    },
-    {
-        name: "Dereck Lively II",
-        selfRanking: 123
-    },
-    {
-        name: "Gary Trent Jr.",
-        selfRanking: 124
-    },
-    {
-        name: "Richaun Holmes",
-        selfRanking: 125
-    },
-    {
-        name: "Luke Kennard",
-        selfRanking: 126
-    },
-    {
-        name: "Kris Dunn",
-        selfRanking: 127
-    },
-    {
-        name: "Coby White",
-        selfRanking: 128
-    },
-    {
-        name: "Gordon Hayward",
-        selfRanking: 130
-    },
-    {
-        name: "Jeremy Sochan",
-        selfRanking: 131
-    },
-    {
-        name: "Caris LeVert",
-        selfRanking: 132
-    },
-    {
-        name: "Cole Anthony",
-        selfRanking: 148
-    },
-    {
-        name: "Patrick Williams",
-        selfRanking: 149
-    },
-    {
-        name: "Kyle Lowry",
-        selfRanking: 173
-    },
-    {
-        name: "Corey Kispert",
-        selfRanking: 174
-    },
-    {
-        name: "Miles Bridges",
-        selfRanking: 175
-    },
-    {
-        name: "Brandon Clarke",
-        selfRanking: 199
-    },
-    {
-        name: "Kevin Porter Jr.",
-        selfRanking: 200
     },
 ];
 

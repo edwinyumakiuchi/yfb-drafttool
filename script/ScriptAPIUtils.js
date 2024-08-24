@@ -344,8 +344,8 @@ function convertPlayerName(name) {
     "Robert Williams": "Robert Williams III",
     "Alperen Sengün": "Alperen Sengun",
     "Nicolas Claxton": "Nic Claxton",
-    "OG Anunoby": "O.G. Anunoby",
     "Dennis Schröder": "Dennis Schroder",
+    "Gregory Jackson": "GG Jackson II",
   };
 
   if (hardcodedNames.hasOwnProperty(name)) {

@@ -67,7 +67,9 @@ export function assignGoftBids(players, auctionPlayers, goftBids) {
       if (!players[i].goftBid || isNaN(players[i].goftBid)) {
         players[i].goftBid = 0;
       }
-      players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid + players[i].goftBid) / 4).toFixed(2)
+      // disabled players[i].goftBid: updates required to pull from previous year
+      // players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid + players[i].goftBid) / 4).toFixed(2)
+      players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid) / 3).toFixed(2)
       players[i].auctionDiff = (players[i].avgAuctionValue - players[i].auctionValue).toFixed(2)
     }
     players.sort((a, b) => b.avgAuctionValue - a.avgAuctionValue);
