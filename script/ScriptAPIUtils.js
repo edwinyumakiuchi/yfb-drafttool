@@ -24,6 +24,12 @@ async function hashtagAPI(hashtagPage) {
       await page.click('#ContentPlaceHolder1_DDSHOW');
       await page.select('#ContentPlaceHolder1_DDSHOW', '900');
       await page.waitForTimeout(5000);
+
+      // Select source as Yahoo
+      await page.click('#ContentPlaceHolder1_DDPOSFROM');
+      await page.select('#ContentPlaceHolder1_DDPOSFROM', '1');
+      await page.waitForTimeout(5000);
+
       html = await page.content();
     }
     const $ = cheerio.load(html);

@@ -7,6 +7,7 @@ export function assignAuctionValues(players, auctionPlayers, avgYahooBids) {
       for (let j = 0; j < auctionPlayers.length; j++) {
         if (players[i].name === auctionPlayers[j].name) {
           players[i].auctionValue = parseFloat(auctionPlayers[j].yahooAvg.replace('$', '').replace(/\.?0+$/, ''))
+          players[i].valuedAt = parseFloat(auctionPlayers[j].valuedAt.replace('$', '').replace(/\.?0+$/, ''))
         }
       }
       if (!players[i].auctionValue || isNaN(players[i].auctionValue)) {
@@ -22,7 +23,7 @@ export function assignAuctionValues(players, auctionPlayers, avgYahooBids) {
 export function assignHRankAuctionValues(players, avgYahooBids, avgBids) {
   if (players) {
     for (let i = 0; i < players.length; i++) {
-      players[i].valuedAt = avgYahooBids[i]
+      // players[i].valuedAt = avgYahooBids[i]
       if (!players[i].valuedAt || isNaN(players[i].valuedAt)) {
         players[i].valuedAt = 0;
       }
