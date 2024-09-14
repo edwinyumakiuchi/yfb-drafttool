@@ -27,7 +27,8 @@ export function assignHRankAuctionValues(players, avgYahooBids, avgBids) {
       if (!players[i].valuedAt || isNaN(players[i].valuedAt)) {
         players[i].valuedAt = 0;
       }
-      players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt) / 2).toFixed(2)
+      // players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt) / 2).toFixed(2)
+      players[i].avgAuctionValue = players[i].valuedAt.toFixed(2)
       avgBids.push(players[i].avgAuctionValue);
     }
   }
@@ -48,7 +49,8 @@ export function assignSelfRanking(players, avgBids) {
         players[i].selfRank = i + 1
         players[i].selfBid = parseFloat(avgBids[players[i].selfRank - 1])
       }
-      players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid) / 3).toFixed(2)
+      // players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid) / 3).toFixed(2)
+      players[i].avgAuctionValue = ((players[i].valuedAt + players[i].selfBid + players[i].selfBid) / 3).toFixed(2)
     }
     players.sort((a, b) => b.avgAuctionValue - a.avgAuctionValue);
   }
@@ -70,7 +72,7 @@ export function assignGoftBids(players, auctionPlayers, goftBids) {
       }
       // disabled players[i].goftBid: updates required to pull from previous year
       // players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid + players[i].goftBid) / 4).toFixed(2)
-      players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid) / 3).toFixed(2)
+      players[i].avgAuctionValue = ((players[i].valuedAt + players[i].selfBid + players[i].selfBid) / 3).toFixed(2)
       players[i].auctionDiff = (players[i].avgAuctionValue - players[i].auctionValue).toFixed(2)
     }
     players.sort((a, b) => b.avgAuctionValue - a.avgAuctionValue);

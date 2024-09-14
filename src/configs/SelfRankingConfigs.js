@@ -1,11 +1,11 @@
 // This is a configuration file that contains the self rankings
 const SelfRankingConfigs = [
     {
-        name: "Victor Wembanyama",
+        name: "Nikola Jokic",
         selfRanking: 1
     },
     {
-        name: "Nikola Jokic",
+        name: "Victor Wembanyama",
         selfRanking: 2
     },
     {
@@ -57,7 +57,7 @@ const SelfRankingConfigs = [
         selfRanking: 14
     },
     {
-        name: "Lamelo Ball",
+        name: "LaMelo Ball",
         selfRanking: 15
     },
     {
@@ -185,10 +185,6 @@ const SelfRankingConfigs = [
         selfRanking: 55
     },
     {
-        name: "Nikola Vucevic",
-        selfRanking: 57
-    },
-    {
         name: "Pascal Siakam",
         selfRanking: 62
     },
@@ -213,16 +209,16 @@ const SelfRankingConfigs = [
         selfRanking: 73
     },
     {
-        name: "Jerami Grant",
-        selfRanking: 75
-    },
-    {
         name: "Alex Caruso",
         selfRanking: 88
     },
     {
         name: "OG Anunoby",
         selfRanking: 89
+    },
+    {
+        name: "Nikola Vucevic",
+        selfRanking: 93
     },
     {
         name: "Austin Reaves",
@@ -241,12 +237,8 @@ const SelfRankingConfigs = [
         selfRanking: 99
     },
     {
-        name: "Clint Capela",
-        selfRanking: 101
-    },
-    {
-        name: "Tyus Jones",
-        selfRanking: 102
+        name: "Jerami Grant",
+        selfRanking: 110
     },
     {
         name: "Klay Thompson",
@@ -255,6 +247,18 @@ const SelfRankingConfigs = [
     {
         name: "Trayce Jackson-Davis",
         selfRanking: 112
+    },
+    {
+        name: "Clint Capela",
+        selfRanking: 113
+    },
+    {
+        name: "Tyus Jones",
+        selfRanking: 114
+    },
+    {
+        name: "Kristaps Porzingis",
+        selfRanking: 201
     },
 ];
 
