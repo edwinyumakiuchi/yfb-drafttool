@@ -1,11 +1,11 @@
 // This is a configuration file that contains the self rankings
 const SelfRankingConfigs = [
     {
-        name: "Victor Wembanyama",
+        name: "Nikola Jokic",
         selfRanking: 1
     },
     {
-        name: "Nikola Jokic",
+        name: "Victor Wembanyama",
         selfRanking: 2
     },
     {
@@ -21,55 +21,67 @@ const SelfRankingConfigs = [
         selfRanking: 5
     },
     {
-        name: "Tyrese Haliburton",
+        name: "Anthony Davis",
         selfRanking: 6
     },
     {
-        name: "Anthony Davis",
+        name: "Tyrese Haliburton",
         selfRanking: 7
     },
     {
-        name: "Jayson Tatum",
+        name: "Trae Young",
         selfRanking: 8
     },
     {
-        name: "Trae Young",
-        selfRanking: 11
-    },
-    {
-        name: "Domantas Sabonis",
-        selfRanking: 12
-    },
-    {
-        name: "Joel Embiid",
-        selfRanking: 13
+        name: "Jayson Tatum",
+        selfRanking: 9
     },
     {
         name: "Stephen Curry",
-        selfRanking: 14
+        selfRanking: 10
     },
     {
-        name: "Kyrie Irving",
-        selfRanking: 15
+        name: "Domantas Sabonis",
+        selfRanking: 11
     },
     {
-        name: "Kevin Durant",
-        selfRanking: 16
+        name: "Joel Embiid",
+        selfRanking: 12
     },
     {
-        name: "Devin Booker",
-        selfRanking: 17
-    },
-    {
-        name: "Donovan Mitchell",
-        selfRanking: 18
-    },
-    {
-        name: "Jalen Brunson",
-        selfRanking: 20
+        name: "James Harden",
+        selfRanking: 13
     },
     {
         name: "Anthony Edwards",
+        selfRanking: 14
+    },
+    {
+        name: "LaMelo Ball",
+        selfRanking: 15
+    },
+    {
+        name: "Donovan Mitchell",
+        selfRanking: 16
+    },
+    {
+        name: "Fred VanVleet",
+        selfRanking: 17
+    },
+    {
+        name: "Paul George",
+        selfRanking: 18
+    },
+    {
+        name: "Devin Booker",
+        selfRanking: 19
+    },
+    {
+        name: "Scottie Barnes",
+        selfRanking: 20
+    },
+    {
+        name: "LeBron James",
         selfRanking: 21
     },
     {
@@ -77,52 +89,48 @@ const SelfRankingConfigs = [
         selfRanking: 22
     },
     {
-        name: "Scottie Barnes",
+        name: "Jalen Brunson",
         selfRanking: 23
     },
     {
-        name: "Chet Holmgren",
+        name: "Kevin Durant",
         selfRanking: 24
     },
     {
-        name: "Paul George",
+        name: "Jalen Williams",
         selfRanking: 25
     },
     {
-        name: "Lamelo Ball",
+        name: "Kawhi Leonard",
         selfRanking: 26
     },
     {
-        name: "Dejounte Murray",
-        selfRanking: 27
-    },
-    {
-        name: "LeBron James",
-        selfRanking: 28
-    },
-    {
-        name: "Tyrese Maxey",
+        name: "Kyrie Irving",
         selfRanking: 29
     },
     {
-        name: "James Harden",
+        name: "Chet Holmgren",
         selfRanking: 30
     },
     {
-        name: "Jaren Jackson Jr.",
+        name: "Dejounte Murray",
         selfRanking: 31
     },
     {
-        name: "Kawhi Leonard",
+        name: "Tyrese Maxey",
         selfRanking: 32
     },
     {
-        name: "Lauri Markkanen",
+        name: "Jaren Jackson Jr.",
         selfRanking: 33
     },
     {
-        name: "Ja Morant",
+        name: "Lauri Markkanen",
         selfRanking: 34
+    },
+    {
+        name: "Ja Morant",
+        selfRanking: 35
     },
     {
         name: "De'Aaron Fox",
@@ -135,10 +143,6 @@ const SelfRankingConfigs = [
     {
         name: "Desmond Bane",
         selfRanking: 38
-    },
-    {
-        name: "Jalen Williams",
-        selfRanking: 41
     },
     {
         name: "Jalen Johnson",
@@ -181,10 +185,6 @@ const SelfRankingConfigs = [
         selfRanking: 55
     },
     {
-        name: "Nikola Vucevic",
-        selfRanking: 57
-    },
-    {
         name: "Pascal Siakam",
         selfRanking: 62
     },
@@ -209,16 +209,16 @@ const SelfRankingConfigs = [
         selfRanking: 73
     },
     {
-        name: "Jerami Grant",
-        selfRanking: 75
-    },
-    {
         name: "Alex Caruso",
         selfRanking: 88
     },
     {
         name: "OG Anunoby",
         selfRanking: 89
+    },
+    {
+        name: "Nikola Vucevic",
+        selfRanking: 93
     },
     {
         name: "Austin Reaves",
@@ -237,12 +237,8 @@ const SelfRankingConfigs = [
         selfRanking: 99
     },
     {
-        name: "Clint Capela",
-        selfRanking: 101
-    },
-    {
-        name: "Tyus Jones",
-        selfRanking: 102
+        name: "Jerami Grant",
+        selfRanking: 110
     },
     {
         name: "Klay Thompson",
@@ -251,6 +247,18 @@ const SelfRankingConfigs = [
     {
         name: "Trayce Jackson-Davis",
         selfRanking: 112
+    },
+    {
+        name: "Clint Capela",
+        selfRanking: 113
+    },
+    {
+        name: "Tyus Jones",
+        selfRanking: 114
+    },
+    {
+        name: "Kristaps Porzingis",
+        selfRanking: 201
     },
 ];
 

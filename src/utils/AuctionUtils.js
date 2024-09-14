@@ -7,6 +7,7 @@ export function assignAuctionValues(players, auctionPlayers, avgYahooBids) {
       for (let j = 0; j < auctionPlayers.length; j++) {
         if (players[i].name === auctionPlayers[j].name) {
           players[i].auctionValue = parseFloat(auctionPlayers[j].yahooAvg.replace('$', '').replace(/\.?0+$/, ''))
+          players[i].valuedAt = parseFloat(auctionPlayers[j].valuedAt.replace('$', '').replace(/\.?0+$/, ''))
         }
       }
       if (!players[i].auctionValue || isNaN(players[i].auctionValue)) {
@@ -22,11 +23,12 @@ export function assignAuctionValues(players, auctionPlayers, avgYahooBids) {
 export function assignHRankAuctionValues(players, avgYahooBids, avgBids) {
   if (players) {
     for (let i = 0; i < players.length; i++) {
-      players[i].valuedAt = avgYahooBids[i]
+      // players[i].valuedAt = avgYahooBids[i]
       if (!players[i].valuedAt || isNaN(players[i].valuedAt)) {
         players[i].valuedAt = 0;
       }
-      players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt) / 2).toFixed(2)
+      // players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt) / 2).toFixed(2)
+      players[i].avgAuctionValue = players[i].valuedAt.toFixed(2)
       avgBids.push(players[i].avgAuctionValue);
     }
   }
@@ -47,7 +49,8 @@ export function assignSelfRanking(players, avgBids) {
         players[i].selfRank = i + 1
         players[i].selfBid = parseFloat(avgBids[players[i].selfRank - 1])
       }
-      players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid) / 3).toFixed(2)
+      // players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid) / 3).toFixed(2)
+      players[i].avgAuctionValue = ((players[i].valuedAt + players[i].selfBid + players[i].selfBid) / 3).toFixed(2)
     }
     players.sort((a, b) => b.avgAuctionValue - a.avgAuctionValue);
   }
@@ -69,7 +72,7 @@ export function assignGoftBids(players, auctionPlayers, goftBids) {
       }
       // disabled players[i].goftBid: updates required to pull from previous year
       // players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid + players[i].goftBid) / 4).toFixed(2)
-      players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid) / 3).toFixed(2)
+      players[i].avgAuctionValue = ((players[i].valuedAt + players[i].selfBid + players[i].selfBid) / 3).toFixed(2)
       players[i].auctionDiff = (players[i].avgAuctionValue - players[i].auctionValue).toFixed(2)
     }
     players.sort((a, b) => b.avgAuctionValue - a.avgAuctionValue);

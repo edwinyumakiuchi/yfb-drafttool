@@ -15,15 +15,33 @@ async function hashtagAPI(hashtagPage) {
   let html = ''
   const browser = await puppeteer.launch();
   try {
-    if (hashtagPage != "fantasy-basketball-projections") {
+    if (hashtagPage == "advanced-nba-schedule-grid") {
       const response = await fetch('https://hashtagbasketball.com/' + hashtagPage);
       html = await response.text();
     } else {
       const page = await browser.newPage();
+
+      // Show All
       await page.goto('https://hashtagbasketball.com/' + hashtagPage);
       await page.click('#ContentPlaceHolder1_DDSHOW');
       await page.select('#ContentPlaceHolder1_DDSHOW', '900');
       await page.waitForTimeout(5000);
+
+      // Select source as Yahoo
+      await page.click('#ContentPlaceHolder1_DDPOSFROM');
+      await page.select('#ContentPlaceHolder1_DDPOSFROM', '1');
+      await page.waitForTimeout(5000);
+
+      // Select Minus 1
+      await page.click('#ContentPlaceHolder1_DDTYPE');
+      await page.select('#ContentPlaceHolder1_DDTYPE', 'M1');
+      await page.waitForTimeout(5000);
+
+      // Select Based on: Combined
+      await page.click('#ContentPlaceHolder1_DDRANK');
+      await page.select('#ContentPlaceHolder1_DDRANK', 'COM');
+      await page.waitForTimeout(5000);
+
       html = await page.content();
     }
     const $ = cheerio.load(html);
@@ -80,7 +98,7 @@ async function hashtagAPI(hashtagPage) {
       // Common player properties
       const commonPlayerProps = {
         name: playerName,
-        rank: playerData[0],
+        rank: extractRank(playerData[0]),
         minutesPerGame: playerData[6],
       };
 
@@ -353,6 +371,17 @@ function convertPlayerName(name) {
   }
 
   return name;
+}
+
+function extractRank(rank) {
+    // Define the regular expression to match a number
+    const regex = /^\d+/;
+
+    // Use match to get the first number that matches the regex
+    const match = rank.match(regex);
+
+    // If a match is found, return the first number; otherwise, return null
+    return match ? match[0] : null;
 }
 
 module.exports = { hashtagAPI };
