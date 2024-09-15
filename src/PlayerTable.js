@@ -182,11 +182,11 @@ function PlayerTable({
                     {addExtraRow && (
                     <tr>
                       <td className="bold centered">PREVIEW-AVERAGE</td>
-                      {/* <td className="bold centered"></td> */}
+                      {/* <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
-                      <td className="bold centered"></td>
+                      <td className="bold centered"></td> */}
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
