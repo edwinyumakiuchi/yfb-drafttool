@@ -98,3 +98,31 @@ export function useGetPlayers(accessToken, collection) {
   }, [accessToken]);
   return players;
 }
+
+/* export function useGetDraftResults(accessToken) {
+  const [players, setPlayers] = useState([]);
+  const cors=require("cors");
+  const corsOptions ={
+     origin:'*',
+     credentials:true,            //access-control-allow-credentials:true
+     optionSuccessStatus:200,
+  }
+  useEffect(() => {
+    if (accessToken) {
+      fetch('https://fantasysports.yahooapis.com/fantasy/v2/league/410.l.129496/draftresults?oauth_consumer_key=dj0yJmk9VGxCNzBzeFlqOHVtJmQ9WVdrOU5rTjJhbGM0VW1jbWNHbzlNQT09JnM9Y29uc3VtZXJzZWNyZXQmc3Y9MCZ4PWY4&oauth_signature_method=HMAC-SHA1&oauth_timestamp=1726633737&oauth_nonce=TNx04CGUkpc&oauth_version=1.0&oauth_signature=9tiEKsZjf00vScmhI459gkm9oDo%3D', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("draftResultsData: ", data)
+        })
+        .catch((error) => {
+          console.error('API call error:', error);
+        });
+    }
+  }, [accessToken]);
+  return players;
+} */

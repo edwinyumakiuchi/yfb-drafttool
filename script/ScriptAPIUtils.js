@@ -42,6 +42,13 @@ async function hashtagAPI(hashtagPage) {
       await page.select('#ContentPlaceHolder1_DDRANK', 'COM');
       await page.waitForTimeout(5000);
 
+      // Select Teams: 10
+      if (hashtagPage == "fantasy-basketball-auction-values") {
+          await page.click('#ContentPlaceHolder1_DDTEAM');
+          await page.select('#ContentPlaceHolder1_DDTEAM', '10');
+          await page.waitForTimeout(5000);
+      }
+
       html = await page.content();
     }
     const $ = cheerio.load(html);

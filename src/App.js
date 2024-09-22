@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
 import { useLogin, useGetPlayers } from './utils/APIUtils';
+// import { useLogin, useGetPlayers, useGetDraftResults } from './utils/APIUtils';
 import { handleInputChange, handleKeyDown } from './utils/HandlerUtils';
 import { calculateLeagueAverages, countPositions, calculateBids } from './utils/LeagueUtils';
 import { assignAuctionValues, assignHRankAuctionValues, assignSelfRanking, assignGoftBids } from './utils/AuctionUtils';
@@ -22,6 +23,7 @@ function App() {
   const accessToken = useLogin();
   const players = useGetPlayers(accessToken, "projections");
   const auctionPlayers = useGetPlayers(accessToken, "auction-values");
+  // const draftResults = useGetDraftResults(accessToken);
 
   // Assign auctionValue to each player in the players array
   assignAuctionValues(players, auctionPlayers, avgYahooBids);
