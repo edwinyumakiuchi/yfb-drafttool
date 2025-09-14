@@ -112,7 +112,7 @@ function App() {
 
           <div style={{ width: '100px' }}></div>
 
-          <table className="bordered-table" style={{ width: '300px' }}>
+          {/* <table className="bordered-table" style={{ width: '300px' }}>
             <tbody>
               <tr>
                 {bidTypes.map((bidType) => (
@@ -125,7 +125,7 @@ function App() {
                 ))}
               </tr>
             </tbody>
-          </table>
+          </table> */}
         </div>
 
         {/* TODO: add another table that lists the number of players from each team */}

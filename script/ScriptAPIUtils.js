@@ -33,21 +33,28 @@ async function hashtagAPI(hashtagPage) {
       await page.waitForTimeout(5000);
 
       // Select Minus 1
-      await page.click('#ContentPlaceHolder1_DDTYPE');
-      await page.select('#ContentPlaceHolder1_DDTYPE', 'M1');
-      await page.waitForTimeout(5000);
+//      await page.click('#ContentPlaceHolder1_DDTYPE');
+//      await page.select('#ContentPlaceHolder1_DDTYPE', 'M1');
+//      await page.waitForTimeout(5000);
 
       // Select Based on: Combined
       await page.click('#ContentPlaceHolder1_DDRANK');
       await page.select('#ContentPlaceHolder1_DDRANK', 'COM');
       await page.waitForTimeout(5000);
 
-      // Select Teams: 10
-      if (hashtagPage == "fantasy-basketball-auction-values") {
-          await page.click('#ContentPlaceHolder1_DDTEAM');
-          await page.select('#ContentPlaceHolder1_DDTEAM', '10');
-          await page.waitForTimeout(5000);
-      }
+      // Select League Size
+//      if (hashtagPage == "fantasy-basketball-auction-values") {
+//          await page.click('#ContentPlaceHolder1_DDTEAM');
+//          await page.select('#ContentPlaceHolder1_DDTEAM', '8');
+//          await page.waitForTimeout(5000);
+//      }
+//
+//      // Select League Size
+//      if (hashtagPage == "fantasy-basketball-auction-values") {
+//          await page.click('#ContentPlaceHolder1_DDROSTER');
+//          await page.select('#ContentPlaceHolder1_DDROSTER', '14');
+//          await page.waitForTimeout(5000);
+//      }
 
       html = await page.content();
     }
@@ -178,7 +185,7 @@ async function hashtagAPI(hashtagPage) {
       "Oklahoma City Thunder": "OKC",
       "Orlando Magic": "ORL",
       "Philadelphia 76ers": "PHI",
-      "Phoenix Suns": "PHO",
+      "Phoenix Suns": "PHX",
       "Portland Trail Blazers": "POR",
       "Sacramento Kings": "SAC",
       "San Antonio Spurs": "SAS",
@@ -367,10 +374,19 @@ function convertPlayerName(name) {
   const hardcodedNames = {
     "P.J. Washington": "P.J. Washington Jr.",
     "Robert Williams": "Robert Williams III",
-    "Alperen Sengün": "Alperen Sengun",
     "Nicolas Claxton": "Nic Claxton",
-    "Dennis Schröder": "Dennis Schroder",
+    "Dennis Schröder": "Dennis Schröder",
     "Gregory Jackson": "GG Jackson II",
+    "Jonas Valanciunas": "Jonas Valančiūnas",
+    "Bogdan Bogdanovic": "Bogdan Bogdanović",
+    "Kristaps Porzingis": "Kristaps Porziņģis",
+    "Luka Doncic": "Luka Dončić",
+    "Alperen Sengün": "Alperen Şengün",
+    "Alexandre Sarr": "Alex Sarr",
+    "Nikola Vucevic": "Nikola Vučević",
+    "Nikola Jokic": "Nikola Jokić",
+    "Jusuf Nurkic": "Jusuf Nurkić",
+    // "Jakob Poeltl": "Jakob Pöltl",
   };
 
   if (hardcodedNames.hasOwnProperty(name)) {
