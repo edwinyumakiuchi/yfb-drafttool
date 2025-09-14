@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import AppUI from './AppUI';
 import { useLogin, useGetPlayers } from './utils/APIUtils';
+// import { useLogin, useGetPlayers, useGetDraftResults } from './utils/APIUtils';
 import { handleInputChange, handleKeyDown } from './utils/HandlerUtils';
-import { calculateLeagueAverages, countPositions } from './utils/LeagueUtils';
+import { calculateLeagueAverages, countPositions, calculateBids } from './utils/LeagueUtils';
 import { assignAuctionValues, assignHRankAuctionValues, assignSelfRanking, assignGoftBids } from './utils/AuctionUtils';
 
 // npm run start
@@ -22,6 +23,7 @@ function App() {
   const accessToken = useLogin();
   const players = useGetPlayers(accessToken, "projections");
   const auctionPlayers = useGetPlayers(accessToken, "auction-values");
+  // const draftResults = useGetDraftResults(accessToken);
 
   // Assign auctionValue to each player in the players array
   assignAuctionValues(players, auctionPlayers, avgYahooBids);
@@ -47,6 +49,9 @@ function App() {
   });
   const positionCounts = countPositions(selectedPlayers);
   const positions = ['PG', 'SG', 'SF', 'PF', 'C'];
+
+  const bids = calculateBids();
+  const bidTypes = ['MY-BID', 'LEAGUE-AVG-BID'];
 
   // TODO: fix sorting functionality
   // this commit seems to break the sorting functionality
@@ -89,20 +94,40 @@ function App() {
           ref={inputRef}
           style={{ width: '150px', height: '30px' }}
         />
-        <table className="bordered-table" style={{ width: '500px' }}>
-          <tbody>
-            <tr>
-              {positions.map((position) => (
-                <td key={position} className="bold centered">{position}</td>
-              ))}
-            </tr>
-            <tr>
-              {positions.map((position) => (
-                <td key={position} className="bold centered">{positionCounts[position]}</td>
-              ))}
-            </tr>
-          </tbody>
-        </table>
+        <div className="tables-container">
+          <table className="bordered-table" style={{ width: '500px' }}>
+            <tbody>
+              <tr>
+                {positions.map((position) => (
+                  <td key={position} className="bold centered">{position}</td>
+                ))}
+              </tr>
+              <tr>
+                {positions.map((position) => (
+                  <td key={position} className="bold centered">{positionCounts[position]}</td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
+
+          <div style={{ width: '100px' }}></div>
+
+          {/* <table className="bordered-table" style={{ width: '300px' }}>
+            <tbody>
+              <tr>
+                {bidTypes.map((bidType) => (
+                  <td key={bidType} className="bold centered">{bidType}</td>
+                ))}
+              </tr>
+              <tr>
+                {bidTypes.map((bidType) => (
+                  <td key={bidType} className="bold centered">{bids[bidType]}</td>
+                ))}
+              </tr>
+            </tbody>
+          </table> */}
+        </div>
+
         {/* TODO: add another table that lists the number of players from each team */}
         <div className="left-tables-container">
           <AppUI

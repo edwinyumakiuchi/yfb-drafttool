@@ -54,11 +54,13 @@ function PlayerTable({
         )}
         {!isSelectedPlayerTable && (
           <>
+          <td className="bold centered">{(player.avgAuctionValue / 1.5).toFixed(2)}</td>
+          <td className="bold centered">{(player.avgAuctionValue * 5/6).toFixed(2)}</td>
           <td className="bold centered">{player.avgAuctionValue}</td>
+          {/* <td className="bold centered">{player.selfBid}</td> */}
           {/*<td className="bold centered">{player.auctionValue}</td>
           <td className="bold centered">{player.auctionDiff}</td>
           <td className="bold centered">{player.valuedAt}</td>
-          <td className="bold centered">{player.selfBid}</td>
           <td className="bold centered">{player.goftBid}</td> */}
           </>
         )}
@@ -112,11 +114,13 @@ function PlayerTable({
               <tr>
                 {isSelectedPlayerTable && <th className="bold centered">PICK</th>}
                 <th className="bold centered">RANK</th>
-                {!isSelectedPlayerTable && <th className="bold centered">AVG-AUCTION</th>}
+                {!isSelectedPlayerTable && <th className="bold centered">IDEAL-AUCTION</th>}
+                {!isSelectedPlayerTable && <th className="bold centered">MID-AUCTION</th>}
+                {!isSelectedPlayerTable && <th className="bold centered">BASE-AUCTION</th>}
+                {/* !isSelectedPlayerTable && <th className="bold centered">SELF-AUCTION</th> */}
                 {/* !isSelectedPlayerTable && <th className="bold centered">Y-AUCTION</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">DIFF</th>}
                 {{!isSelectedPlayerTable && <th className="bold centered">H-AUCTION</th>}
-                {!isSelectedPlayerTable && <th className="bold centered">SELF-AUCTION</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">GOFT-AUCTION</th>} */}
                 {/* <th className="bold centered">Y-ADP</th>*/}
                 <th className="bold centered">H-RANK</th>

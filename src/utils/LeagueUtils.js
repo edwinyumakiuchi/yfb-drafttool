@@ -27,3 +27,12 @@ export function countPositions(selectedPlayers) {
 
   return positionCounts;
 }
+
+export function calculateBids() {
+  const bidTypes = ['MY-BID', 'LEAGUE-AVG-BID'];
+  const bids = bidTypes.reduce((acc, bidType) => {
+    acc[bidType] = 200;
+    return acc;
+  }, {});
+  return bids;
+}

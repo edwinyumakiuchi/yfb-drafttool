@@ -27,6 +27,11 @@ code {
   padding: 8px;
 }
 
+.tables-container {
+  display: flex;
+  align-items: flex-start;
+}
+
 .centered {
   text-align: center;
 }
