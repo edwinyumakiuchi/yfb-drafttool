@@ -54,9 +54,9 @@ function PlayerTable({
         )}
         {!isSelectedPlayerTable && (
           <>
-          <td className="bold centered">{(player.avgAuctionValue / 1.5).toFixed(2)}</td>
+          {/* <td className="bold centered">{(player.avgAuctionValue / 1.5).toFixed(2)}</td>
           <td className="bold centered">{(player.avgAuctionValue * 5/6).toFixed(2)}</td>
-          <td className="bold centered">{player.avgAuctionValue}</td>
+          <td className="bold centered">{player.avgAuctionValue}</td> */}
           {/* <td className="bold centered">{player.selfBid}</td> */}
           {/*<td className="bold centered">{player.auctionValue}</td>
           <td className="bold centered">{player.auctionDiff}</td>
@@ -65,8 +65,9 @@ function PlayerTable({
           </>
         )}
         {/* <td className="bold centered">{player.adp}</td> */}
+        {/* <td className="bold centered">{player.selfRank}</td>
         <td className="bold centered">{player.originalRank}</td>
-        <td className="bold centered">{player.selfRank}</td>
+        <td className="bold centered">{player.avgRank}</td> */}
         {/* <td className="bold centered">{player.finalRound}</td> */}
         <td className="bold centered">{player.name}</td>
         <td className="bold centered">{player.position}</td>
@@ -114,17 +115,18 @@ function PlayerTable({
               <tr>
                 {isSelectedPlayerTable && <th className="bold centered">PICK</th>}
                 <th className="bold centered">RANK</th>
-                {!isSelectedPlayerTable && <th className="bold centered">IDEAL-AUCTION</th>}
+                {/* {!isSelectedPlayerTable && <th className="bold centered">IDEAL-AUCTION</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">MID-AUCTION</th>}
-                {!isSelectedPlayerTable && <th className="bold centered">BASE-AUCTION</th>}
+                {!isSelectedPlayerTable && <th className="bold centered">BASE-AUCTION</th>} */}
                 {/* !isSelectedPlayerTable && <th className="bold centered">SELF-AUCTION</th> */}
                 {/* !isSelectedPlayerTable && <th className="bold centered">Y-AUCTION</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">DIFF</th>}
                 {{!isSelectedPlayerTable && <th className="bold centered">H-AUCTION</th>}
                 {!isSelectedPlayerTable && <th className="bold centered">GOFT-AUCTION</th>} */}
                 {/* <th className="bold centered">Y-ADP</th>*/}
+                {/* <th className="bold centered">SELF-RANK</th>
                 <th className="bold centered">H-RANK</th>
-                <th className="bold centered">SELF-RANK</th>
+                <th className="bold centered">AVG-RANK</th> */}
                 {/* <th className="bold centered">ROUND</th> */}
                 <th className="bold centered">PLAYER</th>
                 <th className="bold centered">POS</th>
@@ -158,9 +160,9 @@ function PlayerTable({
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
+                      <td className="bold centered"></td>
+                      <td className="bold centered"></td>
                       <td className="bold centered"></td> */}
-                      <td className="bold centered"></td>
-                      <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
@@ -190,9 +192,9 @@ function PlayerTable({
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
+                      <td className="bold centered"></td>
+                      <td className="bold centered"></td>
                       <td className="bold centered"></td> */}
-                      <td className="bold centered"></td>
-                      <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>
                       <td className="bold centered"></td>

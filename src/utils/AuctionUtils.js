@@ -43,6 +43,10 @@ export function assignSelfRanking(players, avgBids) {
         if (players[i].name === selfRankingConfigs[j].name) {
           players[i].selfRank = selfRankingConfigs[j].selfRanking
           players[i].selfBid = parseFloat(avgBids[players[i].selfRank - 1])
+          players[i].position =
+            (selfRankingConfigs[j].position ?? "") !== ""
+              ? selfRankingConfigs[j].position
+              : players[i].position;
         }
       }
       if (!players[i].selfRank) {
@@ -74,8 +78,11 @@ export function assignGoftBids(players, auctionPlayers, goftBids) {
       // players[i].avgAuctionValue = ((players[i].auctionValue + players[i].valuedAt + players[i].selfBid + players[i].goftBid) / 4).toFixed(2)
       players[i].avgAuctionValue = ((players[i].valuedAt + players[i].selfBid + players[i].selfBid) / 3).toFixed(2)
       players[i].auctionDiff = (players[i].avgAuctionValue - players[i].auctionValue).toFixed(2)
+      players[i].avgRank = (+players[i].originalRank * 0.3 + +players[i].selfRank * 0.7).toFixed(2)
     }
-    players.sort((a, b) => b.avgAuctionValue - a.avgAuctionValue);
+    // players.sort((a, b) => b.avgAuctionValue - a.avgAuctionValue);
+    // players.sort((a, b) => a.originalRank - b.originalRank);
+    players.sort((a, b) => a.avgRank - b.avgRank);
 
     let pick = 1;
     let increasePick = true;
